@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class InventoryItem : MonoBehaviour {
+﻿public class InventoryItem : BaseEntity
+{
 
     public int InventoryItemId { get; set; }
 
@@ -10,13 +7,4 @@ public class InventoryItem : MonoBehaviour {
 
     public int ItemId { get; set; }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

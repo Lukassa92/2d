@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Unit : MonoBehaviour {
-
+﻿public class Unit : BaseEntity
+{
     public int UnitId { get; set; }
 
     public int ElementId { get; set; }
@@ -20,14 +16,4 @@ public class Unit : MonoBehaviour {
 
     public int Mana { get; set; }
 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
