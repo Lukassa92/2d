@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Services;
+using SimpleSQL;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public class Repository<T> : IRepository<T> where T : BaseEntity, new()
 {
     private readonly DatabaseService _databaseService;
 
@@ -10,27 +13,41 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         _databaseService = databaseService;
     }
 
+    private SimpleSQL.TableQuery<T> GetTableEnumerable()
+    {
+        return _databaseService.SqlManager.Table<T>();
+    }
+
     public T GetByID(int id)
     {
+        return GetTableEnumerable().FirstOrDefault(e => e.ID == id);
     }
 
     public IEnumerable<T> GetAll()
     {
-        throw new System.NotImplementedException();
+        return GetTableEnumerable().ToList();
     }
 
     public void Create(T entity)
     {
-        throw new System.NotImplementedException();
+        try
+        {
+            var id = _databaseService.SqlManager.Insert(entity);
+        }
+        catch (SQLiteException e)
+        {
+            Console.WriteLine(e.GetType());
+            throw;
+        }
     }
 
     public void Delete(T entity)
     {
-        throw new System.NotImplementedException();
+        _databaseService.SqlManager.Delete(entity);
     }
 
     public void Update(T entity)
     {
-        throw new System.NotImplementedException();
+        _databaseService.SqlManager.UpdateTable(entity);
     }
 }

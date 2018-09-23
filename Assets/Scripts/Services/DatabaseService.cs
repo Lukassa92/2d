@@ -1,30 +1,34 @@
-﻿using System.Data;
-using Mono.Data.Sqlite;
+﻿using SimpleSQL;
 using UnityEngine;
 
 namespace Assets.Scripts.Services
 {
-    public class DatabaseService
+    public class DatabaseService : MonoBehaviour
     {
-        private static readonly string DatabasePath = "URI=file:" + Application.persistentDataPath + "/2dGame.db";
+        public TextAsset DatabaseAsset;
+        public SimpleSQLManager SqlManager;
+        private bool _initialized = false;
+
+        public void Start()
+        {
+            Initialize();
+        }
+
 
         public void Initialize()
         {
-
+            if (_initialized)
+                return;
+            var manager = new SimpleSQLManager
+            {
+                databaseFile = DatabaseAsset
+            };
+            SqlManager = manager;
         }
 
-        private bool DatabaseExists()
-        {
-        }
-
-        public Repository<T> GetRepository<T>() where T : BaseEntity
+        public Repository<T> GetRepository<T>() where T : BaseEntity, new()
         {
             return new Repository<T>(this);
-        }
-
-        public IDbConnection CreateDatabaseConnection()
-        {
-            return new SqliteConnection(DatabasePath);
         }
     }
 }
