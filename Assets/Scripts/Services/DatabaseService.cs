@@ -7,27 +7,29 @@ using UnityEngine;
 
 namespace Assets.Scripts.Services
 {
-    public class DatabaseService : MonoBehaviour
+    public class DatabaseService
     {
-        public TextAsset DatabaseAsset;
-        public SimpleSQLManager SqlManager;
-        private bool _initialized = false;
-
-        public void Start()
+        private static DatabaseService _databaseService;
+        public DatabaseService GetService()
         {
+            if (_databaseService == null)
+            {
+                var sqlManager = GameObject.Find("DB Manager").GetComponent<SimpleSQLManager>();
+                _databaseService = new DatabaseService(sqlManager);
+            }
+            return _databaseService;
+        }
+
+        public SimpleSQLManager SqlManager { get; set; }
+
+        public DatabaseService(SimpleSQLManager sqlManager)
+        {
+            SqlManager = sqlManager;
             Initialize();
         }
 
-
         public void Initialize()
         {
-            if (_initialized)
-                return;
-            var manager = new SimpleSQLManager
-            {
-                databaseFile = DatabaseAsset
-            };
-            SqlManager = manager;
             InitializeApplicationDatabase();
         }
 
