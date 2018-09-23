@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.Services;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Services;
-using SimpleSQL;
 
 public class Repository<T> : IRepository where T : BaseEntity, new()
 {
@@ -30,15 +28,7 @@ public class Repository<T> : IRepository where T : BaseEntity, new()
 
     public void Create(BaseEntity entity)
     {
-        try
-        {
-            var id = _databaseService.SqlManager.Insert(entity);
-        }
-        catch (SQLiteException e)
-        {
-            Console.WriteLine(e.GetType());
-            throw;
-        }
+        _databaseService.SqlManager.Insert(entity);
     }
 
     public void Delete(BaseEntity entity)
