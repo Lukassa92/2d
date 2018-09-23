@@ -19,7 +19,18 @@ public abstract class LevelEntity
     public int Health
     {
         get { return IsAlive ? _health : 0; }
-        set { _health = value > 0 ? value : 0; }
+        set
+        {
+            var val = value;
+            if (val > BaseMaxHealth)
+            {
+                val = BaseMaxHealth;
+            } else if (val < 1)
+            {
+                val = 1;
+            }
+            _health = val;
+        }
     }
 
     public int PhysicalResistance { get; set; }
