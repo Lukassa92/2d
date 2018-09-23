@@ -10,7 +10,7 @@ namespace Assets.Scripts.Services
     public class DatabaseService
     {
         private static DatabaseService _databaseService;
-        public DatabaseService GetService()
+        public static DatabaseService GetService()
         {
             if (_databaseService == null)
             {
