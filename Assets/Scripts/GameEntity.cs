@@ -32,7 +32,7 @@ public class GameEntity : MonoBehaviour
         _characterMovement = GetComponent<CharacterMovement>();
         if (StartRunningOnAwake)
         {
-            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
+//            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
         }
         //        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
     }
@@ -79,14 +79,14 @@ public class GameEntity : MonoBehaviour
         if (_targetHasChanged)
         {
             _targetHasChanged = false;
-            if (_newTargetEntity != null)
-            {
-                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTargetEntity);
-            }
-            else
-            {
-                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
-            }
+//            if (_newTargetEntity != null)
+//            {
+//                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTargetEntity);
+//            }
+//            else
+//            {
+//                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
+//            }
         }
 
         if (_stateHasChanged)

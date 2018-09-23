@@ -48,9 +48,9 @@ public class GameEntityDetectionService : MonoBehaviour
     [UsedImplicitly]
     void Update()
     {
-        if (_targetCollisions.Count > 0 && _gameEntity.GetState() == States.State.Run)
-        {
-            TargetNearstEnemy();
-        }
+//        if (_targetCollisions.Count > 0 && _gameEntity.GetState() == States.State.Run)
+//        {
+//            TargetNearstEnemy();
+//        }
     }
 }

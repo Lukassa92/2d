@@ -37,36 +37,6 @@ public class CharacterMovement : MonoBehaviour
     }
 
 
-    public void Run(States.State charState, Rigidbody2D charRigidbody2D, float charSpeed = 150.0f, TargetEntity charTargetEntity = null)
-    {
-        _state = charState;
-        _rigidbody2D = charRigidbody2D;
-        //Den scheiß noch in den MovementService auslagern
-        if (charTargetEntity != null)
-        {
-        }
-        else
-        {
-            if (_standardMoveDirection == States.MoveDirection.Left)
-            {
-                GoToLeft();
-            }
-            else
-            {
-                GoToRight();
-            }
-        }
-
-        if (_moveDirection == States.MoveDirection.Left)
-        {
-            GoToLeft();
-        }
-        else
-        {
-            GoToRight();
-        }
-    }
-
     private void SetMovementDirectionByTag()
     {
         if (_entityType == "Enemy")
@@ -74,14 +44,14 @@ public class CharacterMovement : MonoBehaviour
             _moveDirection = States.MoveDirection.Left;
             _standardMoveDirection = States.MoveDirection.Left;
             FlipChar();
-            GoToLeft();
+//            GoToLeft();
         }
         else if (_entityType == "Unit")
         {
             _moveDirection = States.MoveDirection.Right;
             _standardMoveDirection = States.MoveDirection.Right;
             FlipChar();
-            GoToRight();
+//            GoToRight();
         }
         else
         {
@@ -130,5 +100,10 @@ public class CharacterMovement : MonoBehaviour
         return position.x > _parenTransform.position.x
             ? States.MoveDirection.Right
             : States.MoveDirection.Left;
+    }
+
+    public void RunTo(States.MoveDirection gameEntityPosition)
+    {
+        
     }
 }
