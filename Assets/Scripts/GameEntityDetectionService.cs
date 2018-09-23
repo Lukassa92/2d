@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class GameEntityDetectionService : MonoBehaviour
 {
 
-    private GameEntityBehaviour _gameEntityBehaviour;
+    private GameEntity _gameEntity;
 
     private List<GameTarget> _targetCollisions = new List<GameTarget>();
 
     void Start()
     {
-        _gameEntityBehaviour = GetComponentInParent<GameEntityBehaviour>();
+        _gameEntity = GetComponentInParent<GameEntity>();
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag == "Detector" && coll.GetComponentInParent<Transform>().tag != _gameEntityBehaviour.GetComponentInParent<Transform>().tag)
+        if (coll.tag == "Detector" && coll.GetComponentInParent<Transform>().tag != _gameEntity.GetComponentInParent<Transform>().tag)
         {
 //            Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
             _targetCollisions.Add(new GameTarget(){Name = coll.transform.name, Position = coll.transform.position, Tag = coll.GetComponentInParent<Transform>().tag});
@@ -46,14 +46,14 @@ public class GameEntityDetectionService : MonoBehaviour
             }
         }
 
-        if (_gameEntityBehaviour.GetNewTarget() != actualNearstContact)
+        if (_gameEntity.GetNewTarget() != actualNearstContact)
         {
-            _gameEntityBehaviour.SwitchTargetHasChanged();
-            _gameEntityBehaviour.SetNewTarget(actualNearstContact);
+            _gameEntity.SwitchTargetHasChanged();
+            _gameEntity.SetNewTarget(actualNearstContact);
         }
         else
         {
-            _gameEntityBehaviour.SetNewTarget(actualNearstContact);
+            _gameEntity.SetNewTarget(actualNearstContact);
         }
     }
 
