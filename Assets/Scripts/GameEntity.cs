@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class GameEntity : MonoBehaviour {
@@ -14,6 +15,7 @@ public class GameEntity : MonoBehaviour {
     private GameTarget _newTarget;
     private GameTarget _oldTarget;
     private bool _targetHasChanged = false;
+    private bool _stateHasChanged = false;
     public bool StartRunningOnAwake = true;
     [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
     private CharacterMovement _characterMovement;
@@ -47,15 +49,29 @@ public class GameEntity : MonoBehaviour {
         _newTarget = target;
     }
 
+    public void SetState(States.State state)
+    {
+        _state = state;
+    }
+
+    public States.State GetState()
+    {
+        return _state;
+    }
     public void SwitchTargetHasChanged()
     {
         _targetHasChanged = !_targetHasChanged;
+    }
+    public void SwitchStateHasChanged()
+    {
+        _stateHasChanged = !_stateHasChanged;
     }
     private void SetOldTarget(GameTarget target)
     {
         _oldTarget = target;
     }
 	// Update is called once per frame
+	[UsedImplicitly]
 	void FixedUpdate () {
 	    if (_targetHasChanged)
 	    {
@@ -69,6 +85,11 @@ public class GameEntity : MonoBehaviour {
 	            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
             }
 	    }
-	    
+
+	    if (_stateHasChanged)
+	    {
+	        _stateHasChanged = false;
+            _characterMovement.Attack();
+	    }
 	}
 }

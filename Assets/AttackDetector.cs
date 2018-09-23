@@ -6,17 +6,24 @@ public class AttackDetector : MonoBehaviour
 {
 
     private string _attachedTo;
-	// Use this for initialization
+
+    private string _entityType;
+    private GameEntity _gameEntity;
+
+    // Use this for initialization
 	void Start ()
 	{
-	    _attachedTo = GetComponentInParent<Transform>().tag;
+	    _gameEntity = GetComponentInParent<GameEntity>();
+	    _attachedTo = _gameEntity.GetComponentInParent<Transform>().tag;
 	}
 
-    void OnEnterTrigger2D(Collision coll)
+    void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.transform.tag == _attachedTo)
+        if (coll.transform.tag == "Enemy" || coll.transform.tag == "Player" && coll.transform.tag != _attachedTo)
         {
-            Debug.Log("in reichweite für gegner");
+            Debug.Log("in reichweite für gegner: "+coll.transform.tag + " _ "+_attachedTo);
+            _gameEntity.SetState(States.State.Attack);
+            _gameEntity.SwitchStateHasChanged();
         }
     }
 

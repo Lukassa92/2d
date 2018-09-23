@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +11,13 @@ public class GameEntityDetectionService : MonoBehaviour
 
     private List<GameTarget> _targetCollisions = new List<GameTarget>();
 
+    [UsedImplicitly]
     void Start()
     {
         _gameEntity = GetComponentInParent<GameEntity>();
     }
 
+    [UsedImplicitly]
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.tag == "Detector" && coll.GetComponentInParent<Transform>().tag != _gameEntity.GetComponentInParent<Transform>().tag)
@@ -24,10 +27,11 @@ public class GameEntityDetectionService : MonoBehaviour
         }
     }
 
+    [UsedImplicitly]
     void OnTriggerExit2D(Collider2D col)
     {
-        Debug.Log("Trigger exit by: "+col.transform.name);
-            RemoveTargetByName(col.transform.name);
+//        Debug.Log("Trigger exit by: "+col.transform.name);
+          RemoveTargetByName(col.transform.name);
     }
 
     private void TargetNearstEnemy()
@@ -79,9 +83,10 @@ public class GameEntityDetectionService : MonoBehaviour
         }
     }
 
+    [UsedImplicitly]
     void Update()
     {
-        if (_targetCollisions.Count > 0)
+        if (_targetCollisions.Count > 0 && _gameEntity.GetState() == States.State.Run)
         {
             TargetNearstEnemy();
         }
