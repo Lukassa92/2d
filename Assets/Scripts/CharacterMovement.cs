@@ -51,6 +51,17 @@ public class CharacterMovement: MonoBehaviour
                 GoToLeft();
             }
         }
+        else
+        {
+            if (_standardMoveDirection == States.MoveDirection.Left)
+            {
+                GoToLeft();
+            }
+            else
+            {
+                GoToRight();
+            }
+        }
 
         if (_moveDirection == States.MoveDirection.Left)
         {
@@ -82,18 +93,21 @@ public class CharacterMovement: MonoBehaviour
         if (_entityType == "Enemy")
         {
             _moveDirection = States.MoveDirection.Left;
+            _standardMoveDirection = States.MoveDirection.Left;
             FlipChar();
             GoToLeft();
         }
         else if (_entityType == "Unit")
         {
             _moveDirection = States.MoveDirection.Right;
+            _standardMoveDirection = States.MoveDirection.Right;
             FlipChar();
             GoToRight();
         }
         else
         {
             _moveDirection = States.MoveDirection.Right;
+            _standardMoveDirection = States.MoveDirection.Right;
             FlipChar();
             _speed = 150.0f;
         }
