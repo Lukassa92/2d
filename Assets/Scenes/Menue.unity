@@ -516,7 +516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 539111816}
   - component: {fileID: 539111815}
-  - component: {fileID: 539111817}
   - component: {fileID: 539111818}
   m_Layer: 0
   m_Name: ScriptObject
@@ -549,17 +548,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &539111817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 539111814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a95a5da2b1a629499374eae05bd6dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &539111818
 MonoBehaviour:
   m_ObjectHideFlags: 0
