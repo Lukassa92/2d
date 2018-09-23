@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CharacterMovement: MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     private States.State _state = States.State.Stand;
     [SerializeField]
@@ -15,12 +13,15 @@ public class CharacterMovement: MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     [SerializeField]
     private float _speed;
-    
+
+    private GameEntity _gameEntity;
+
     void Start()
     {
         //Hier durch muss der Detector immer ein DIREKTES Kindelement sein
         _entityType = GetComponentInParent<Transform>().tag;
         _parenTransform = GetComponentInParent<Transform>();
+        _gameEntity = GetComponentInParent<GameEntity>();
         SetMovementDirectionByTag();
     }
     public void StopMovement()
@@ -35,21 +36,14 @@ public class CharacterMovement: MonoBehaviour
         _state = States.State.Attack;
     }
 
-    public void Run(States.State charState, Rigidbody2D charRigidbody2D, float charSpeed = 150.0f, GameTarget charTarget = null)
+
+    public void Run(States.State charState, Rigidbody2D charRigidbody2D, float charSpeed = 150.0f, TargetEntity charTargetEntity = null)
     {
         _state = charState;
         _rigidbody2D = charRigidbody2D;
         //Den scheiß noch in den MovementService auslagern
-        if (charTarget != null)
+        if (charTargetEntity != null)
         {
-            if (charTarget.Position.x > _parenTransform.position.x)
-            {
-                GoToRight();
-            }
-            else
-            {
-                GoToLeft();
-            }
         }
         else
         {
@@ -73,21 +67,6 @@ public class CharacterMovement: MonoBehaviour
         }
     }
 
-    private void GoToLeft()
-    {
-        SetSpeed(-150.0f);
-        _moveDirection = States.MoveDirection.Left;
-    }
-    private void GoToRight()
-    {
-        SetSpeed(150.0f);
-        _moveDirection = States.MoveDirection.Right;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
-    }
     private void SetMovementDirectionByTag()
     {
         if (_entityType == "Enemy")
@@ -113,13 +92,13 @@ public class CharacterMovement: MonoBehaviour
         }
     }
     // Update is called once per frame
-    private void Update () {
+    private void Update()
+    {
 
         if (_state == States.State.Run)
         {
-            _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
-        }   
-	}
+        }
+    }
 
     private void FlipChar()
     {
@@ -133,5 +112,23 @@ public class CharacterMovement: MonoBehaviour
             _moveDirection = States.MoveDirection.Right;
             _parenTransform.localScale = new Vector3(_parenTransform.localScale.x, _parenTransform.localScale.y, _parenTransform.localScale.z);
         }
+    }
+
+    public void RunTo(Vector3 gameEntityPosition)
+    {
+        var direction = GetDirectionTo(gameEntityPosition);
+        _rigidbody2D.velocity = new Vector2(GetSpeedForDirection(direction), _rigidbody2D.velocity.y);
+    }
+
+    private float GetSpeedForDirection(States.MoveDirection direction)
+    {
+        return _gameEntity.LevelEntity.Speed * (direction == States.MoveDirection.Left ? -1 : 1);
+    }
+
+    private States.MoveDirection GetDirectionTo(Vector3 position)
+    {
+        return position.x > _parenTransform.position.x
+            ? States.MoveDirection.Right
+            : States.MoveDirection.Left;
     }
 }

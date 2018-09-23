@@ -1,6 +1,9 @@
 ﻿
+using MoreLinq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Level.Classes
 {
@@ -18,22 +21,22 @@ namespace Assets.Scripts.Level.Classes
             _behaviours = new List<BaseAIBehaviour>(behaviours);
         }
 
-        public override void OnEntityEnteredViewRadius(LevelEntity entity)
+        public override void OnEntityEnteredViewRadius(TargetEntity entity)
         {
             _behaviours.ForEach(b => b.OnEntityEnteredViewRadius(entity));
         }
 
-        public override void OnEntityLeftViewRadius(LevelEntity entity)
+        public override void OnEntityLeftViewRadius(TargetEntity entity)
         {
             _behaviours.ForEach(b => b.OnEntityLeftViewRadius(entity));
         }
 
-        public override void OnEntityEnteredAttackRadius(LevelEntity entity)
+        public override void OnEntityEnteredAttackRadius(TargetEntity entity)
         {
             _behaviours.ForEach(b => b.OnEntityEnteredAttackRadius(entity));
         }
 
-        public override void OnEntityLeftAttackRadius(LevelEntity entity)
+        public override void OnEntityLeftAttackRadius(TargetEntity entity)
         {
             _behaviours.ForEach(b => b.OnEntityLeftAttackRadius(entity));
         }
@@ -58,9 +61,14 @@ namespace Assets.Scripts.Level.Classes
             _behaviours.ForEach(b => b.OnDamagedOther(source));
         }
 
-        public override void OnCollisionWith(LevelEntity entity)
+        public override void OnCollisionWith(TargetEntity entity)
         {
             _behaviours.ForEach(b => b.OnCollisionWith(entity));
+        }
+
+        public override void OnTick()
+        {
+            _behaviours.ForEach(b => b.OnTick());
         }
     }
 }
@@ -95,18 +103,40 @@ public abstract class BaseAIBehaviour : AIEventReceiver
     }
 }
 
-public class MovementBehaviour : BaseAIBehaviour
+public abstract class MovementAIBehaviour : BaseAIBehaviour
 {
-    private readonly CharacterMovement _movement;
+    internal readonly CharacterMovement Movement;
+    internal readonly TargetEntity Owner;
+    internal readonly List<TargetEntity> EntitiesInView = new List<TargetEntity>();
 
-    public MovementBehaviour(CharacterMovement movement)
+    protected MovementAIBehaviour(CharacterMovement movement, TargetEntity owner)
     {
-        _movement = movement;
+        Movement = movement;
+        Owner = owner;
+        // TODO: Nachher wieder entfernen
+        ActionPriority = 100;
     }
 
-    public override void OnEntityEnteredViewRadius(LevelEntity entity)
+    public override void OnEntityEnteredViewRadius(TargetEntity entity)
     {
-        base.OnEntityEnteredViewRadius(entity);
+        if (!EntitiesInView.Contains(entity))
+            EntitiesInView.Add(entity);
+    }
+
+    public override void OnEntityLeftViewRadius(TargetEntity entity)
+    {
+        if (EntitiesInView.Contains(entity))
+            EntitiesInView.Remove(entity);
+    }
+
+    public TargetEntity GetClosestTarget(IEnumerable<TargetEntity> targets)
+    {
+        return targets.MinBy(GetDistanceToTarget);
+    }
+
+    private float GetDistanceToTarget(TargetEntity target)
+    {
+        return Vector3.Distance(Owner.GameEntity.Position, target.GameEntity.Position);
     }
 
     internal override TimeSpan ActionOffset
@@ -115,15 +145,45 @@ public class MovementBehaviour : BaseAIBehaviour
     }
 }
 
+public class MeleeMovementAIBehaviour : MovementAIBehaviour
+{
+    public MeleeMovementAIBehaviour(CharacterMovement movement, TargetEntity owner) : base(movement, owner)
+    {
+    }
+
+    private IEnumerable<TargetEntity> GetRelevantTargets()
+    {
+        return EntitiesInView.Where(e => e.GameEntity.EntityType != Owner.GameEntity.EntityType);
+    }
+
+    public override void OnTick()
+    {
+        if (NextActionPossible())
+        {
+            var relevantTargets = GetRelevantTargets().ToList();
+            if (EntitiesInView.Count > 0 && relevantTargets.Count == 0)
+            {
+                var closest = GetClosestTarget(relevantTargets);
+                Movement.RunTo(closest.GameEntity.Position);
+            }
+            else
+            {
+                Movement.RunTo(Owner.GameEntity.EntityType == EntityType.Enemy ? States.MoveDirection.Left : States.MoveDirection.Right);
+            }
+        }
+    }
+}
+
 public class AIEventReceiver
 {
-    public virtual void OnEntityEnteredViewRadius(LevelEntity entity) { }
-    public virtual void OnEntityLeftViewRadius(LevelEntity entity) { }
-    public virtual void OnEntityEnteredAttackRadius(LevelEntity entity) { }
-    public virtual void OnEntityLeftAttackRadius(LevelEntity entity) { }
+    public virtual void OnEntityEnteredViewRadius(TargetEntity entity) { }
+    public virtual void OnEntityLeftViewRadius(TargetEntity entity) { }
+    public virtual void OnEntityEnteredAttackRadius(TargetEntity entity) { }
+    public virtual void OnEntityLeftAttackRadius(TargetEntity entity) { }
     public virtual void OnOwnerDamaged(DamageSource source) { }
     public virtual void OnOwnerSpawned() { }
     public virtual void OnOwnerHealed(HealSource source) { }
     public virtual void OnDamagedOther(DamageSource source) { }
-    public virtual void OnCollisionWith(LevelEntity entity) { }
+    public virtual void OnCollisionWith(TargetEntity entity) { }
+    public virtual void OnTick() { }
 }

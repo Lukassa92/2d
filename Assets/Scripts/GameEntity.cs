@@ -1,52 +1,54 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Level.Classes;
 using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
-public class GameEntity : MonoBehaviour {
+public class GameEntity : MonoBehaviour
+{
+    public BaseAI AI;
+    public LevelEntity LevelEntity;
 
     [SerializeField]
     private States.State _state = States.State.Run;
     [SerializeField]
     private States.MoveDirection _direction = States.MoveDirection.Right;
-    [SerializeField]
-    private string _entityType;
-    private GameTarget _newTarget;
-    private GameTarget _oldTarget;
+    [SerializeField] public EntityType EntityType;
+    private TargetEntity _newTargetEntity;
+    private TargetEntity _oldTargetEntity;
     private bool _targetHasChanged = false;
     private bool _stateHasChanged = false;
     public bool StartRunningOnAwake = true;
     [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
     private CharacterMovement _characterMovement;
-	// Use this for initialization
+    public Vector3 Position
+    {
+        get { return transform.position; }
+    }
+
+    // Use this for initialization
     void Start()
     {
-        _entityType = transform.tag;
+        EntityType = (EntityType)Enum.Parse(typeof(EntityType), transform.tag);
         _characterMovement = GetComponent<CharacterMovement>();
         if (StartRunningOnAwake)
         {
             _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
         }
-//        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
+        //        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
     }
 
-    public GameTarget GetNewTarget()
+    public TargetEntity GetNewTarget()
     {
-        return _newTarget;
+        return _newTargetEntity;
     }
 
-    public string GetEntityType()
-    {
-        return _entityType;
-    }
-    public void SetNewTarget(GameTarget target)
+    public void SetNewTarget(TargetEntity targetEntity)
     {
         if (_targetHasChanged)
         {
-            SetOldTarget(_newTarget);
+            SetOldTarget(_newTargetEntity);
         }
-        _newTarget = target;
+        _newTargetEntity = targetEntity;
     }
 
     public void SetState(States.State state)
@@ -66,30 +68,31 @@ public class GameEntity : MonoBehaviour {
     {
         _stateHasChanged = !_stateHasChanged;
     }
-    private void SetOldTarget(GameTarget target)
+    private void SetOldTarget(TargetEntity targetEntity)
     {
-        _oldTarget = target;
+        _oldTargetEntity = targetEntity;
     }
-	// Update is called once per frame
-	[UsedImplicitly]
-	void FixedUpdate () {
-	    if (_targetHasChanged)
-	    {
-	        _targetHasChanged = false;
-	        if (_newTarget != null)
-	        {
-	            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTarget);
+    // Update is called once per frame
+    [UsedImplicitly]
+    void FixedUpdate()
+    {
+        if (_targetHasChanged)
+        {
+            _targetHasChanged = false;
+            if (_newTargetEntity != null)
+            {
+                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTargetEntity);
             }
-	        else
-	        {
-	            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
+            else
+            {
+                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
             }
-	    }
+        }
 
-	    if (_stateHasChanged)
-	    {
-	        _stateHasChanged = false;
+        if (_stateHasChanged)
+        {
+            _stateHasChanged = false;
             _characterMovement.Attack();
-	    }
-	}
+        }
+    }
 }

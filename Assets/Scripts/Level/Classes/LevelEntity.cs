@@ -1,10 +1,15 @@
-﻿using System;
-
-public abstract class LevelEntity : InteractableEntity
+﻿public abstract class LevelEntity : InteractableEntity
 {
     private int _health;
     private bool _isAlive = true;
     private int _baseMaxHealth;
+    private float _speed = MovementSpeed.Normal;
+
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = value; }
+    }
 
     public int BaseMaxHealth
     {
@@ -25,7 +30,8 @@ public abstract class LevelEntity : InteractableEntity
             if (val > BaseMaxHealth)
             {
                 val = BaseMaxHealth;
-            } else if (val < 1)
+            }
+            else if (val < 1)
             {
                 val = 1;
             }
@@ -90,4 +96,11 @@ public abstract class LevelEntity : InteractableEntity
     }
     public abstract void OnDeath();
     public abstract void OnAfterDeath();
+}
+
+public static class MovementSpeed
+{
+    public const float Slow = 75.0f;
+    public const float Normal = 150.0f;
+    public const float Fast = 225.0f;
 }
