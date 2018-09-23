@@ -34,6 +34,14 @@ public class GameEntityDetectionService : MonoBehaviour
           RemoveTargetByName(col.transform.name);
     }
 
+    public void SetVisibility(float Visibility)
+    {
+        GetComponent<CircleCollider2D>().radius = Visibility;
+    }
+    public void SetHitRange(float HitRange)
+    {
+        GetComponent<CircleCollider2D>(). radius = HitRange;
+    }
     private void TargetNearstEnemy()
     {
         float actualNearstContactDistance = 0.0f;

@@ -18,6 +18,7 @@ public class GameEntity : MonoBehaviour {
     private bool _stateHasChanged = false;
     public bool StartRunningOnAwake = true;
     [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
+    [Range(0.01f, 0.4f)] public float HitRange = 0.04f;
     private CharacterMovement _characterMovement;
 	// Use this for initialization
     void Start()
@@ -28,7 +29,8 @@ public class GameEntity : MonoBehaviour {
         {
             _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
         }
-//        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
+        //        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
+        //        GetComponentInChildren<CircleCollider2D>().radius = HitRange;
     }
 
     public GameTarget GetNewTarget()

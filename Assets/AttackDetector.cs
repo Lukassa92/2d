@@ -11,11 +11,11 @@ public class AttackDetector : MonoBehaviour
     private GameEntity _gameEntity;
 
     // Use this for initialization
-	void Start ()
+    void Start ()
 	{
 	    _gameEntity = GetComponentInParent<GameEntity>();
 	    _attachedTo = _gameEntity.GetComponentInParent<Transform>().tag;
-	}
+    }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
