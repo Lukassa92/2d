@@ -14,14 +14,19 @@ public class GameEntity : MonoBehaviour {
     private GameTarget _newTarget;
     private GameTarget _oldTarget;
     private bool _targetHasChanged = false;
-
+    public bool StartRunningOnAwake = true;
+    [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
     private CharacterMovement _characterMovement;
 	// Use this for initialization
     void Start()
     {
         _entityType = transform.tag;
         _characterMovement = GetComponent<CharacterMovement>();
-        _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
+        if (StartRunningOnAwake)
+        {
+            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
+        }
+//        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
     }
 
     public GameTarget GetNewTarget()
@@ -55,7 +60,14 @@ public class GameEntity : MonoBehaviour {
 	    if (_targetHasChanged)
 	    {
 	        _targetHasChanged = false;
-            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f,_newTarget);
+	        if (_newTarget != null)
+	        {
+	            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTarget);
+            }
+	        else
+	        {
+	            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
+            }
 	    }
 	    
 	}

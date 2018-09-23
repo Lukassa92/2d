@@ -19,7 +19,7 @@ public class GameEntityDetectionService : MonoBehaviour
     {
         if (coll.tag == "Detector" && coll.GetComponentInParent<Transform>().tag != _gameEntity.GetComponentInParent<Transform>().tag)
         {
-            Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
+//            Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
             _targetCollisions.Add(new GameTarget(){Name = coll.transform.name, Position = coll.transform.position, Tag = coll.GetComponentInParent<Transform>().tag});
         }
     }
@@ -71,6 +71,11 @@ public class GameEntityDetectionService : MonoBehaviour
         if (obsoleteTarget != null)
         {
             _targetCollisions.Remove(obsoleteTarget);
+            if (_targetCollisions.Count == 0)
+            {
+                _gameEntity.SwitchTargetHasChanged();
+                _gameEntity.SetNewTarget(null);
+            }
         }
     }
 

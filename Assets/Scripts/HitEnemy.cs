@@ -10,21 +10,21 @@ public class HitEnemy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    _characterMovement = GameObject.Find("Fred").GetComponent<CharacterMovement>();
+//	    _characterMovement = GameObject.Find("Fred").GetComponent<CharacterMovement>();
     }
     
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.transform.tag == "Enemy")
-        {
-            Debug.Log("Hit Enemy");
-            _characterMovement.Attack();
-            
-        } else if (col.transform.name == "Wall")
-        {
-            Debug.Log("Hit obstacle");
-            _characterMovement.StopMovement();
-        }
-    }
+//    void OnCollisionEnter2D(Collision2D col)
+//    {
+//        if (col.transform.tag == "Enemy")
+//        {
+//            Debug.Log("Hit Enemy");
+//            _characterMovement.Attack();
+//            
+//        } else if (col.transform.name == "Wall")
+//        {
+//            Debug.Log("Hit obstacle");
+//            _characterMovement.StopMovement();
+//        }
+//    }
    
 }

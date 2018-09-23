@@ -7,9 +7,13 @@ public class CharacterMovement: MonoBehaviour
     private States.State _state = States.State.Stand;
     [SerializeField]
     private States.MoveDirection _moveDirection;
+
+    private States.MoveDirection _standardMoveDirection;
+    [SerializeField]
     private string _entityType;
     private Transform _parenTransform;
     private Rigidbody2D _rigidbody2D;
+    [SerializeField]
     private float _speed;
     
     void Start()
@@ -35,10 +39,19 @@ public class CharacterMovement: MonoBehaviour
     {
         _state = charState;
         _rigidbody2D = charRigidbody2D;
+        //Den scheiß noch in den MovementService auslagern
         if (charTarget != null)
         {
-//            if(charTarget.Position.x > )
+            if (charTarget.Position.x > _parenTransform.position.x)
+            {
+                GoToRight();
+            }
+            else
+            {
+                GoToLeft();
+            }
         }
+
         if (_moveDirection == States.MoveDirection.Left)
         {
             GoToLeft();
@@ -51,35 +64,39 @@ public class CharacterMovement: MonoBehaviour
 
     private void GoToLeft()
     {
-        _speed = -150.0f;
+        SetSpeed(-150.0f);
+        _moveDirection = States.MoveDirection.Left;
     }
     private void GoToRight()
     {
-        _speed = 150.0f;
+        SetSpeed(150.0f);
+        _moveDirection = States.MoveDirection.Right;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
     }
     private void SetMovementDirectionByTag()
     {
-        Debug.Log("entiotyType is: " + _entityType);
         if (_entityType == "Enemy")
         {
             _moveDirection = States.MoveDirection.Left;
             FlipChar();
             GoToLeft();
-            Debug.Log("Left entiotyType is: " + _entityType + " speed is: "+_speed);
         }
         else if (_entityType == "Unit")
         {
             _moveDirection = States.MoveDirection.Right;
             FlipChar();
             GoToRight();
-            Debug.Log("Right entiotyType is: " + _entityType + " speed is: " + _speed);
         }
-//        else
-//        {
-//            _moveDirection = States.MoveDirection.Right;
-//            FlipChar();
-//            _speed = 150.0f;
-//        }
+        else
+        {
+            _moveDirection = States.MoveDirection.Right;
+            FlipChar();
+            _speed = 150.0f;
+        }
     }
     // Update is called once per frame
     private void Update () {
