@@ -1,6 +1,6 @@
 ﻿using System;
 
-public abstract class LevelEntity
+public abstract class LevelEntity : InteractableEntity
 {
     private int _health;
     private bool _isAlive = true;
