@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Mono.Data.Sqlite;
-using System.Data;
+﻿using Mono.Data.Sqlite;
 using System;
+using System.Data;
 using System.IO;
+using UnityEngine;
 
-public class DatabaseInit : MonoBehaviour {
+public class DatabaseInit : MonoBehaviour
+{
     private string databasePath;
     // Use this for initialization
     void Start()
