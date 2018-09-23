@@ -6,6 +6,6 @@ public class BaseEntity
     {
     }
 
-    [PrimaryKey]
+    [PrimaryKey, AutoIncrement]
     public int ID { get; set; }
 }

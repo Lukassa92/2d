@@ -516,6 +516,8 @@ GameObject:
   m_Component:
   - component: {fileID: 539111816}
   - component: {fileID: 539111815}
+  - component: {fileID: 539111817}
+  - component: {fileID: 539111818}
   m_Layer: 0
   m_Name: ScriptObject
   m_TagString: Untagged
@@ -547,6 +549,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &539111817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 539111814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029e26bed753fb940855d6435ecf57fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DatabaseAsset: {fileID: 4900000, guid: 5cb67243a0f8be94a8e328553a79c070, type: 3}
+  SqlManager: {fileID: 0}
+--- !u!114 &539111818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 539111814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a469b71795698ec419d716110d62654a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622470837
 GameObject:
   m_ObjectHideFlags: 0

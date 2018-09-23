@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 
-public interface IRepository<T> where T : BaseEntity
+public interface IRepository
 {
-    T GetByID(int id);
-    IEnumerable<T> GetAll();
-    void Create(T entity);
-    void Delete(T entity);
-    void Update(T entity);
+    BaseEntity GetByID(int id);
+    IEnumerable<BaseEntity> GetAll();
+    void Create(BaseEntity entity);
+    void Delete(BaseEntity entity);
+    void Update(BaseEntity entity);
+    void CreateTableIfNotExits();
 }

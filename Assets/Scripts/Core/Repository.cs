@@ -4,7 +4,7 @@ using System.Linq;
 using Assets.Scripts.Services;
 using SimpleSQL;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity, new()
+public class Repository<T> : IRepository where T : BaseEntity, new()
 {
     private readonly DatabaseService _databaseService;
 
@@ -18,17 +18,17 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, new()
         return _databaseService.SqlManager.Table<T>();
     }
 
-    public T GetByID(int id)
+    public BaseEntity GetByID(int id)
     {
         return GetTableEnumerable().FirstOrDefault(e => e.ID == id);
     }
 
-    public IEnumerable<T> GetAll()
+    public IEnumerable<BaseEntity> GetAll()
     {
-        return GetTableEnumerable().ToList();
+        return GetTableEnumerable().AsEnumerable().Cast<BaseEntity>();
     }
 
-    public void Create(T entity)
+    public void Create(BaseEntity entity)
     {
         try
         {
@@ -41,13 +41,19 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, new()
         }
     }
 
-    public void Delete(T entity)
+    public void Delete(BaseEntity entity)
     {
         _databaseService.SqlManager.Delete(entity);
     }
 
-    public void Update(T entity)
+    public void Update(BaseEntity entity)
     {
         _databaseService.SqlManager.UpdateTable(entity);
     }
+
+    public void CreateTableIfNotExits()
+    {
+        _databaseService.SqlManager.CreateTable<T>();
+    }
 }
+
