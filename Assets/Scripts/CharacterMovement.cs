@@ -4,105 +4,102 @@ using UnityEngine;
 
 public class CharacterMovement: MonoBehaviour
 {
-    public enum State
-    {
-        Run,
-        Fight,
-        Stand
-    }
-    public enum Direction
-    {
-        Left,
-        Right
-    }
-    private float _speed = 150.0f;
+    private States.State _state = States.State.Stand;
     [SerializeField]
-    protected internal State CharacterState = State.Run;
-    
-    private Direction _direction = Direction.Right;
+    private States.MoveDirection _moveDirection;
+    private string _entityType;
+    private Transform _parenTransform;
     private Rigidbody2D _rigidbody2D;
-
-    private Vector3 _rigidbody2DVelocity;
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-    private void Awake()
+    private float _speed;
+    
+    void Start()
     {
-        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        //Hier durch muss der Detector immer ein DIREKTES Kindelement sein
+        _entityType = GetComponentInParent<Transform>().tag;
+        _parenTransform = GetComponentInParent<Transform>();
+        SetMovementDirectionByTag();
     }
-
     public void StopMovement()
     {
-        CharacterState = State.Stand;
+        Debug.Log("Stop!");
+        _state = States.State.Stand;
     }
 
     public void Attack()
     {
         Debug.Log("Attacke!");
-        StopMovement();
-        CharacterState = State.Fight;
-        //Play attack animation
-        //start calculate damage at enemy and by you
-        StartCoroutine(DeleteEnemyForDev());
+        _state = States.State.Attack;
     }
 
-    private IEnumerator DeleteEnemyForDev()
+    public void Run(States.State charState, Rigidbody2D charRigidbody2D, float charSpeed = 150.0f)
     {
-        yield return new WaitForSeconds(3.0f);
-        Destroy(GameObject.Find("Enemy"));
-        Run();
-    }
-
-    public void Run()
-    {
-        CharacterState = State.Run;
-    }
-
-    // Update is called once per frame
-    private void Update () {
-        //Move Forward
-        if (CharacterState == State.Run)
+        _state = charState;
+        _rigidbody2D = charRigidbody2D;
+        if (_moveDirection == States.MoveDirection.Left)
         {
-            if (_direction == Direction.Right)
-            {
-                Debug.Log("Turn right");
-                _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
-            }
-            else
-            {
-                _rigidbody2D.velocity = new Vector2(-_speed, _rigidbody2D.velocity.y);
-            }
-            
-        }        
-	}
-
-    public void RunToTarget(float targetNearstEnemy)
-    {
-        if (targetNearstEnemy < transform.position.y)
+            _speed = -charSpeed;
+        }
+        else
         {
-//            Hier muss sich der Character umdrehen
+            _speed = charSpeed;
+        }
+        
+    }
+    private void SetMovementDirectionByTag()
+    {
+        Debug.Log("entiotyType is: " + _entityType);
+        if (_entityType == "Enemy")
+        {
+            _moveDirection = States.MoveDirection.Left;
+            Debug.Log("Left entiotyType is: " + _entityType);
+            FlipChar();
+        }
+        else if (_entityType == "Unit")
+        {
+            _moveDirection = States.MoveDirection.Right;
+            Debug.Log("Right entiotyType is: " + _entityType);
             FlipChar();
         }
         else
         {
+            _moveDirection = States.MoveDirection.Right;
             FlipChar();
         }
-        Run();
     }
+    // Update is called once per frame
+    private void Update () {
+
+        if (_state == States.State.Run)
+        {
+            _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
+        }
+        //Move Forward
+        //if (CharacterState == State.Run)
+        //{
+        //    if (_direction == Direction.Right)
+        //    {
+        //        Debug.Log("Turn right");
+        //        _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
+        //    }
+        //    else
+        //    {
+        //        _rigidbody2D.velocity = new Vector2(-_speed, _rigidbody2D.velocity.y);
+        //    }
+            
+        //}        
+	}
 
     private void FlipChar()
     {
-        if (_direction == Direction.Right)
+        if (_moveDirection == States.MoveDirection.Right)
         {
-            _direction = Direction.Left;
-            transform.localScale = new Vector3(- transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            _moveDirection = States.MoveDirection.Left;
+            _parenTransform.localScale = new Vector3(-_parenTransform.localScale.x, _parenTransform.localScale.y, _parenTransform.localScale.z);
         }
         else
         {
-            _direction = Direction.Right;
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            _moveDirection = States.MoveDirection.Right;
+            _parenTransform.localScale = new Vector3(_parenTransform.localScale.x, _parenTransform.localScale.y, _parenTransform.localScale.z);
         }
     }
 }
