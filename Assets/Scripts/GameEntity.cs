@@ -52,6 +52,11 @@ public class GameEntity : MonoBehaviour {
     }
 	// Update is called once per frame
 	void FixedUpdate () {
+	    if (_targetHasChanged)
+	    {
+	        _targetHasChanged = false;
+            _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f,_newTarget);
+	    }
 	    
 	}
 }

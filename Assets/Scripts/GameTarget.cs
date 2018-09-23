@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameTarget : MonoBehaviour {
+public class GameTarget {
 
     public Vector3 Position { get; set; }
 

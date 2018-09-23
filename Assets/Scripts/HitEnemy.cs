@@ -18,14 +18,12 @@ public class HitEnemy : MonoBehaviour
         if (col.transform.tag == "Enemy")
         {
             Debug.Log("Hit Enemy");
-//            _characterMovement.CharacterState = CharacterMovement.State.Fight;
-//            _characterMovement.Attack();
+            _characterMovement.Attack();
             
         } else if (col.transform.name == "Wall")
         {
             Debug.Log("Hit obstacle");
-//            _characterMovement.CharacterState = CharacterMovement.State.Stand;
-//            _characterMovement.StopMovement();
+            _characterMovement.StopMovement();
         }
     }
    

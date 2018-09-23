@@ -17,10 +17,10 @@ public class GameEntityDetectionService : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag == "Detector")
+        if (coll.tag == "Detector" && coll.GetComponentInParent<Transform>().tag != _gameEntity.GetComponentInParent<Transform>().tag)
         {
             Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
-            _targetCollisions.Add(new GameTarget { Position = coll.transform.position, Name = coll.transform.name });
+            _targetCollisions.Add(new GameTarget(){Name = coll.transform.name, Position = coll.transform.position, Tag = coll.GetComponentInParent<Transform>().tag});
         }
     }
 

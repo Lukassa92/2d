@@ -31,19 +31,31 @@ public class CharacterMovement: MonoBehaviour
         _state = States.State.Attack;
     }
 
-    public void Run(States.State charState, Rigidbody2D charRigidbody2D, float charSpeed = 150.0f)
+    public void Run(States.State charState, Rigidbody2D charRigidbody2D, float charSpeed = 150.0f, GameTarget charTarget = null)
     {
         _state = charState;
         _rigidbody2D = charRigidbody2D;
+        if (charTarget != null)
+        {
+//            if(charTarget.Position.x > )
+        }
         if (_moveDirection == States.MoveDirection.Left)
         {
-            _speed = -charSpeed;
+            GoToLeft();
         }
         else
         {
-            _speed = charSpeed;
+            GoToRight();
         }
-        
+    }
+
+    private void GoToLeft()
+    {
+        _speed = -150.0f;
+    }
+    private void GoToRight()
+    {
+        _speed = 150.0f;
     }
     private void SetMovementDirectionByTag()
     {
@@ -51,20 +63,23 @@ public class CharacterMovement: MonoBehaviour
         if (_entityType == "Enemy")
         {
             _moveDirection = States.MoveDirection.Left;
-            Debug.Log("Left entiotyType is: " + _entityType);
             FlipChar();
+            GoToLeft();
+            Debug.Log("Left entiotyType is: " + _entityType + " speed is: "+_speed);
         }
         else if (_entityType == "Unit")
         {
             _moveDirection = States.MoveDirection.Right;
-            Debug.Log("Right entiotyType is: " + _entityType);
             FlipChar();
+            GoToRight();
+            Debug.Log("Right entiotyType is: " + _entityType + " speed is: " + _speed);
         }
-        else
-        {
-            _moveDirection = States.MoveDirection.Right;
-            FlipChar();
-        }
+//        else
+//        {
+//            _moveDirection = States.MoveDirection.Right;
+//            FlipChar();
+//            _speed = 150.0f;
+//        }
     }
     // Update is called once per frame
     private void Update () {
@@ -72,21 +87,7 @@ public class CharacterMovement: MonoBehaviour
         if (_state == States.State.Run)
         {
             _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
-        }
-        //Move Forward
-        //if (CharacterState == State.Run)
-        //{
-        //    if (_direction == Direction.Right)
-        //    {
-        //        Debug.Log("Turn right");
-        //        _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
-        //    }
-        //    else
-        //    {
-        //        _rigidbody2D.velocity = new Vector2(-_speed, _rigidbody2D.velocity.y);
-        //    }
-            
-        //}        
+        }   
 	}
 
     private void FlipChar()
