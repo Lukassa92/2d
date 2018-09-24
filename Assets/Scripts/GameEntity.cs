@@ -19,7 +19,10 @@ public class GameEntity : MonoBehaviour
     private bool _stateHasChanged = false;
     public bool StartRunningOnAwake = true;
     [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
+    [Range(0.01f, 0.4f)] public float HitRange = 0.02f;
     private CharacterMovement _characterMovement;
+    private GameEntityDetectionService _gameEntityDetector;
+    private AttackDetector _attackDetector;
     public Vector3 Position
     {
         get { return transform.position; }
@@ -30,11 +33,19 @@ public class GameEntity : MonoBehaviour
     {
         EntityType = (EntityType)Enum.Parse(typeof(EntityType), transform.tag);
         _characterMovement = GetComponent<CharacterMovement>();
+        _gameEntityDetector = GetComponentInChildren<GameEntityDetectionService>();
+        _attackDetector = GetComponentInChildren<AttackDetector>();
+
+        _gameEntityDetector.SetVisibility(Visibility);
+        _attackDetector.SetHitRange(HitRange);
+
         if (StartRunningOnAwake)
         {
 //            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
         }
         //        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
+        //        GetComponentInChildren<CircleCollider2D>().radius = HitRange;
+
     }
 
     public TargetEntity GetNewTarget()

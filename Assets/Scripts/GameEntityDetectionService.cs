@@ -22,7 +22,11 @@ public class GameEntityDetectionService : MonoBehaviour
             _gameEntity.AI.OnEntityEnteredViewRadius(GetTargetEntityFromCollider(coll));
         }
     }
-
+    public void SetVisibility(float Visibility)
+    {
+        GetComponent<CircleCollider2D>().radius = Visibility;
+    }
+    
     private TargetEntity GetTargetEntityFromCollider(Collider2D coll)
     {
         var gameEntity = coll.GetComponentInParent<GameEntity>();
