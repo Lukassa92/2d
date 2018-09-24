@@ -14,7 +14,7 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
     protected MovementAIBehaviour(GameEntity owner)
     {
         Owner = owner;
-        Movement = Owner.GetComponent<MovementBehaviour>();
+        MovementBehaviour = Owner.GetComponent<MovementBehaviour>();
     }
 
     public override void OnEntityEnteredViewRadius(GameEntity entity)

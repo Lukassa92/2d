@@ -14,7 +14,7 @@ public abstract class BaseAI : AIEventReceiver
     protected BaseAI(GameEntity owner)
     {
         Owner = owner;
-        Movement = owner.GetComponent<MovementBehaviour>();
+        MovementBehaviour = owner.GetComponent<MovementBehaviour>();
         // ReSharper disable once VirtualMemberCallInConstructor
         Behaviours = GetBehaviours();
     }

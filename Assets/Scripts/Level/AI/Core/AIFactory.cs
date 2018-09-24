@@ -9,6 +9,6 @@ public class AIFactory
             .GetTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(BaseAI)) && !t.IsAbstract && t.Name == aiName);
         if (type == null)
             throw new InvalidOperationException("No AI class found with the name " + aiName);
-        return (BaseAI)Activator.CreateInstance(type, owner);
+        return (BaseAI)Activator.CreateInstance(type, new object[] { owner });
     }
 }
