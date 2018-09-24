@@ -55,8 +55,15 @@ public class AttackBehaviour : MonoBehaviour
         _canAttack = true;
         Target = target;
         var meleeAttackService = MeleeAttackService.GetService();
-        Debug.Log(transform.name + " attacks " + target.transform.name);
-        return meleeAttackService.StartAttack(GetComponent<GameEntity>(), target, OnAttackDone);
+        if (target != null && target.IsAlive)
+        {
+            Debug.Log(transform.name + " attacks " + target.transform.name);
+            return meleeAttackService.StartAttack(GetComponent<GameEntity>(), target, OnAttackDone);
+        }
+        else
+        {
+            return TimeSpan.FromSeconds(1);
+        }
     }
     // Update is called once per frame
     void Update()
