@@ -5,16 +5,13 @@ using UnityEngine;
 
 public abstract class MovementAIBehaviour : BaseAIBehaviour
 {
-    internal readonly MovementBehaviour MovementBehaviour;
-    internal readonly GameEntity Owner;
+
     internal readonly List<GameEntity> EntitiesInView = new List<GameEntity>();
     internal TimeSpan ActionOffset = TimeSpan.FromMilliseconds(250);
 
 
-    protected MovementAIBehaviour(GameEntity owner)
+    protected MovementAIBehaviour(GameEntity owner) : base(owner)
     {
-        Owner = owner;
-        MovementBehaviour = Owner.GetComponent<MovementBehaviour>();
     }
 
     public override void OnEntityEnteredViewRadius(GameEntity entity)
