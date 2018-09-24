@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 public class MeleeMovementAIBehaviour : MovementAIBehaviour
@@ -16,6 +18,8 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
     {
         if (NextActionPossible())
         {
+            Console.WriteLine("Test");
+
             var relevantTargets = GetRelevantTargets().ToList();
             if (EntitiesInView.Count > 0 && relevantTargets.Count == 0)
             {
