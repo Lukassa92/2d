@@ -36,15 +36,16 @@ public class AttackBehaviour : MonoBehaviour
         return coll.GetComponentInParent<GameEntity>();
     }
 
-    private void OnAttackDone()
+    private void OnAttackDone(DamageSource damageSource)
     {
         _canAttack = false;
-        DisplayDamage(5);
+        DisplayDamage(damageSource.Damage);
     }
 
     public void DisplayDamage(float damage)
     {
-        GetComponentInChildren<Text>().text = damage.ToString();
+        var text = GetComponentInChildren<Text>();
+        text.text = damage.ToString();
     }
 
     public TimeSpan Attack(GameEntity target)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace Assets.Scripts.Level.Services
 {
@@ -11,16 +10,13 @@ namespace Assets.Scripts.Level.Services
             return _meleeAttackService ?? (_meleeAttackService = new MeleeAttackService());
         }
 
-        public TimeSpan StartAttack(GameEntity attacker, GameEntity defender, Action onAttackDone)
+        public TimeSpan StartAttack(GameEntity attacker, GameEntity defender, Action<DamageSource> onAttackDone)
         {
             var attackTime = TimeSpan.FromSeconds(1);
-            var timer = new Timer(_ => OnTimerFinished(onAttackDone), null, attackTime, TimeSpan.FromMilliseconds(-1));
+            var damageService = DamageService.GetService();
+            var damageSource = damageService.DoDamage(attacker.LevelEntity, defender.LevelEntity, 4, 6);
+            onAttackDone(damageSource);
             return attackTime;
-        }
-
-        private void OnTimerFinished(Action attackDone)
-        {
-            attackDone();
         }
     }
 }
