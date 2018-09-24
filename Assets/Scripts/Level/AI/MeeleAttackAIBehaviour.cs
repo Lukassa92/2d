@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MeeleAttackAI : MovementAIBehaviour
 {
-
-
 	// Use this for initialization
 	void Start () {
 		

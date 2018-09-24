@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour
     }
     public void StopMovement()
     {
-        Debug.Log("Stop!");
+//        Debug.Log("Stop!");
         _state = States.State.Stand;
     }
 
@@ -41,6 +41,11 @@ public class CharacterMovement : MonoBehaviour
         {
             _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
         }
+    }
+
+    public void DebugLog(string msg)
+    {
+        Debug.Log("Msg: " +msg);
     }
 
     public void RunTo(Vector3 gameEntityPosition)
@@ -68,17 +73,21 @@ public class CharacterMovement : MonoBehaviour
         _state = States.State.Run;
     }
 
-    //    private void FlipChar()
-    //    {
-    //        if (_moveDirection == States.MoveDirection.Right)
-    //        {
-    //            _moveDirection = States.MoveDirection.Left;
-    //            _parenTransform.localScale = new Vector3(-_parenTransform.localScale.x, _parenTransform.localScale.y, _parenTransform.localScale.z);
-    //        }
-    //        else
-    //        {
-    //            _moveDirection = States.MoveDirection.Right;
-    //            _parenTransform.localScale = new Vector3(_parenTransform.localScale.x, _parenTransform.localScale.y, _parenTransform.localScale.z);
-    //        }
-    //    }
+    public void LookAt(Vector3 position)
+    {
+        Debug.Log("in look at via position");
+        var direction = GetDirectionTo(position);
+        _parenTransform.localScale =
+            new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? -1 : 1),
+                _parenTransform.localScale.y, _parenTransform.localScale.z);
+    }
+
+    public void LookAt(States.MoveDirection direction)
+    {
+        Debug.Log("in look at via direction");
+        _parenTransform.localScale =
+            new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? -1 : 1),
+                _parenTransform.localScale.y, _parenTransform.localScale.z);
+    }
+    
 }
