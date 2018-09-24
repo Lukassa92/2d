@@ -10,6 +10,6 @@ public class MeleeUnitAI : BaseAI
 
     protected override List<BaseAIBehaviour> Behaviours
     {
-        get { return new List<BaseAIBehaviour>(new[] { new MeleeMovementAIBehaviour(Movement, Owner) }); }
+        get { return new List<BaseAIBehaviour>(new MovementAIBehaviour[] { new MeleeMovementAIBehaviour(Movement, Owner), new MeeleAttackAI(Movement, Owner) }); }
     }
 }

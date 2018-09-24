@@ -22,8 +22,18 @@ public class AttackDetector : MonoBehaviour
         if (coll.transform.tag == "Enemy" || coll.transform.tag == "Player" && coll.transform.tag != _attachedTo)
         {
             Debug.Log("in reichweite für gegner: "+coll.transform.tag + " _ "+_attachedTo);
-
+            _gameEntity.AI.OnEntityEnteredAttackRadius(GetTargetEntityFromCollider(coll));
         }
+    }
+    private TargetEntity GetTargetEntityFromCollider(Collider2D coll)
+    {
+        var gameEntity = coll.GetComponentInParent<GameEntity>();
+        var targetEntity = new TargetEntity
+        {
+            LevelEntity = gameEntity.LevelEntity,
+            GameEntity = gameEntity
+        };
+        return targetEntity;
     }
     public void SetHitRange(float HitRange)
     {
