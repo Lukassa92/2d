@@ -28,6 +28,7 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
 
     public override void OnEntityLeftViewRadius(TargetEntity entity)
     {
+        Movement.DebugLog("Left View Radius");
         if (EntitiesInView.Contains(entity))
         {
             EntitiesInView.Remove(entity);

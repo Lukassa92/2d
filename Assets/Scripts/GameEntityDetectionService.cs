@@ -18,7 +18,6 @@ public class GameEntityDetectionService : MonoBehaviour
     {
         if (coll.transform.tag == "Detector")
         {
-            Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
             _gameEntity.AI.OnEntityEnteredViewRadius(GetTargetEntityFromCollider(coll));
         }
     }
@@ -48,13 +47,4 @@ public class GameEntityDetectionService : MonoBehaviour
 
     }
 
-
-    [UsedImplicitly]
-    void Update()
-    {
-//        if (_targetCollisions.Count > 0 && _gameEntity.GetState() == States.State.Run)
-//        {
-//            TargetNearstEnemy();
-//        }
-    }
 }
