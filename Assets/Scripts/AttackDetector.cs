@@ -26,9 +26,12 @@ public class AttackDetector : MonoBehaviour
             _gameEntity.SwitchStateHasChanged();
         }
     }
-
-	// Update is called once per frame
-	void Update () {
+    public void SetHitRange(float HitRange)
+    {
+        GetComponent<CircleCollider2D>().radius = HitRange;
+    }
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }
