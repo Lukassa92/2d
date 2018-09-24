@@ -4,7 +4,7 @@ using System.Linq;
 
 public class MeleeMovementAIBehaviour : MovementAIBehaviour
 {
-    public MeleeMovementAIBehaviour(CharacterMovement movement, GameEntity owner) : base(movement, owner)
+    public MeleeMovementAIBehaviour(GameEntity owner) : base(owner)
     {
         ActionPriority = 80;
     }

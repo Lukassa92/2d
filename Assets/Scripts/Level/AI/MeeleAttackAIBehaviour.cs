@@ -4,7 +4,7 @@ public class MeeleAttackAI : MovementAIBehaviour
 {
     private GameEntity _attackTarget;
 
-    public MeeleAttackAI(CharacterMovement movement, GameEntity owner) : base(movement, owner)
+    public MeeleAttackAI(GameEntity owner) : base(owner)
     {
     }
 
