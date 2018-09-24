@@ -82,12 +82,12 @@
         if (OnBeforeDeath(damageSource))
         {
             OnDeath();
-            Health = 0;
             IsAlive = false;
+            Health = 0;
             OnAfterDeath();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public virtual bool OnBeforeDeath(DamageSource damageSource)

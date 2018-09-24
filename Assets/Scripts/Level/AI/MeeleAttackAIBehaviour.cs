@@ -23,6 +23,7 @@ public class MeeleAttackAI : MovementAIBehaviour
     internal override TimeSpan Execute()
     {
         MovementBehaviour.StopMovement();
+        MovementBehaviour.LookAt(_attackTarget.Position);
         return AttackBehaviour.Attack(_attackTarget);
     }
 }

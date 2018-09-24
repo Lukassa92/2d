@@ -8,7 +8,11 @@ public class GameEntity : MonoBehaviour
     public LevelEntity LevelEntity;
     public string AIName = "MeleeUnitAI";
     public string LevelEntityName = "MeleeUnitLevelEntity";
-    
+
+    [SerializeField] public int Health = 100;
+
+    [SerializeField] public bool IsAlive = true;
+
     [SerializeField] public EntityType EntityType;
     public bool StartRunningOnAwake = true;
     [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
@@ -44,5 +48,15 @@ public class GameEntity : MonoBehaviour
     void FixedUpdate()
     {
         AI.OnTick();
+    }
+
+    public void Update()
+    {
+        Health = LevelEntity.Health;
+        IsAlive = LevelEntity.IsAlive;
+        if (!LevelEntity.IsAlive)
+        {
+            Destroy(GameObject.Find(transform.name));
+        }
     }
 }
