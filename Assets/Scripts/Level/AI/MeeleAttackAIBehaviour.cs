@@ -18,7 +18,7 @@ public class MeeleAttackAI : MovementAIBehaviour
 
     public override void OnEntityEnteredAttackRadius(TargetEntity entity)
     {
-
+        Movement.StopMovement();
     }
     public MeeleAttackAI(CharacterMovement movement, TargetEntity owner) : base(movement, owner)
     {

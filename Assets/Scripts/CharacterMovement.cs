@@ -45,7 +45,6 @@ public class CharacterMovement : MonoBehaviour
 
     public void RunTo(Vector3 gameEntityPosition)
     {
-        Debug.Log("Run is called");
         var direction = GetDirectionTo(gameEntityPosition);
         _speed = GetSpeedForDirection(direction);
         _state = States.State.Run;
@@ -65,7 +64,6 @@ public class CharacterMovement : MonoBehaviour
 
     public void RunTo(States.MoveDirection direction)
     {
-        Debug.Log("Run to direction is called");
         _speed = GetSpeedForDirection(direction);
         _state = States.State.Run;
     }
