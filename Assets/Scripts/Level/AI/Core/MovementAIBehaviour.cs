@@ -8,6 +8,8 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
     internal readonly CharacterMovement Movement;
     internal readonly TargetEntity Owner;
     internal readonly List<TargetEntity> EntitiesInView = new List<TargetEntity>();
+    internal TimeSpan ActionOffset = TimeSpan.FromMilliseconds(250);
+
 
     protected MovementAIBehaviour(CharacterMovement movement, TargetEntity owner)
     {
@@ -37,10 +39,5 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
     private float GetDistanceToTarget(TargetEntity target)
     {
         return Vector3.Distance(Owner.GameEntity.Position, target.GameEntity.Position);
-    }
-
-    internal override TimeSpan ActionOffset
-    {
-        get { return TimeSpan.FromMilliseconds(250); }
     }
 }

@@ -42,7 +42,8 @@ namespace Assets.Scripts.Level.Classes
         {
             if (behaviour != _lastExecutedBehaviour)
             {
-                _lastExecutedBehaviour.Unselect(behaviour);
+                if (_lastExecutedBehaviour != null)
+                    _lastExecutedBehaviour.Unselect(behaviour);
                 _lastExecutedBehaviour = behaviour;
             }
             var delay = _lastExecutedBehaviour.Execute();
