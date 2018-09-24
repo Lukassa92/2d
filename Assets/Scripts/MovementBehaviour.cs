@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class MovementBehaviour : MonoBehaviour
 {
     private States.State _state = States.State.Stand;
     [SerializeField]
@@ -28,22 +28,14 @@ public class CharacterMovement : MonoBehaviour
         _state = States.State.Stand;
     }
 
-    public void Attack()
-    {
-        Debug.Log("Attacke!");
-        _state = States.State.Attack;
-    }
-
     [UsedImplicitly]
     private void Update()
     {
         if (_state == States.State.Run)
         {
-            //            _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
+                        _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
             //            _rigidbody2D.AddForce(new Vector2(_speed, _rigidbody2D.velocity.y),ForceMode2D.Force);
-            Vector3 temp = _parenTransform.transform.position;
-            temp.x = (_speed /100 )* Time.deltaTime;
-            _parenTransform.transform.position = temp;
+
         }
     }
 

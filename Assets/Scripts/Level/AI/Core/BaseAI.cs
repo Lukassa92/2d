@@ -5,16 +5,16 @@ using System.Collections.Generic;
 public abstract class BaseAI : AIEventReceiver
 {
     public GameEntity Owner { get; private set; }
-    public CharacterMovement Movement { get; private set; }
+    public MovementBehaviour MovementBehaviour { get; private set; }
     internal readonly List<BaseAIBehaviour> Behaviours;
 
     private BaseAIBehaviour _lastExecutedBehaviour;
     private DateTime _nextExecutionDate = DateTime.Now;
 
-    protected BaseAI(GameEntity owner, CharacterMovement movement)
+    protected BaseAI(GameEntity owner, MovementBehaviour movementBehaviour)
     {
         Owner = owner;
-        Movement = movement;
+        MovementBehaviour = movementBehaviour;
         // ReSharper disable once VirtualMemberCallInConstructor
         Behaviours = GetBehaviours();
     }
@@ -41,7 +41,7 @@ public abstract class BaseAI : AIEventReceiver
 
     private void ExecuteBehaviour(BaseAIBehaviour behaviour)
     {
-        Movement.DebugLog("Executing behaviour " + behaviour.GetType().Name);
+        MovementBehaviour.DebugLog("Executing behaviour " + behaviour.GetType().Name);
         if (behaviour != _lastExecutedBehaviour)
         {
             if (_lastExecutedBehaviour != null)

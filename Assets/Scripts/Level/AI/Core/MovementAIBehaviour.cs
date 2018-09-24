@@ -5,15 +5,15 @@ using UnityEngine;
 
 public abstract class MovementAIBehaviour : BaseAIBehaviour
 {
-    internal readonly CharacterMovement Movement;
+    internal readonly MovementBehaviour MovementBehaviour;
     internal readonly GameEntity Owner;
     internal readonly List<GameEntity> EntitiesInView = new List<GameEntity>();
     internal TimeSpan ActionOffset = TimeSpan.FromMilliseconds(250);
 
 
-    protected MovementAIBehaviour(CharacterMovement movement, GameEntity owner)
+    protected MovementAIBehaviour(MovementBehaviour movementBehaviour, GameEntity owner)
     {
-        Movement = movement;
+        MovementBehaviour = movementBehaviour;
         Owner = owner;
         // TODO: Nachher wieder entfernen
     }
@@ -28,7 +28,7 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
 
     public override void OnEntityLeftViewRadius(GameEntity entity)
     {
-        Movement.DebugLog("Left View Radius");
+        MovementBehaviour.DebugLog("Left View Radius");
         if (EntitiesInView.Contains(entity))
         {
             EntitiesInView.Remove(entity);
