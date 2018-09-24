@@ -11,11 +11,10 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
     internal TimeSpan ActionOffset = TimeSpan.FromMilliseconds(250);
 
 
-    protected MovementAIBehaviour(MovementBehaviour movementBehaviour, GameEntity owner)
+    protected MovementAIBehaviour(GameEntity owner)
     {
-        MovementBehaviour = movementBehaviour;
         Owner = owner;
-        // TODO: Nachher wieder entfernen
+        MovementBehaviour = Owner.GetComponent<MovementBehaviour>();
     }
 
     public override void OnEntityEnteredViewRadius(GameEntity entity)

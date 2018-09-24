@@ -2,8 +2,8 @@
 
 public class MeleeUnitAI : BaseAI
 {
-    public MeleeUnitAI(GameEntity owner, MovementBehaviour movementBehaviour)
-        : base(owner, movementBehaviour)
+    public MeleeUnitAI(GameEntity owner)
+        : base(owner)
     {
     }
 
@@ -11,8 +11,8 @@ public class MeleeUnitAI : BaseAI
     {
         return new List<BaseAIBehaviour>(new MovementAIBehaviour[]
         {
-            new MeleeMovementAIBehaviour(MovementBehaviour, Owner),
-            new MeeleAttackAI(MovementBehaviour, Owner)
+            new MeleeMovementAIBehaviour(Owner),
+            new MeeleAttackAI(Owner)
         });
     }
 }

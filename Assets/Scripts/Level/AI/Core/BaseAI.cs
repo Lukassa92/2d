@@ -11,10 +11,10 @@ public abstract class BaseAI : AIEventReceiver
     private BaseAIBehaviour _lastExecutedBehaviour;
     private DateTime _nextExecutionDate = DateTime.Now;
 
-    protected BaseAI(GameEntity owner, MovementBehaviour movementBehaviour)
+    protected BaseAI(GameEntity owner)
     {
         Owner = owner;
-        MovementBehaviour = movementBehaviour;
+        MovementBehaviour = owner.GetComponent<MovementBehaviour>();
         // ReSharper disable once VirtualMemberCallInConstructor
         Behaviours = GetBehaviours();
     }

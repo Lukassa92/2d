@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-public abstract class LevelEntity : InteractableEntity
+﻿public abstract class LevelEntity : InteractableEntity
 {
     private int _health;
     private bool _isAlive = true;
@@ -99,57 +96,4 @@ public abstract class LevelEntity : InteractableEntity
     }
     public virtual void OnDeath() { }
     public virtual void OnAfterDeath() { }
-}
-
-public static class MovementSpeed
-{
-    public const float Slow = 75.0f;
-    public const float Normal = 150.0f;
-    public const float Fast = 225.0f;
-}
-
-public class BaseUnitLevelEntity : LevelEntity
-{
-    public override EntityType Entity
-    {
-        get { return EntityType.Player; }
-    }
-}
-
-public class BaseEnemyLevelEntity : LevelEntity
-{
-    public override EntityType Entity
-    {
-        get { return EntityType.Enemy; }
-    }
-}
-
-public class MeleeUnitLevelEntity : BaseUnitLevelEntity
-{
-    public MeleeUnitLevelEntity()
-    {
-        BaseMaxHealth = 100;
-        Health = 100;
-    }
-}
-
-public class MeleeEnemyLevelEntity : BaseEnemyLevelEntity
-{
-    public MeleeEnemyLevelEntity()
-    {
-        BaseMaxHealth = 100;
-        Health = 100;
-    }
-}
-
-public class LevelEntityFactory
-{
-    public static LevelEntity CreateLevelEntity(string name)
-    {
-        var type = typeof(LevelEntity).Assembly
-            .GetTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(LevelEntity)) && !t.IsAbstract && t.Name == name);
-        if (type == null)
-            throw new InvalidOperationException("No level entity class found with the name " + name);
-        return (LevelEntity)Activator.CreateInstance(type);
-    }
 }
