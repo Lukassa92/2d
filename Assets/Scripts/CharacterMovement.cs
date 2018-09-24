@@ -84,7 +84,6 @@ public class CharacterMovement : MonoBehaviour
 
     public void LookAt(States.MoveDirection direction)
     {
-        Debug.Log("in look at via direction");
         _parenTransform.localScale =
             new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? -1 : 1),
                 _parenTransform.localScale.y, _parenTransform.localScale.z);
