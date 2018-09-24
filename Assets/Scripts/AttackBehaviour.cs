@@ -31,6 +31,11 @@ public class AttackBehaviour : MonoBehaviour
 //        }
     }
 
+    void OnTriggerExit2D(Collider2D coll)
+    {
+
+    }
+
     private GameEntity GetTargetEntityFromCollider(Collider2D coll)
     {
         return coll.GetComponentInParent<GameEntity>();
@@ -62,6 +67,7 @@ public class AttackBehaviour : MonoBehaviour
         }
         else
         {
+            _gameEntity.AI.OnEntityLeftAttackRadius(target);
             return TimeSpan.FromSeconds(1);
         }
     }
