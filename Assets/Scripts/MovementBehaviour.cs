@@ -37,6 +37,10 @@ public class MovementBehaviour : MonoBehaviour
             //            _rigidbody2D.AddForce(new Vector2(_speed, _rigidbody2D.velocity.y),ForceMode2D.Force);
 
         }
+        else
+        {
+            _rigidbody2D.velocity = Vector2.zero;
+        }
     }
 
     public void DebugLog(string msg)
