@@ -214,7 +214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 41.011, y: 0.75049996}
   m_AnchorMax: {x: 41.429, y: 1.0695}
-  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
   m_SizeDelta: {x: 0.00024414062, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &26883525
@@ -753,8 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
-  _state: 0
-  _direction: 1
+  LevelEntityName: MeleeUnitLevelEntity
   EntityType: 0
   StartRunningOnAwake: 1
   Visibility: 0.04
@@ -1513,7 +1512,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 33.349, y: 0.70449996}
   m_AnchorMax: {x: 33.767, y: 1.0235}
-  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.00024414062, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &547078431
@@ -3028,8 +3027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
-  _state: 0
-  _direction: 1
+  LevelEntityName: MeleeEnemyLevelEntity
   EntityType: 0
   StartRunningOnAwake: 1
   Visibility: 0.04
@@ -3328,8 +3326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
-  _state: 0
-  _direction: 1
+  LevelEntityName: MeleeUnitLevelEntity
   EntityType: 0
   StartRunningOnAwake: 1
   Visibility: 0.04
@@ -3820,8 +3817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
-  _state: 0
-  _direction: 1
+  LevelEntityName: MeleeEnemyLevelEntity
   EntityType: 0
   StartRunningOnAwake: 0
   Visibility: 0.04

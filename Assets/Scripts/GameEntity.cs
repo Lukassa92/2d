@@ -8,6 +8,7 @@ public class GameEntity : MonoBehaviour
     public BaseAI AI;
     public LevelEntity LevelEntity;
     public string AIName = "MeleeUnitAI";
+    public string LevelEntityName = "MeleeUnitLevelEntity";
     
     [SerializeField] public EntityType EntityType;
     private TargetEntity _newTargetEntity;
@@ -32,6 +33,7 @@ public class GameEntity : MonoBehaviour
         _gameEntityDetector.SetVisibility(Visibility);
         _attackDetector.SetHitRange(HitRange);
 
+        LevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName);
         AI = AIFactory.CreateAI(AIName, new TargetEntity { GameEntity = this, LevelEntity = LevelEntity });
 
         if (StartRunningOnAwake)
