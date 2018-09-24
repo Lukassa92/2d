@@ -10,7 +10,7 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
     }
     private IEnumerable<GameEntity> GetRelevantTargets()
     {
-        Movement.DebugLog("Number of EntitiesinView: "+EntitiesInView.Count);
+        MovementBehaviour.DebugLog("Number of EntitiesinView: "+EntitiesInView.Count);
         return EntitiesInView.Where(e => e.EntityType != Owner.EntityType);
     }
 
@@ -20,15 +20,15 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
         if (EntitiesInView.Count > 0 && relevantTargets.Count != 0)
         {
             var closest = GetClosestTarget(relevantTargets);
-            Movement.LookAt(closest.Position);
-            Movement.RunTo(closest.Position);
+            MovementBehaviour.LookAt(closest.Position);
+            MovementBehaviour.RunTo(closest.Position);
         }
         else
         {
-            Movement.LookAt(Owner.EntityType == EntityType.Enemy
+            MovementBehaviour.LookAt(Owner.EntityType == EntityType.Enemy
                 ? States.MoveDirection.Left
                 : States.MoveDirection.Right);
-            Movement.RunTo(Owner.EntityType == EntityType.Enemy
+            MovementBehaviour.RunTo(Owner.EntityType == EntityType.Enemy
                 ? States.MoveDirection.Left
                 : States.MoveDirection.Right);
         }

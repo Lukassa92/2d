@@ -35,7 +35,7 @@ public class GameEntity : MonoBehaviour
 
         if (StartRunningOnAwake)
         {
-            //            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
+            //            _movementBehaviour.Run(_state, GetComponent<Rigidbody2D>());
         }
 
     }

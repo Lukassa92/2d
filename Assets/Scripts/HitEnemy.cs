@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class HitEnemy : MonoBehaviour
 {
-    private CharacterMovement _characterMovement;
+    private MovementBehaviour _movementBehaviour;
     
 	// Use this for initialization
 	void Start ()
 	{
-//	    _characterMovement = GameObject.Find("Fred").GetComponent<CharacterMovement>();
+//	    _movementBehaviour = GameObject.Find("Fred").GetComponent<MovementBehaviour>();
     }
     
 //    void OnCollisionEnter2D(Collision2D col)
@@ -18,12 +18,12 @@ public class HitEnemy : MonoBehaviour
 //        if (col.transform.tag == "Enemy")
 //        {
 //            Debug.Log("Hit Enemy");
-//            _characterMovement.Attack();
+//            _movementBehaviour.Attack();
 //            
 //        } else if (col.transform.name == "Wall")
 //        {
 //            Debug.Log("Hit obstacle");
-//            _characterMovement.StopMovement();
+//            _movementBehaviour.StopMovement();
 //        }
 //    }
    

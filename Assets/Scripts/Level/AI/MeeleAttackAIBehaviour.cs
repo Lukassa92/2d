@@ -12,7 +12,7 @@ public class MeeleAttackAI : MovementAIBehaviour
     {
         _attackTarget = entity;
         ActionPriority = 100;
-        Movement.StopMovement();
+        MovementBehaviour.StopMovement();
     }
 
     public override void OnEntityLeftAttackRadius(GameEntity entity)
@@ -23,7 +23,6 @@ public class MeeleAttackAI : MovementAIBehaviour
 
     internal override TimeSpan Execute()
     {
-        Movement.Attack();
         return TimeSpan.FromSeconds(1);
     }
 }

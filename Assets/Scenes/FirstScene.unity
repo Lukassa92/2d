@@ -415,6 +415,16 @@ Prefab:
       propertyPath: Visibility
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 50083638341708570, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50083638341708570, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d662b56a7896fd43b33f65aa640c313, type: 2}
   m_IsPrefabAsset: 0
@@ -3100,7 +3110,7 @@ MonoBehaviour:
   EntityType: 0
   StartRunningOnAwake: 1
   Visibility: 0.04
-  HitRange: 0.02
+  HitRange: 0.03
 --- !u!50 &1135562617
 Rigidbody2D:
   serializedVersion: 4
@@ -3111,13 +3121,13 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 4923.513
+  m_UseAutoMass: 0
+  m_Mass: 5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -3373,13 +3383,13 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 4923.513
+  m_UseAutoMass: 0
+  m_Mass: 5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -3399,7 +3409,7 @@ MonoBehaviour:
   EntityType: 0
   StartRunningOnAwake: 1
   Visibility: 0.04
-  HitRange: 0.02
+  HitRange: 0.03
 --- !u!114 &1195072976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3890,7 +3900,7 @@ MonoBehaviour:
   EntityType: 0
   StartRunningOnAwake: 0
   Visibility: 0.04
-  HitRange: 0.02
+  HitRange: 0.03
 --- !u!50 &1490709651
 Rigidbody2D:
   serializedVersion: 4
@@ -3901,13 +3911,13 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 4923.513
+  m_UseAutoMass: 0
+  m_Mass: 5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
