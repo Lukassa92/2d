@@ -2,7 +2,7 @@
 
 public class MeleeUnitAI : BaseAI
 {
-    public MeleeUnitAI(TargetEntity owner, CharacterMovement movement)
+    public MeleeUnitAI(GameEntity owner, CharacterMovement movement)
         : base(owner, movement)
     {
     }

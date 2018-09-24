@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public abstract class BaseAI : AIEventReceiver
 {
-    public TargetEntity Owner { get; private set; }
+    public GameEntity Owner { get; private set; }
     public CharacterMovement Movement { get; private set; }
     internal readonly List<BaseAIBehaviour> Behaviours;
 
     private BaseAIBehaviour _lastExecutedBehaviour;
     private DateTime _nextExecutionDate = DateTime.Now;
 
-    protected BaseAI(TargetEntity owner, CharacterMovement movement)
+    protected BaseAI(GameEntity owner, CharacterMovement movement)
     {
         Owner = owner;
         Movement = movement;
@@ -52,22 +52,22 @@ public abstract class BaseAI : AIEventReceiver
         _nextExecutionDate = DateTime.Now + delay;
     }
 
-    public override void OnEntityEnteredViewRadius(TargetEntity entity)
+    public override void OnEntityEnteredViewRadius(GameEntity entity)
     {
         Behaviours.ForEach(b => b.OnEntityEnteredViewRadius(entity));
     }
 
-    public override void OnEntityLeftViewRadius(TargetEntity entity)
+    public override void OnEntityLeftViewRadius(GameEntity entity)
     {
         Behaviours.ForEach(b => b.OnEntityLeftViewRadius(entity));
     }
 
-    public override void OnEntityEnteredAttackRadius(TargetEntity entity)
+    public override void OnEntityEnteredAttackRadius(GameEntity entity)
     {
         Behaviours.ForEach(b => b.OnEntityEnteredAttackRadius(entity));
     }
 
-    public override void OnEntityLeftAttackRadius(TargetEntity entity)
+    public override void OnEntityLeftAttackRadius(GameEntity entity)
     {
         Behaviours.ForEach(b => b.OnEntityLeftAttackRadius(entity));
     }
@@ -92,7 +92,7 @@ public abstract class BaseAI : AIEventReceiver
         Behaviours.ForEach(b => b.OnDamagedOther(source));
     }
 
-    public override void OnCollisionWith(TargetEntity entity)
+    public override void OnCollisionWith(GameEntity entity)
     {
         Behaviours.ForEach(b => b.OnCollisionWith(entity));
     }

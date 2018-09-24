@@ -6,19 +6,19 @@ using UnityEngine;
 public abstract class MovementAIBehaviour : BaseAIBehaviour
 {
     internal readonly CharacterMovement Movement;
-    internal readonly TargetEntity Owner;
-    internal readonly List<TargetEntity> EntitiesInView = new List<TargetEntity>();
+    internal readonly GameEntity Owner;
+    internal readonly List<GameEntity> EntitiesInView = new List<GameEntity>();
     internal TimeSpan ActionOffset = TimeSpan.FromMilliseconds(250);
 
 
-    protected MovementAIBehaviour(CharacterMovement movement, TargetEntity owner)
+    protected MovementAIBehaviour(CharacterMovement movement, GameEntity owner)
     {
         Movement = movement;
         Owner = owner;
         // TODO: Nachher wieder entfernen
     }
 
-    public override void OnEntityEnteredViewRadius(TargetEntity entity)
+    public override void OnEntityEnteredViewRadius(GameEntity entity)
     {
         if (!EntitiesInView.Contains(entity))
         {
@@ -26,7 +26,7 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
         }
     }
 
-    public override void OnEntityLeftViewRadius(TargetEntity entity)
+    public override void OnEntityLeftViewRadius(GameEntity entity)
     {
         Movement.DebugLog("Left View Radius");
         if (EntitiesInView.Contains(entity))
@@ -35,13 +35,13 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
         }
     }
 
-    public TargetEntity GetClosestTarget(IEnumerable<TargetEntity> targets)
+    public GameEntity GetClosestTarget(IEnumerable<GameEntity> targets)
     {
         return targets.MinBy(GetDistanceToTarget);
     }
 
-    private float GetDistanceToTarget(TargetEntity target)
+    private float GetDistanceToTarget(GameEntity target)
     {
-        return Vector3.Distance(Owner.GameEntity.Position, target.GameEntity.Position);
+        return Vector3.Distance(Owner.Position, target.Position);
     }
 }
