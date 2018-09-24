@@ -108,5 +108,7 @@ public class GameEntity : MonoBehaviour
             _stateHasChanged = false;
             _characterMovement.Attack();
         }
+
+        AI.OnTick();
     }
 }
