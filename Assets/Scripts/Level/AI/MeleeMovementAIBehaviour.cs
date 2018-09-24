@@ -36,4 +36,10 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
             }
         }
     }
+
+    internal override TimeSpan Execute()
+    {
+
+        return ActionOffset;
+    }
 }

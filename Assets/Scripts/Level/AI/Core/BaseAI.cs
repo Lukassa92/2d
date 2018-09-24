@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MoreLinq;
+using System;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Level.Classes
 {
@@ -8,10 +10,43 @@ namespace Assets.Scripts.Level.Classes
         public CharacterMovement Movement { get; private set; }
         protected abstract List<BaseAIBehaviour> Behaviours { get; }
 
+        private BaseAIBehaviour _lastExecutedBehaviour;
+        private DateTime _nextExecutionDate = DateTime.Now;
+
         protected BaseAI(TargetEntity owner, CharacterMovement movement)
         {
             Owner = owner;
             Movement = movement;
+        }
+
+        private BaseAIBehaviour GetBehaviourWithHighestPriority()
+        {
+            return Behaviours.MaxBy(b => b.ActionPriority);
+        }
+
+        private void CheckNextExecution()
+        {
+            if (DateTime.Now >= _nextExecutionDate)
+            {
+                ExecuteNextBehaviour();
+            }
+        }
+
+        private void ExecuteNextBehaviour()
+        {
+            var behaviour = GetBehaviourWithHighestPriority();
+            ExecuteBehaviour(behaviour);
+        }
+
+        private void ExecuteBehaviour(BaseAIBehaviour behaviour)
+        {
+            if (behaviour != _lastExecutedBehaviour)
+            {
+                _lastExecutedBehaviour.Unselect(behaviour);
+                _lastExecutedBehaviour = behaviour;
+            }
+            var delay = _lastExecutedBehaviour.Execute();
+            _nextExecutionDate = DateTime.Now + delay;
         }
 
         public override void OnEntityEnteredViewRadius(TargetEntity entity)
@@ -62,6 +97,7 @@ namespace Assets.Scripts.Level.Classes
         public override void OnTick()
         {
             Behaviours.ForEach(b => b.OnTick());
+            CheckNextExecution();
         }
     }
 }

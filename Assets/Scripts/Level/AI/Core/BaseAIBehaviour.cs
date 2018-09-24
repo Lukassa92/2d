@@ -33,4 +33,10 @@ public abstract class BaseAIBehaviour : AIEventReceiver
     {
         LastAction = DateTime.Now;
     }
+
+    public virtual void Unselect(BaseAIBehaviour behaviour)
+    {
+    }
+
+    internal abstract TimeSpan Execute();
 }
