@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 public class MeleeMovementAIBehaviour : MovementAIBehaviour
 {
     public MeleeMovementAIBehaviour(CharacterMovement movement, TargetEntity owner) : base(movement, owner)
     {
+        ActionPriority = 80;
     }
 
     private IEnumerable<TargetEntity> GetRelevantTargets()

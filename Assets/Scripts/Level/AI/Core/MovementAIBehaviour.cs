@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MoreLinq;
+using System;
 using System.Collections.Generic;
-using MoreLinq;
 using UnityEngine;
 
 public abstract class MovementAIBehaviour : BaseAIBehaviour
@@ -16,19 +16,22 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
         Movement = movement;
         Owner = owner;
         // TODO: Nachher wieder entfernen
-        ActionPriority = 100;
     }
 
     public override void OnEntityEnteredViewRadius(TargetEntity entity)
     {
         if (!EntitiesInView.Contains(entity))
+        {
             EntitiesInView.Add(entity);
+        }
     }
 
     public override void OnEntityLeftViewRadius(TargetEntity entity)
     {
         if (EntitiesInView.Contains(entity))
+        {
             EntitiesInView.Remove(entity);
+        }
     }
 
     public TargetEntity GetClosestTarget(IEnumerable<TargetEntity> targets)

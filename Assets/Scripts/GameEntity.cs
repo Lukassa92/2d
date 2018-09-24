@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Level.Classes;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using System;
 using UnityEngine;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Assets.Scripts.Level.Classes;
 
 public class AIFactory
 {

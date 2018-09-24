@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Level.Classes;
 
 public class MeleeUnitAI : BaseAI
 {
@@ -8,8 +7,12 @@ public class MeleeUnitAI : BaseAI
     {
     }
 
-    protected override List<BaseAIBehaviour> Behaviours
+    protected override List<BaseAIBehaviour> GetBehaviours()
     {
-        get { return new List<BaseAIBehaviour>(new MovementAIBehaviour[] { new MeleeMovementAIBehaviour(Movement, Owner), new MeeleAttackAI(Movement, Owner) }); }
+        return new List<BaseAIBehaviour>(new MovementAIBehaviour[]
+        {
+            new MeleeMovementAIBehaviour(Movement, Owner),
+            new MeeleAttackAI(Movement, Owner)
+        });
     }
 }

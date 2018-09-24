@@ -19,7 +19,7 @@ public abstract class BaseAIBehaviour : AIEventReceiver
             _actionPriority = val;
         }
     }
-    private int _actionPriority;
+    private int _actionPriority = 0;
 
     public virtual void Unselect(BaseAIBehaviour behaviour)
     {
