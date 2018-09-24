@@ -2,6 +2,17 @@
 
 public abstract class BaseAIBehaviour : AIEventReceiver
 {
+    internal readonly MovementBehaviour MovementBehaviour;
+    internal readonly AttackBehaviour AttackBehaviour;
+    internal readonly GameEntity Owner;
+
+    protected BaseAIBehaviour(GameEntity owner)
+    {
+        Owner = owner;
+        MovementBehaviour = Owner.GetComponent<MovementBehaviour>();
+        AttackBehaviour = Owner.GetComponent<AttackBehaviour>();
+    }
+
     public int ActionPriority
     {
         get { return _actionPriority; }
