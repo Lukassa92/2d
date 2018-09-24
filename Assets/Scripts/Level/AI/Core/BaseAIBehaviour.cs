@@ -19,18 +19,11 @@ public abstract class BaseAIBehaviour : AIEventReceiver
             _actionPriority = val;
         }
     }
-
-    internal abstract TimeSpan ActionOffset { get; }
-    internal DateTime LastAction = DateTime.MinValue;
     private int _actionPriority;
 
-    internal bool NextActionPossible()
+    public virtual void Unselect(BaseAIBehaviour behaviour)
     {
-        return DateTime.Now >= LastAction + ActionOffset;
     }
 
-    internal void DoAction()
-    {
-        LastAction = DateTime.Now;
-    }
+    internal abstract TimeSpan Execute();
 }
