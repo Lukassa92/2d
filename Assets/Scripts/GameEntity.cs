@@ -7,6 +7,7 @@ public class GameEntity : MonoBehaviour
 {
     public BaseAI AI;
     public LevelEntity LevelEntity;
+    public string AIName = "MeleeUnitAI";
 
     [SerializeField]
     private States.State _state = States.State.Run;
@@ -39,9 +40,11 @@ public class GameEntity : MonoBehaviour
         _gameEntityDetector.SetVisibility(Visibility);
         _attackDetector.SetHitRange(HitRange);
 
+        AI = AIFactory.CreateAI(AIName, new TargetEntity { GameEntity = this, LevelEntity = LevelEntity });
+
         if (StartRunningOnAwake)
         {
-//            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
+            //            _characterMovement.Run(_state, GetComponent<Rigidbody2D>());
         }
         //        GetComponentInChildren<CircleCollider2D>().radius = Visibility;
         //        GetComponentInChildren<CircleCollider2D>().radius = HitRange;
@@ -90,14 +93,14 @@ public class GameEntity : MonoBehaviour
         if (_targetHasChanged)
         {
             _targetHasChanged = false;
-//            if (_newTargetEntity != null)
-//            {
-//                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTargetEntity);
-//            }
-//            else
-//            {
-//                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
-//            }
+            //            if (_newTargetEntity != null)
+            //            {
+            //                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>(), 150.0f, _newTargetEntity);
+            //            }
+            //            else
+            //            {
+            //                _characterMovement.Run(States.State.Run, GetComponent<Rigidbody2D>());
+            //            }
         }
 
         if (_stateHasChanged)
