@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Level.Services;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AttackBehaviour : MonoBehaviour
 {
@@ -38,6 +39,12 @@ public class AttackBehaviour : MonoBehaviour
     private void OnAttackDone()
     {
         _canAttack = false;
+        DisplayDamage(5);
+    }
+
+    public void DisplayDamage(float damage)
+    {
+        GetComponentInChildren<Text>().text = damage.ToString();
     }
 
     public TimeSpan Attack(GameEntity target)

@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 55648803}
   - component: {fileID: 55648805}
   - component: {fileID: 55648804}
+  - component: {fileID: 55648806}
   m_Layer: 5
   m_Name: Damage
   m_TagString: Untagged
@@ -326,6 +327,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 55648802}
   m_CullTransparentMesh: 0
+--- !u!114 &55648806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55648802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e6d196a28d1de438e8e0e0ead694f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &71308489
 GameObject:
   m_ObjectHideFlags: 0
