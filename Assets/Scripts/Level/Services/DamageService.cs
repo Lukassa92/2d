@@ -17,12 +17,12 @@ public class DamageService
         return random.Next(min, max);
     }
 
-    public void DoDamage(LevelEntity source, LevelEntity target, int minDamage, int maxDamage)
+    public DamageSource DoDamage(LevelEntity source, LevelEntity target, int minDamage, int maxDamage)
     {
-        DoDamage(source, target, RandomInt(minDamage, maxDamage));
+        return DoDamage(source, target, RandomInt(minDamage, maxDamage));
     }
 
-    public void DoDamage(LevelEntity source, LevelEntity target, int damage)
+    public DamageSource DoDamage(LevelEntity source, LevelEntity target, int damage)
     {
         var damageSource = new DamageSource
         {
@@ -31,14 +31,15 @@ public class DamageService
             Damage = damage
         };
         target.DoDamage(damageSource);
+        return damageSource;
     }
 
-    public void DoDamage(LevelEntity target, int minDamage, int maxDamage)
+    public DamageSource DoDamage(LevelEntity target, int minDamage, int maxDamage)
     {
-        DoDamage(target, RandomInt(minDamage, maxDamage));
+        return DoDamage(target, RandomInt(minDamage, maxDamage));
     }
 
-    public void DoDamage(LevelEntity target, int damage)
+    public DamageSource DoDamage(LevelEntity target, int damage)
     {
         var damageSource = new DamageSource
         {
@@ -46,5 +47,6 @@ public class DamageService
             Damage = damage
         };
         target.DoDamage(damageSource);
+        return damageSource;
     }
 }
