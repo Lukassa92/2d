@@ -26,15 +26,9 @@ public class GameEntityDetectionService : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = Visibility;
     }
     
-    private TargetEntity GetTargetEntityFromCollider(Collider2D coll)
+    private GameEntity GetTargetEntityFromCollider(Collider2D coll)
     {
-        var gameEntity = coll.GetComponentInParent<GameEntity>();
-        var targetEntity = new TargetEntity
-        {
-            LevelEntity = gameEntity.LevelEntity,
-            GameEntity = gameEntity
-        };
-        return targetEntity;
+        return coll.GetComponentInParent<GameEntity>();
     }
 
     [UsedImplicitly]

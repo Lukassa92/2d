@@ -25,19 +25,13 @@ public class AttackDetector : MonoBehaviour
             _gameEntity.AI.OnEntityEnteredAttackRadius(GetTargetEntityFromCollider(coll));
         }
     }
-    private TargetEntity GetTargetEntityFromCollider(Collider2D coll)
+    private GameEntity GetTargetEntityFromCollider(Collider2D coll)
     {
-        var gameEntity = coll.GetComponentInParent<GameEntity>();
-        var targetEntity = new TargetEntity
-        {
-            LevelEntity = gameEntity.LevelEntity,
-            GameEntity = gameEntity
-        };
-        return targetEntity;
+        return coll.GetComponentInParent<GameEntity>();
     }
-    public void SetHitRange(float HitRange)
+    public void SetHitRange(float hitRange)
     {
-        GetComponent<CircleCollider2D>().radius = HitRange;
+        GetComponent<CircleCollider2D>().radius = hitRange;
     }
     // Update is called once per frame
     void Update () {

@@ -17,7 +17,6 @@ public class Test : MonoBehaviour
 //            Username = "Horst"
 //        };
 //        repo.Create(player);
-        var ai = AIFactory.CreateAI("MeleeUnitAI", TargetEntity.Empty);
     }
 
     // Update is called once per frame

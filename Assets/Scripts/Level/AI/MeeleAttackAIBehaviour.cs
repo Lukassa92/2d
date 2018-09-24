@@ -2,20 +2,20 @@
 
 public class MeeleAttackAI : MovementAIBehaviour
 {
-    private TargetEntity? _attackTarget;
+    private GameEntity _attackTarget;
 
-    public MeeleAttackAI(CharacterMovement movement, TargetEntity owner) : base(movement, owner)
+    public MeeleAttackAI(CharacterMovement movement, GameEntity owner) : base(movement, owner)
     {
     }
 
-    public override void OnEntityEnteredAttackRadius(TargetEntity entity)
+    public override void OnEntityEnteredAttackRadius(GameEntity entity)
     {
         _attackTarget = entity;
         ActionPriority = 100;
         Movement.StopMovement();
     }
 
-    public override void OnEntityLeftAttackRadius(TargetEntity entity)
+    public override void OnEntityLeftAttackRadius(GameEntity entity)
     {
         ActionPriority = 0;
         _attackTarget = null;
