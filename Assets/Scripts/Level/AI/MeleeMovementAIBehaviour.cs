@@ -17,7 +17,6 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
     internal override TimeSpan Execute()
     {
         var relevantTargets = GetRelevantTargets().ToList();
-//        Movement.DebugLog("relevantTargetCount: " + relevantTargets.Count);
         if (EntitiesInView.Count > 0 && relevantTargets.Count != 0)
         {
             var closest = GetClosestTarget(relevantTargets);

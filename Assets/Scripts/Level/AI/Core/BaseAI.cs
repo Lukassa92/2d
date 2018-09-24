@@ -41,6 +41,7 @@ public abstract class BaseAI : AIEventReceiver
 
     private void ExecuteBehaviour(BaseAIBehaviour behaviour)
     {
+        Movement.DebugLog("Executing behaviour " + behaviour.GetType().Name);
         if (behaviour != _lastExecutedBehaviour)
         {
             if (_lastExecutedBehaviour != null)
