@@ -28,4 +28,9 @@ public abstract class BaseAIBehaviour : AIEventReceiver
     {
         return DateTime.Now >= LastAction + ActionOffset;
     }
+
+    internal void DoAction()
+    {
+        LastAction = DateTime.Now;
+    }
 }

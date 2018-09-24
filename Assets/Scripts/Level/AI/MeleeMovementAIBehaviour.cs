@@ -21,10 +21,14 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
             {
                 var closest = GetClosestTarget(relevantTargets);
                 Movement.RunTo(closest.GameEntity.Position);
+                DoAction();
             }
             else
             {
-                Movement.RunTo(Owner.GameEntity.EntityType == EntityType.Enemy ? States.MoveDirection.Left : States.MoveDirection.Right);
+                Movement.RunTo(Owner.GameEntity.EntityType == EntityType.Enemy
+                    ? States.MoveDirection.Left
+                    : States.MoveDirection.Right);
+                DoAction();
             }
         }
     }

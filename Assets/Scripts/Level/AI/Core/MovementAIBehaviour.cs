@@ -41,6 +41,6 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
 
     internal override TimeSpan ActionOffset
     {
-        get { return TimeSpan.FromMilliseconds(100); }
+        get { return TimeSpan.FromMilliseconds(250); }
     }
 }
