@@ -39,7 +39,11 @@ public class CharacterMovement : MonoBehaviour
     {
         if (_state == States.State.Run)
         {
-            _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
+            //            _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
+            //            _rigidbody2D.AddForce(new Vector2(_speed, _rigidbody2D.velocity.y),ForceMode2D.Force);
+            Vector3 temp = _parenTransform.transform.position;
+            temp.x = (_speed /100 )* Time.deltaTime;
+            _parenTransform.transform.position = temp;
         }
     }
 
@@ -78,14 +82,15 @@ public class CharacterMovement : MonoBehaviour
         Debug.Log("in look at via position");
         var direction = GetDirectionTo(position);
         _parenTransform.localScale =
-            new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? -1 : 1),
+            new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? 1 : -1),
                 _parenTransform.localScale.y, _parenTransform.localScale.z);
     }
 
     public void LookAt(States.MoveDirection direction)
     {
+        Debug.Log("in look at via direction");
         _parenTransform.localScale =
-            new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? -1 : 1),
+            new Vector3(_parenTransform.localScale.x * (direction == States.MoveDirection.Left ? 1 : -1),
                 _parenTransform.localScale.y, _parenTransform.localScale.z);
     }
     
