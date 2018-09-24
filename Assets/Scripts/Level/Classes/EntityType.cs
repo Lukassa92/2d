@@ -1,6 +1,6 @@
 ﻿public enum EntityType
 {
-    PlayerUnit,
+    Player,
     Enemy,
     Obstacle
 }

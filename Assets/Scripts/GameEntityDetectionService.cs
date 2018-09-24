@@ -16,9 +16,9 @@ public class GameEntityDetectionService : MonoBehaviour
     [UsedImplicitly]
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag == "Detector")
+        if (coll.transform.tag == "Detector")
         {
-            //            Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
+            Debug.Log("Game Entity gesichtet! position: "+coll.transform.position);
             _gameEntity.AI.OnEntityEnteredViewRadius(GetTargetEntityFromCollider(coll));
         }
     }
@@ -41,7 +41,7 @@ public class GameEntityDetectionService : MonoBehaviour
     [UsedImplicitly]
     void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.tag == "Detector")
+        if (coll.transform.tag == "Detector")
         {
             _gameEntity.AI.OnEntityLeftViewRadius(GetTargetEntityFromCollider(coll));
         }

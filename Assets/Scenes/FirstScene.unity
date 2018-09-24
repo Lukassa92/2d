@@ -410,6 +410,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114380573420688740, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: Visibility
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d662b56a7896fd43b33f65aa640c313, type: 2}
   m_IsPrefabAsset: 0
@@ -700,7 +705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &246905462
 RectTransform:
   m_ObjectHideFlags: 0
@@ -747,6 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60006b38a13ad9642a1399ef2369e257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIName: MeleeUnitAI
   _state: 0
   _direction: 1
   EntityType: 0
@@ -3021,6 +3027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60006b38a13ad9642a1399ef2369e257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIName: MeleeUnitAI
   _state: 0
   _direction: 1
   EntityType: 0
@@ -3320,6 +3327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60006b38a13ad9642a1399ef2369e257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIName: MeleeUnitAI
   _state: 0
   _direction: 1
   EntityType: 0
@@ -3811,6 +3819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60006b38a13ad9642a1399ef2369e257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIName: MeleeUnitAI
   _state: 0
   _direction: 1
   EntityType: 0
