@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DestroyService : MonoBehaviour
 {
 
     private GameObject _entities;
-	// Use this for initialization
-	void Start () {
-		_entities = GameObject.Find("Entities");
+    // Use this for initialization
+    void Start()
+    {
+        _entities = GameObject.Find("Entities");
         InvokeRepeating("CheckDeadGuys", 1.0f, 1.0f);
-	}
+    }
 
     public void CheckDeadGuys()
     {
@@ -18,24 +17,38 @@ public class DestroyService : MonoBehaviour
         {
             if (!componentsInChild.IsAlive)
             {
-                Debug.Log("Destroy: "+ componentsInChild.GetComponentInParent<Transform>().name);
-                DestroyGameObjectByName(componentsInChild.GetComponentInParent<Transform>().name);
+                var entityName = componentsInChild.GetComponentInParent<Transform>().name;
+                Debug.Log("Destroy: " + entityName);
+                DestroyGameObjectByName(entityName);
             }
         }
     }
+
     public void DestroyGameObjectByName(string name)
     {
         if (name == "MeeleUnit")
-        {
             GameObject.Find("MainCamera").GetComponent<FollowingCamera>().Follow = false;
-        }
-        else
-        {
-            DestroyImmediate(GameObject.Find(name));
-        }
+
+        var entityToDestroy = GameObject.Find(name);
+        DestroyImmediate(entityToDestroy);
+        // TODO: Später wo anders handeln
+        NotifyAllGameEntitiesOfDeath(entityToDestroy.GetComponent<GameEntity>());
+        NotifyAllGameEntitiesOfDestroyed(entityToDestroy);
     }
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void NotifyAllGameEntitiesOfDestroyed(GameObject go)
+    {
+        // TODO
+    }
+
+    public void NotifyAllGameEntitiesOfDeath(GameEntity entity)
+    {
+        // TODO
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

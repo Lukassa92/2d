@@ -57,7 +57,7 @@ public class MovementBehaviour : MonoBehaviour
 
     private float GetSpeedForDirection(States.MoveDirection direction)
     {
-        return _gameEntity.LevelEntity.Speed * (direction == States.MoveDirection.Left ? -1 : 1);
+        return _gameEntity.LevelEntity.BaseMovementSpeed * (direction == States.MoveDirection.Left ? -1 : 1);
     }
 
     private States.MoveDirection GetDirectionTo(Vector3 position)

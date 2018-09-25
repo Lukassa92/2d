@@ -9,5 +9,7 @@
     public virtual void OnOwnerHealed(HealSource source) { }
     public virtual void OnDamagedOther(DamageSource source) { }
     public virtual void OnCollisionWith(GameEntity entity) { }
+    public virtual void OnEntityDied(GameEntity entity) { }
+    public virtual void OnEntityDestroyed(GameEntity entity) { }
     public virtual void OnTick() { }
 }
