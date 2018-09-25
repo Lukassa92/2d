@@ -16,19 +16,34 @@ public abstract class MovementAIBehaviour : BaseAIBehaviour
 
     public override void OnEntityEnteredViewRadius(GameEntity entity)
     {
+        base.OnEntityEnteredViewRadius(entity);
+
         if (!EntitiesInView.Contains(entity))
-        {
             EntitiesInView.Add(entity);
-        }
     }
 
     public override void OnEntityLeftViewRadius(GameEntity entity)
     {
-        MovementBehaviour.DebugLog("Left View Radius");
+        base.OnEntityLeftViewRadius(entity);
+
         if (EntitiesInView.Contains(entity))
-        {
             EntitiesInView.Remove(entity);
-        }
+    }
+
+    public override void OnEntityDied(GameEntity entity)
+    {
+        base.OnEntityDied(entity);
+
+        if (EntitiesInView.Contains(entity))
+            EntitiesInView.Remove(entity);
+    }
+
+    public override void OnEntityDestroyed(GameEntity entity)
+    {
+        base.OnEntityDestroyed(entity);
+
+        if (EntitiesInView.Contains(entity))
+            EntitiesInView.Remove(entity);
     }
 
     public GameEntity GetClosestTarget(IEnumerable<GameEntity> targets)
