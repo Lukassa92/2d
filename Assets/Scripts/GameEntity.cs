@@ -15,8 +15,8 @@ public class GameEntity : MonoBehaviour
 
     [SerializeField] public EntityType EntityType;
     public bool StartRunningOnAwake = true;
-    [Range(0.01f, 0.4f)] public float Visibility = 0.04f;
-    [Range(0.01f, 0.4f)] public float HitRange = 0.02f;
+    [Range(0.0f, 50.0f)] public float Visibility = 0.04f;
+    [Range(0.0f, 50.0f)] public float HitRange = 0.02f;
     private GameEntityDetectionService _gameEntityDetector;
     private AttackDetector _attackDetector;
     private GameObject _scriptObject;

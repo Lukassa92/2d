@@ -25,7 +25,14 @@ public class DestroyService : MonoBehaviour
     }
     public void DestroyGameObjectByName(string name)
     {
-        DestroyImmediate(GameObject.Find(name));
+        if (name == "MeeleUnit")
+        {
+            GameObject.Find("MainCamera").GetComponent<FollowingCamera>().Follow = false;
+        }
+        else
+        {
+            DestroyImmediate(GameObject.Find(name));
+        }
     }
 	// Update is called once per frame
 	void Update () {
