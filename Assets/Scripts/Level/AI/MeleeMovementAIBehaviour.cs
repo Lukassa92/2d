@@ -8,6 +8,7 @@ public class MeleeMovementAIBehaviour : MovementAIBehaviour
     {
         ActionPriority = 80;
     }
+
     private IEnumerable<GameEntity> GetRelevantTargets()
     {
         MovementBehaviour.DebugLog("Number of EntitiesinView: "+EntitiesInView.Count);
