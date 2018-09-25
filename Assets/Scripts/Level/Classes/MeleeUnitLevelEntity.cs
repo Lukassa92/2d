@@ -1,8 +1,14 @@
-﻿public class MeleeUnitLevelEntity : BaseUnitLevelEntity
+﻿using System;
+
+public class MeleeUnitLevelEntity : BaseUnitLevelEntity
 {
-    public MeleeUnitLevelEntity()
+    public MeleeUnitLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage)
+        : base(baseMaxHealth, baseMovementSpeed, attackSpeed, baseDamage)
     {
-        BaseMaxHealth = 100;
-        Health = 100;
+    }
+
+    public MeleeUnitLevelEntity() : base(300, MovementSpeed.Normal, TimeSpan.FromSeconds(1), 5)
+    {
+
     }
 }

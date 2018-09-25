@@ -1,14 +1,31 @@
-﻿public abstract class LevelEntity : InteractableEntity
+﻿using System;
+
+public abstract class LevelEntity : InteractableEntity
 {
     private int _health;
-    private bool _isAlive = true;
     private int _baseMaxHealth;
-    private float _speed = MovementSpeed.Normal;
+    private bool _isAlive = true;
+    private float _baseMovementSpeed = MovementSpeed.Normal;
+    private TimeSpan _attackSpeed = TimeSpan.FromSeconds(1);
+    private int _baseDamage = 5;
 
-    public float Speed
+    protected LevelEntity()
     {
-        get { return _speed; }
-        set { _speed = value; }
+    }
+
+    protected LevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage)
+    {
+        _baseMaxHealth = baseMaxHealth;
+        _health = baseMaxHealth;
+        _baseMovementSpeed = baseMovementSpeed;
+        _attackSpeed = attackSpeed;
+        _baseDamage = baseDamage;
+    }
+
+    public float BaseMovementSpeed
+    {
+        get { return _baseMovementSpeed; }
+        set { _baseMovementSpeed = value; }
     }
 
     public int BaseMaxHealth
@@ -37,6 +54,18 @@
             }
             _health = val;
         }
+    }
+
+    public TimeSpan AttackSpeed
+    {
+        get { return _attackSpeed; }
+        set { _attackSpeed = value; }
+    }
+
+    public int BaseDamage
+    {
+        get { return _baseDamage; }
+        set { _baseDamage = value; }
     }
 
     public int PhysicalResistance { get; set; }
