@@ -4,6 +4,8 @@ public class DestroyService : MonoBehaviour
 {
 
     private GameObject _entities;
+
+    private GameEntity[] _allGameEntities;
     // Use this for initialization
     void Start()
     {
@@ -30,10 +32,11 @@ public class DestroyService : MonoBehaviour
             GameObject.Find("MainCamera").GetComponent<FollowingCamera>().Follow = false;
 
         var entityToDestroy = GameObject.Find(name);
-        DestroyImmediate(entityToDestroy);
         // TODO: Später wo anders handeln
         NotifyAllGameEntitiesOfDeath(entityToDestroy.GetComponent<GameEntity>());
         NotifyAllGameEntitiesOfDestroyed(entityToDestroy);
+
+        DestroyImmediate(entityToDestroy);
     }
 
     public void NotifyAllGameEntitiesOfDestroyed(GameObject go)

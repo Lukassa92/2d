@@ -92,6 +92,7 @@ public abstract class LevelEntity : InteractableEntity
             return;
         }
         var healthAfterDamage = Health - damageSource.Damage;
+        //Hier reduziere ich die Healthbar_
         if (healthAfterDamage > 0 || !Kill(damageSource))
         {
             Health -= damageSource.Damage;
