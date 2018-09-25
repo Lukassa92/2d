@@ -97,6 +97,16 @@ public abstract class BaseAI : AIEventReceiver
         Behaviours.ForEach(b => b.OnCollisionWith(entity));
     }
 
+    public override void OnEntityDied(GameEntity entity)
+    {
+        Behaviours.ForEach(b => b.OnEntityDied(entity));
+    }
+
+    public override void OnEntityDestroyed(GameEntity entity)
+    {
+        Behaviours.ForEach(b => b.OnEntityDestroyed(entity));
+    }
+
     public override void OnTick()
     {
         Behaviours.ForEach(b => b.OnTick());
