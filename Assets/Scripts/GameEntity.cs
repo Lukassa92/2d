@@ -9,14 +9,14 @@ public class GameEntity : MonoBehaviour
     public string AIName = "MeleeUnitAI";
     public string LevelEntityName = "MeleeUnitLevelEntity";
 
-    [SerializeField] public int Health = 100;
+    [SerializeField] public int Health;
     [SerializeField] public bool IsAlive = true;
     [SerializeField] public EntityType EntityType;
 
-    public int MaxHealth = 100;
-    public float MovementSpeed = global::MovementSpeed.Normal;
-    public TimeSpan AttackSpeed = TimeSpan.FromSeconds(1);
-    public int BaseDamage = 5;
+    [SerializeField] public int MaxHealth = 100;
+    [SerializeField] public float MovementSpeed = global::MovementSpeed.Normal;
+    [SerializeField] public double AttackSpeed = 1.0;
+    [SerializeField] public int BaseDamage = 5;
 
     public bool StartRunningOnAwake = true;
     [Range(0.0f, 50.0f)] public float Visibility = 0.04f;
@@ -37,7 +37,8 @@ public class GameEntity : MonoBehaviour
         _gameEntityDetector.SetVisibility(Visibility);
         _attackDetector.SetHitRange(HitRange);
 
-        LevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, AttackSpeed, BaseDamage });
+        Health = MaxHealth;
+        LevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage });
         AI = AIFactory.CreateAI(AIName, this);
 
         if (StartRunningOnAwake)

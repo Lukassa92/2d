@@ -846,6 +846,10 @@ MonoBehaviour:
   Health: 100
   IsAlive: 1
   EntityType: 0
+  MaxHealth: 100
+  MovementSpeed: 150
+  AttackSpeed: 0
+  BaseDamage: 5
   StartRunningOnAwake: 1
   Visibility: 0.04
   HitRange: 0.02
@@ -3474,6 +3478,10 @@ MonoBehaviour:
   Health: 100
   IsAlive: 1
   EntityType: 0
+  MaxHealth: 100
+  MovementSpeed: 150
+  AttackSpeed: 1
+  BaseDamage: 5
   StartRunningOnAwake: 1
   Visibility: 0.04
   HitRange: 0.02
@@ -3884,6 +3892,10 @@ MonoBehaviour:
   Health: 100
   IsAlive: 1
   EntityType: 0
+  MaxHealth: 100
+  MovementSpeed: 150
+  AttackSpeed: 1
+  BaseDamage: 5
   StartRunningOnAwake: 1
   Visibility: 0.04
   HitRange: 0.02
@@ -4571,6 +4583,21 @@ Prefab:
       propertyPath: m_GravityScale
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114380573420688740, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: MaxHealth
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380573420688740, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: BaseDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114380573420688740, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: AttackSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 61001250291302508, guid: 2d662b56a7896fd43b33f65aa640c313, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 2d662b56a7896fd43b33f65aa640c313, type: 2}
@@ -4664,6 +4691,10 @@ MonoBehaviour:
   Health: 100
   IsAlive: 1
   EntityType: 0
+  MaxHealth: 100
+  MovementSpeed: 225
+  AttackSpeed: 1
+  BaseDamage: 5
   StartRunningOnAwake: 0
   Visibility: 0.04
   HitRange: 0.02
@@ -5514,6 +5545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8cb56b61d9e0c41900d13a8b1280ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Follow: 1
 --- !u!1 &2045730308
 GameObject:
   m_ObjectHideFlags: 0
