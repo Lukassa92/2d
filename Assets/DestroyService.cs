@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MoreLinq;
+using UnityEngine;
 
 public class DestroyService : MonoBehaviour
 {
@@ -29,21 +32,28 @@ public class DestroyService : MonoBehaviour
         if (name == "MeeleUnit")
             GameObject.Find("MainCamera").GetComponent<FollowingCamera>().Follow = false;
 
-        var entityToDestroy = GameObject.Find(name);
-        DestroyImmediate(entityToDestroy);
+        var gameObjectToDestroy = GameObject.Find(name);
+        var gameEntityToDestroy = gameObjectToDestroy.GetComponent<GameEntity>();
         // TODO: Später wo anders handeln
-        NotifyAllGameEntitiesOfDeath(entityToDestroy.GetComponent<GameEntity>());
-        NotifyAllGameEntitiesOfDestroyed(entityToDestroy);
+        NotifyAllGameEntitiesOfDeath(gameEntityToDestroy);
+        NotifyAllGameEntitiesOfDestroyed(gameEntityToDestroy);
+        DestroyImmediate(gameObjectToDestroy);
     }
 
-    public void NotifyAllGameEntitiesOfDestroyed(GameObject go)
+    private List<GameEntity> GetAllEntitiesInScene()
     {
-        // TODO
+        var entityGroup = GameObject.Find("Entities");
+        return entityGroup.GetComponentsInChildren<GameEntity>().ToList();
+    }
+
+    public void NotifyAllGameEntitiesOfDestroyed(GameEntity entity)
+    {
+        GetAllEntitiesInScene().Where(e => e != entity).ForEach(e => e.AI.OnEntityDestroyed(e));
     }
 
     public void NotifyAllGameEntitiesOfDeath(GameEntity entity)
     {
-        // TODO
+        GetAllEntitiesInScene().Where(e => e != entity).ForEach(e => e.AI.OnEntityDied(e));
     }
 
     // Update is called once per frame
