@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AttackBehaviour : MonoBehaviour
 {
     private GameEntity _gameEntity;
-
+    private GameObject _parent;
     private bool _canAttack = false;
 
     public GameEntity Target { get; set; }
@@ -15,8 +15,15 @@ public class AttackBehaviour : MonoBehaviour
     void Start()
     {
         _gameEntity = GetComponent<GameEntity>();
+        _parent = GameObject.Find(transform.name);
     }
 
+    public void AttackBehaviourConstructor(float radius)
+    {
+        var collider = _parent.AddComponent<CircleCollider2D>();
+        collider.radius = radius;
+
+    }
     void OnTriggerEnter2D(Collider2D coll)
     {
 //        if (_canAttack && coll.GetComponentInParent<GameEntity>().transform.name == Target.transform.name)
