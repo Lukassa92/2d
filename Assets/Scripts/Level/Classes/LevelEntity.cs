@@ -3,11 +3,12 @@
 public abstract class LevelEntity : InteractableEntity
 {
     private int _health;
-    private int _baseMaxHealth;
+    private int _baseMaxHealth = 1;
     private bool _isAlive = true;
     private float _baseMovementSpeed = MovementSpeed.Normal;
     private TimeSpan _attackSpeed = TimeSpan.FromSeconds(1);
     private int _baseDamage = 5;
+    private GameEntity _gameEntity;
 
     protected LevelEntity()
     {
@@ -56,6 +57,17 @@ public abstract class LevelEntity : InteractableEntity
         }
     }
 
+    public double HealthPercentage
+    {
+        get
+        {
+            if (!IsAlive || Health == 0)
+                return 0;
+
+            return Health / BaseMaxHealth;
+        }
+    }
+
     public TimeSpan AttackSpeed
     {
         get { return _attackSpeed; }
@@ -84,6 +96,11 @@ public abstract class LevelEntity : InteractableEntity
     public bool IsVisible { get; set; }
 
     public abstract EntityType Entity { get; }
+
+    public GameEntity GameEntity
+    {
+        get { return _gameEntity; }
+    }
 
     public void DoDamage(DamageSource damageSource)
     {
