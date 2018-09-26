@@ -843,12 +843,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
   LevelEntityName: MeleeUnitLevelEntity
-  Health: 100
+  Health: 0
   IsAlive: 1
   EntityType: 0
   MaxHealth: 100
   MovementSpeed: 150
-  AttackSpeed: 0
+  AttackSpeed: 1
   BaseDamage: 5
   StartRunningOnAwake: 1
   Visibility: 0.04
@@ -2058,7 +2058,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 648746044}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 
@@ -2513,7 +2513,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 764188057}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 
@@ -3596,7 +3596,6 @@ GameObject:
   - component: {fileID: 1135562616}
   - component: {fileID: 1135562621}
   - component: {fileID: 1135562622}
-  - component: {fileID: 1135562623}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -3639,7 +3638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
   LevelEntityName: MeleeEnemyLevelEntity
-  Health: 100
+  Health: 0
   IsAlive: 1
   EntityType: 0
   MaxHealth: 100
@@ -3752,17 +3751,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4545f26feb18d54087b6558e2dc45dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1135562623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1135562614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cda8d6dac8ff3a498ac73ba51d39a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1153213609
@@ -4065,7 +4053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
   LevelEntityName: MeleeUnitLevelEntity
-  Health: 100
+  Health: 0
   IsAlive: 1
   EntityType: 0
   MaxHealth: 100
@@ -4808,17 +4796,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20.48, y: 20.48}
   m_EdgeRadius: 0
---- !u!114 &1429313326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1429313324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cda8d6dac8ff3a498ac73ba51d39a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1490709648
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,7 +4811,6 @@ GameObject:
   - component: {fileID: 1490709650}
   - component: {fileID: 1490709655}
   - component: {fileID: 1490709656}
-  - component: {fileID: 1490709657}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -4877,7 +4853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
   LevelEntityName: MeleeEnemyLevelEntity
-  Health: 100
+  Health: 0
   IsAlive: 1
   EntityType: 0
   MaxHealth: 100
@@ -4990,17 +4966,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4545f26feb18d54087b6558e2dc45dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1490709657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1490709648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cda8d6dac8ff3a498ac73ba51d39a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1520201492
@@ -5252,7 +5217,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1593228401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 
@@ -5779,7 +5744,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1933441206}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 

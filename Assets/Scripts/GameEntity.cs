@@ -40,7 +40,7 @@ public class GameEntity : MonoBehaviour
         Health = MaxHealth;
         LevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage });
         AI = AIFactory.CreateAI(AIName, this);
-
+        GetComponentInChildren<Healthbar>().enabled = true;
         if (StartRunningOnAwake)
         {
             //            _movementBehaviour.Run(_state, GetComponent<Rigidbody2D>());
