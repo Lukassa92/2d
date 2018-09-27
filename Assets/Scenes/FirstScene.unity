@@ -2180,6 +2180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae13960937cc964c8cc638335d5d2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameEntity: {fileID: 0}
 --- !u!1 &682775797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,8 +2413,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1195072970}
   - {fileID: 1324745427}
+  - {fileID: 1195072970}
   - {fileID: 1490709649}
   - {fileID: 1135562615}
   m_Father: {fileID: 1095318859}
@@ -3144,6 +3145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae13960937cc964c8cc638335d5d2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameEntity: {fileID: 0}
 --- !u!58 &960059911
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3907,7 +3909,7 @@ RectTransform:
   - {fileID: 55648803}
   - {fileID: 764188058}
   m_Father: {fileID: 750914981}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.4702928, y: -1.5509174}
   m_AnchorMax: {x: 0.30925885, y: -0.7815803}
@@ -4506,17 +4508,17 @@ Prefab:
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
@@ -4557,6 +4559,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 50083638341708570, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: m_Mass
+      value: 7251.3916
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d662b56a7896fd43b33f65aa640c313, type: 2}
@@ -5195,6 +5202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae13960937cc964c8cc638335d5d2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameEntity: {fileID: 0}
 --- !u!1 &1795212357
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,10 @@
 ﻿using System;
 
-public class BaseUnitLevelEntity : LevelEntity
+public class BaseUnitLevelEntity : BaseLevelEntity
 {
 
-    public BaseUnitLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage) 
-        : base(baseMaxHealth, baseMovementSpeed, attackSpeed, baseDamage)
+    public BaseUnitLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage, GameEntity gameEntity) 
+        : base(baseMaxHealth, baseMovementSpeed, attackSpeed, baseDamage, gameEntity)
     {
     }
 

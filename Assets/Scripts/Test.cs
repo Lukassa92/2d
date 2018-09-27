@@ -9,9 +9,11 @@ public class Test : MonoBehaviour
     {
         var testObject = new GameObject("TEstiBLABLA");
         var AttackBehav = testObject.AddComponent<AttackBehaviour>();
-        //AttackBehav.AttackBehaviourConstructor(1.0f);
-        
-        testObject.transform.SetParent(transform);
+        AttackBehav.AttackBehaviourConstruct(40.0f, transform);
+
+
+
+        //testObject.transform.SetParent(transform);
 //        var databaseService = GameObject.Find("ScriptObject").GetComponent<DatabaseService>();
 //        databaseService.Initialize();
 //        var repo = databaseService.GetRepository<Player>();

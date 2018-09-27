@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameEntity : MonoBehaviour
 {
     public BaseAI AI;
-    public LevelEntity LevelEntity;
+    public BaseLevelEntity BaseLevelEntity;
     public string AIName = "MeleeUnitAI";
     public string LevelEntityName = "MeleeUnitLevelEntity";
 
@@ -38,7 +38,7 @@ public class GameEntity : MonoBehaviour
         _attackDetector.SetHitRange(HitRange);
 
         Health = MaxHealth;
-        LevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage });
+        BaseLevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage });
         AI = AIFactory.CreateAI(AIName, this);
         GetComponentInChildren<Healthbar>().enabled = true;
         if (StartRunningOnAwake)
@@ -56,9 +56,9 @@ public class GameEntity : MonoBehaviour
 
     public void Update()
     {
-        Health = LevelEntity.Health;
-        IsAlive = LevelEntity.IsAlive;
-        //        if (!LevelEntity.IsAlive)
+        Health = BaseLevelEntity.Health;
+        IsAlive = BaseLevelEntity.IsAlive;
+        //        if (!BaseLevelEntity.IsAlive)
         //        {
         //            _scriptObject.GetComponentInParent<DestroyService>().DestroyGameObjectByName(transform.name);
         ////            GameObject.Find(transform.name);

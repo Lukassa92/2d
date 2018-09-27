@@ -3,15 +3,15 @@ using System.Linq;
 
 public class LevelEntityFactory
 {
-    public static LevelEntity CreateLevelEntity(string name, object[] args = null)
+    public static BaseLevelEntity CreateLevelEntity(string name, object[] args = null)
     {
-        var type = typeof(LevelEntity).Assembly
-            .GetTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(LevelEntity)) && !t.IsAbstract && t.Name == name);
+        var type = typeof(BaseLevelEntity).Assembly
+            .GetTypes().FirstOrDefault(t => t.IsSubclassOf(typeof(BaseLevelEntity)) && !t.IsAbstract && t.Name == name);
         if (type == null)
             throw new InvalidOperationException("No level entity class found with the name " + name);
         if (args != null)
-            return (LevelEntity) Activator.CreateInstance(type, args);
+            return (BaseLevelEntity) Activator.CreateInstance(type, args);
 
-        return (LevelEntity)Activator.CreateInstance(type);
+        return (BaseLevelEntity)Activator.CreateInstance(type);
     }
 }

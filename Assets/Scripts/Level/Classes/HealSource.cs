@@ -1,6 +1,6 @@
 ﻿public class HealSource
 {
-    public LevelEntity Source { get; set; }
-    public LevelEntity Target { get; set; }
+    public BaseLevelEntity Source { get; set; }
+    public BaseLevelEntity Target { get; set; }
     public int Amount { get; set; }
 }

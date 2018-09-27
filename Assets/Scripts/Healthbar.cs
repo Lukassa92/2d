@@ -10,11 +10,11 @@ public class Healthbar : MonoBehaviour
     private float _maxHealth;
     private float _actualHealth;
     private float _maxHealthbarLength = 0.25f;
-    private LevelEntity _levelEntity;
+    private BaseLevelEntity _baseLevelEntity;
 	void Start ()
     { 
-        _levelEntity = GetComponentInParent<GameEntity>().LevelEntity;
-	    _maxHealth = _levelEntity.BaseMaxHealth;
+        _baseLevelEntity = GetComponentInParent<GameEntity>().BaseLevelEntity;
+	    _maxHealth = _baseLevelEntity.BaseMaxHealth;
         _actualHealth = _maxHealth;
 	    _healthBarImage = GetComponent<Image>();
         InvokeRepeating("CheckHealthAndReact", 1.0f, 1.0f);
@@ -24,7 +24,7 @@ public class Healthbar : MonoBehaviour
     private void CheckHealthAndReact()
     {
         //Das irgendwie noch anders lösen
-        var newHealth = _levelEntity.Health;
+        var newHealth = _baseLevelEntity.Health;
         if (newHealth < _actualHealth)
         {
             ReduceHealthByPercent(GetHealthDifferenceInPercent(newHealth));
