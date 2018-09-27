@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameEntityDetectionService : MonoBehaviour
+public class ViewRangeDetector : MonoBehaviour
 {
 
     private GameEntity _gameEntity;

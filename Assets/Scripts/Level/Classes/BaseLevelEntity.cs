@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 public abstract partial class BaseLevelEntity : InteractableEntity
 {
@@ -8,14 +9,15 @@ public abstract partial class BaseLevelEntity : InteractableEntity
     private float _baseMovementSpeed = MovementSpeed.Normal;
     private TimeSpan _attackSpeed = TimeSpan.FromSeconds(1);
     private int _baseDamage = 5;
-    private GameEntity _gameEntity;
+    private readonly GameEntity _gameEntity;
 
 
     protected BaseLevelEntity()
     {
     }
-    protected BaseLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage)
+    protected BaseLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage, GameEntity gameEntity)
     {
+        _gameEntity = gameEntity;
         _baseMaxHealth = baseMaxHealth;
         _health = baseMaxHealth;
         _baseMovementSpeed = baseMovementSpeed;
@@ -57,7 +59,7 @@ public abstract partial class BaseLevelEntity : InteractableEntity
         }
     }
 
-    public double HealthPercentage
+    public float HealthPercentage
     {
         get
         {
@@ -104,7 +106,9 @@ public abstract partial class BaseLevelEntity : InteractableEntity
             return;
         }
         var healthAfterDamage = Health - damageSource.Damage;
-        //Hier reduziere ich die Healthbar_
+
+        if (_gameEntity != null) _gameEntity.HealthBar.DecreaseHealthByPercent(HealthPercentage);
+
         if (healthAfterDamage > 0 || !Kill(damageSource))
         {
             Health -= damageSource.Damage;
