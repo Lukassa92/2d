@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameEntity : MonoBehaviour
 {
     public BaseAI AI;
-    public LevelEntity LevelEntity;
+    public BaseLevelEntity BaseLevelEntity;
     public string AIName = "MeleeUnitAI";
     public string LevelEntityName = "MeleeUnitLevelEntity";
 
@@ -21,8 +21,9 @@ public class GameEntity : MonoBehaviour
     public bool StartRunningOnAwake = true;
     [Range(0.0f, 50.0f)] public float Visibility = 0.04f;
     [Range(0.0f, 50.0f)] public float HitRange = 0.02f;
-    private GameEntityDetectionService _gameEntityDetector;
+    private ViewRangeDetector _gameEntityDetector;
     private AttackDetector _attackDetector;
+    public Healthbar HealthBar;
     private GameObject _scriptObject;
     public Vector3 Position = new Vector3(0, 0, 0);
 
@@ -31,14 +32,14 @@ public class GameEntity : MonoBehaviour
     {
         Position = transform.position;
         EntityType = (EntityType)Enum.Parse(typeof(EntityType), transform.tag);
-        _gameEntityDetector = GetComponentInChildren<GameEntityDetectionService>();
+        _gameEntityDetector = GetComponentInChildren<ViewRangeDetector>();
         _attackDetector = GetComponentInChildren<AttackDetector>();
         _scriptObject = GameObject.Find("ScriptObject");
         _gameEntityDetector.SetVisibility(Visibility);
         _attackDetector.SetHitRange(HitRange);
-
+        HealthBar = GetComponentInChildren<Healthbar>();
         Health = MaxHealth;
-        LevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage });
+        BaseLevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage, this });
         AI = AIFactory.CreateAI(AIName, this);
         GetComponentInChildren<Healthbar>().enabled = true;
         if (StartRunningOnAwake)
@@ -56,9 +57,9 @@ public class GameEntity : MonoBehaviour
 
     public void Update()
     {
-        Health = LevelEntity.Health;
-        IsAlive = LevelEntity.IsAlive;
-        //        if (!LevelEntity.IsAlive)
+        Health = BaseLevelEntity.Health;
+        IsAlive = BaseLevelEntity.IsAlive;
+        //        if (!BaseLevelEntity.IsAlive)
         //        {
         //            _scriptObject.GetComponentInParent<DestroyService>().DestroyGameObjectByName(transform.name);
         ////            GameObject.Find(transform.name);

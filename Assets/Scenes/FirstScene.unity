@@ -853,6 +853,7 @@ MonoBehaviour:
   StartRunningOnAwake: 1
   Visibility: 0.04
   HitRange: 0.02
+  HealthBar: {fileID: 0}
   Position: {x: 0, y: 0, z: 0}
 --- !u!61 &246905465
 BoxCollider2D:
@@ -2011,7 +2012,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 648746044}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 
@@ -2412,8 +2413,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1195072970}
   - {fileID: 1324745427}
+  - {fileID: 1195072970}
   - {fileID: 1490709649}
   - {fileID: 1135562615}
   m_Father: {fileID: 1095318859}
@@ -2466,7 +2467,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 764188057}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 
@@ -3601,6 +3602,7 @@ MonoBehaviour:
   StartRunningOnAwake: 1
   Visibility: 0.04
   HitRange: 0.02
+  HealthBar: {fileID: 0}
   Position: {x: 0, y: 0, z: 0}
 --- !u!50 &1135562617
 Rigidbody2D:
@@ -3907,7 +3909,7 @@ RectTransform:
   - {fileID: 55648803}
   - {fileID: 764188058}
   m_Father: {fileID: 750914981}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.4702928, y: -1.5509174}
   m_AnchorMax: {x: 0.30925885, y: -0.7815803}
@@ -4005,7 +4007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AIName: MeleeUnitAI
-  LevelEntityName: MeleeUnitLevelEntity
+  LevelEntityName: MeleeEnemyLevelEntity
   Health: 0
   IsAlive: 1
   EntityType: 0
@@ -4016,6 +4018,7 @@ MonoBehaviour:
   StartRunningOnAwake: 1
   Visibility: 0.04
   HitRange: 0.02
+  HealthBar: {fileID: 0}
   Position: {x: 0, y: 0, z: 0}
 --- !u!114 &1195072976
 MonoBehaviour:
@@ -4506,17 +4509,17 @@ Prefab:
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 224903186587833684, guid: 2d662b56a7896fd43b33f65aa640c313,
         type: 2}
@@ -4557,6 +4560,16 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 50083638341708570, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: m_Mass
+      value: 7251.3916
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082755470081716, guid: 2d662b56a7896fd43b33f65aa640c313,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d662b56a7896fd43b33f65aa640c313, type: 2}
@@ -4644,6 +4657,7 @@ MonoBehaviour:
   StartRunningOnAwake: 0
   Visibility: 0.04
   HitRange: 0.02
+  HealthBar: {fileID: 0}
   Position: {x: 0, y: 0, z: 0}
 --- !u!50 &1490709651
 Rigidbody2D:
@@ -5444,7 +5458,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1933441206}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b80540388e70f94eb7f5405001617b0, type: 3}
   m_Name: 

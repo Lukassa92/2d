@@ -8,10 +8,12 @@ public class Test : MonoBehaviour
     void Start()
     {
         var testObject = new GameObject("TEstiBLABLA");
-        testObject.AddComponent<AttackBehaviour>();
-        CircleCollider2D testCircleCollider2D = testObject.AddComponent<CircleCollider2D>();
-        testCircleCollider2D.radius = 1.0f;
-        testObject.transform.SetParent(transform);
+        var AttackBehav = testObject.AddComponent<AttackBehaviour>();
+        AttackBehav.AttackBehaviourConstruct(40.0f, transform);
+
+
+
+        //testObject.transform.SetParent(transform);
 //        var databaseService = GameObject.Find("ScriptObject").GetComponent<DatabaseService>();
 //        databaseService.Initialize();
 //        var repo = databaseService.GetRepository<Player>();
