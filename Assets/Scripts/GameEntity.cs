@@ -1,6 +1,9 @@
-﻿using JetBrains.Annotations;
+﻿using Core;
+using Level.Classes;
 using System;
+using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameEntity : MonoBehaviour
 {
@@ -14,55 +17,37 @@ public class GameEntity : MonoBehaviour
     [SerializeField] public EntityType EntityType;
 
     [SerializeField] public int MaxHealth = 100;
-    [SerializeField] public float MovementSpeed = global::MovementSpeed.Normal;
+    [FormerlySerializedAs("MovementSpeed")] [SerializeField] public float BaseMovementSpeed = MovementSpeed.Normal;
     [SerializeField] public double AttackSpeed = 1.0;
     [SerializeField] public int BaseDamage = 5;
-
-    public bool StartRunningOnAwake = true;
     [Range(0.0f, 50.0f)] public float Visibility = 0.04f;
     [Range(0.0f, 50.0f)] public float HitRange = 0.02f;
+
     private ViewRangeDetector _gameEntityDetector;
     private AttackDetector _attackDetector;
-    public Healthbar HealthBar;
-    private GameObject _scriptObject;
     public Vector3 Position = new Vector3(0, 0, 0);
+
+    public GameActionStore Store { get; set; }
 
     // Use this for initialization
     void Start()
     {
+        Store = new GameActionStore();
+
         Position = transform.position;
         EntityType = (EntityType)Enum.Parse(typeof(EntityType), transform.tag);
         _gameEntityDetector = GetComponentInChildren<ViewRangeDetector>();
         _attackDetector = GetComponentInChildren<AttackDetector>();
-        _scriptObject = GameObject.Find("ScriptObject");
         _gameEntityDetector.SetVisibility(Visibility);
         _attackDetector.SetHitRange(HitRange);
-        HealthBar = GetComponentInChildren<Healthbar>();
         Health = MaxHealth;
-        BaseLevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, MovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage, this });
+        BaseLevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, BaseMovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage, this });
         AI = AIFactory.CreateAI(AIName, this);
-        GetComponentInChildren<Healthbar>().enabled = true;
-        if (StartRunningOnAwake)
-        {
-            //            _movementBehaviour.Run(_state, GetComponent<Rigidbody2D>());
-        }
-
-    }
-
-    [UsedImplicitly]
-    void FixedUpdate()
-    {
-        AI.OnTick();
     }
 
     public void Update()
     {
         Health = BaseLevelEntity.Health;
         IsAlive = BaseLevelEntity.IsAlive;
-        //        if (!BaseLevelEntity.IsAlive)
-        //        {
-        //            _scriptObject.GetComponentInParent<DestroyService>().DestroyGameObjectByName(transform.name);
-        ////            GameObject.Find(transform.name);
-        //        }
     }
 }

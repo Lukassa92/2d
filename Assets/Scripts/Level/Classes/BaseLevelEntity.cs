@@ -1,5 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Level.Classes;
+using System;
 
 public abstract partial class BaseLevelEntity : InteractableEntity
 {
@@ -11,10 +11,10 @@ public abstract partial class BaseLevelEntity : InteractableEntity
     private int _baseDamage = 5;
     private readonly GameEntity _gameEntity;
 
-
     protected BaseLevelEntity()
     {
     }
+
     protected BaseLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage, GameEntity gameEntity)
     {
         _gameEntity = gameEntity;
@@ -107,7 +107,8 @@ public abstract partial class BaseLevelEntity : InteractableEntity
         }
         var healthAfterDamage = Health - damageSource.Damage;
 
-        if (_gameEntity != null) _gameEntity.HealthBar.DecreaseHealthByPercent(HealthPercentage);
+        var action = new HealthChangedAction(Health, healthAfterDamage, _baseMaxHealth);
+        _gameEntity.Store.Dispatch(action);
 
         if (healthAfterDamage > 0 || !Kill(damageSource))
         {

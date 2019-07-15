@@ -7,7 +7,7 @@ public class MeleeUnitLevelEntity : BaseUnitLevelEntity
     {
     }
 
-    //public MeleeUnitLevelEntity() : base(300, MovementSpeed.Normal, TimeSpan.FromSeconds(1), 5)
+    //public MeleeUnitLevelEntity() : base(300, BaseMovementSpeed.Normal, TimeSpan.FromSeconds(1), 5)
     //{
 
     //}

@@ -1,6 +1,7 @@
 ﻿using MoreLinq;
 using System;
 using System.Collections.Generic;
+using UniRx;
 
 public abstract class BaseAI : AIEventReceiver
 {
@@ -10,6 +11,7 @@ public abstract class BaseAI : AIEventReceiver
 
     private BaseAIBehaviour _lastExecutedBehaviour;
     private DateTime _nextExecutionDate = DateTime.Now;
+    private IDisposable _tickIntervalTimer;
 
     protected BaseAI(GameEntity owner)
     {
@@ -17,6 +19,7 @@ public abstract class BaseAI : AIEventReceiver
         MovementBehaviour = owner.GetComponent<MovementBehaviour>();
         // ReSharper disable once VirtualMemberCallInConstructor
         Behaviours = GetBehaviours();
+        _tickIntervalTimer = Observable.Interval(TimeSpan.FromSeconds(0.1)).Subscribe(x => OnTick());
     }
     protected abstract List<BaseAIBehaviour> GetBehaviours();
 
@@ -36,11 +39,6 @@ public abstract class BaseAI : AIEventReceiver
     private void ExecuteNextBehaviour()
     {
         var behaviour = GetBehaviourWithHighestPriority();
-        ExecuteBehaviour(behaviour);
-    }
-
-    private void ExecuteBehaviour(BaseAIBehaviour behaviour)
-    {
         MovementBehaviour.DebugLog("Executing behaviour " + behaviour.GetType().Name);
         if (behaviour != _lastExecutedBehaviour)
         {

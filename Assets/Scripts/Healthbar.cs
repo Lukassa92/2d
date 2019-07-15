@@ -1,6 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using Core;
+using Level.Classes;
+using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,40 +9,30 @@ public class Healthbar : MonoBehaviour
 {
     private Image _healthBarImage;
     private float _maxHealthBarLength;
-	void Start ()
-    { 
-	    _healthBarImage = GetComponent<Image>();
-	    _maxHealthBarLength = _healthBarImage.transform.localScale.x;
-	}
+    private GameEntity _gameEntity;
+    private IDisposable _subscription;
 
-    public void DecreaseHealthByPercent(float percent)
+    void Start()
     {
-        Debug.Log("bekomme von der LevelEntity: "+percent);
-        var healthBarFactor = GetHealthBarFactorInPercent(percent);
-        Debug.Log("healtbar factor: "+healthBarFactor);
+        _healthBarImage = GetComponent<Image>();
+        _gameEntity = GetComponentInParent<GameEntity>();
+        _subscription = _gameEntity.Store.Observable.OfActionType<HealthChangedAction>().Subscribe(HealthChanged);
+        _maxHealthBarLength = _healthBarImage.transform.localScale.x;
+    }
+
+    private void OnDestroy()
+    {
+        _subscription.Dispose();
+    }
+
+    private void HealthChanged(HealthChangedAction action)
+    {
+        var percent = (action.NewHealth * 1.0f) / action.MaxHealth;
         _healthBarImage.transform.localScale = new Vector3
         {
-            x = _healthBarImage.transform.localScale.x - healthBarFactor,
             y = _healthBarImage.transform.localScale.y,
-            z = _healthBarImage.transform.localScale.z
+            z = _healthBarImage.transform.localScale.z,
+            x = _maxHealthBarLength * percent
         };
     }
-
-    private float GetHealthBarFactorInPercent(float percent)
-    {
-        Debug.Log("bekomme hier: "+percent+" und maxBar is: "+_maxHealthBarLength);
-        return _maxHealthBarLength / (percent * 100);
-    }
-
-    public void IncreaseHealthByPercent(float percent)
-    {
-        _healthBarImage.transform.localScale = new Vector3
-        {
-            x = _healthBarImage.transform.localScale.x + (percent *  10),
-            y = _healthBarImage.transform.localScale.y,
-            z = _healthBarImage.transform.localScale.z
-        };
-    }
-
-
 }
