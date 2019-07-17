@@ -5,10 +5,7 @@ public class DamageService
     private static DamageService _damageService;
     public static DamageService GetService()
     {
-        if (_damageService == null)
-            _damageService = new DamageService();
-
-        return _damageService;
+        return _damageService ?? (_damageService = new DamageService());
     }
 
     private int RandomInt(int min, int max)

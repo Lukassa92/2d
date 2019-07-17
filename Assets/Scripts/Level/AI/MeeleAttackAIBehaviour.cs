@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Level.Classes;
+using System;
 
 public class MeeleAttackAI : MovementAIBehaviour
 {
@@ -45,8 +46,13 @@ public class MeeleAttackAI : MovementAIBehaviour
 
     internal override TimeSpan Execute()
     {
-        MovementBehaviour.StopMovement();
-        MovementBehaviour.LookAt(_attackTarget.Position);
-        return AttackBehaviour.Attack(_attackTarget);
+        if (_attackTarget == null)
+        {
+            return TimeSpan.MinValue;
+        }
+
+        Owner.Store.Dispatch(new MeleeAttackTargetAction(_attackTarget));
+
+        return TimeSpan.FromSeconds(0.5);
     }
 }

@@ -39,7 +39,6 @@ public abstract class BaseAI : AIEventReceiver
     private void ExecuteNextBehaviour()
     {
         var behaviour = GetBehaviourWithHighestPriority();
-        MovementBehaviour.DebugLog("Executing behaviour " + behaviour.GetType().Name);
         if (behaviour != _lastExecutedBehaviour)
         {
             if (_lastExecutedBehaviour != null)

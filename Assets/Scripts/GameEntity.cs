@@ -1,7 +1,6 @@
 ﻿using Core;
 using Level.Classes;
 using System;
-using UniRx;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,14 +25,15 @@ public class GameEntity : MonoBehaviour
     private ViewRangeDetector _gameEntityDetector;
     private AttackDetector _attackDetector;
     public Vector3 Position = new Vector3(0, 0, 0);
+    private GameActionStore _store;
 
-    public GameActionStore Store { get; set; }
+    public GameActionStore Store
+    {
+        get { return _store = _store ?? new GameActionStore(); }
+    }
 
-    // Use this for initialization
     void Start()
     {
-        Store = new GameActionStore();
-
         Position = transform.position;
         EntityType = (EntityType)Enum.Parse(typeof(EntityType), transform.tag);
         _gameEntityDetector = GetComponentInChildren<ViewRangeDetector>();

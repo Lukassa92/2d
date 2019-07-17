@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Level.Services
+namespace Level.Services
 {
     public class MeleeAttackService
     {

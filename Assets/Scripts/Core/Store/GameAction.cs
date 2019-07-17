@@ -8,7 +8,7 @@ namespace Core
 
     public class GameAction<T> : GameAction where T : struct, IConvertible
     {
-        public T Type { get; private set; }
+        public readonly T Type;
 
         public GameAction(T type)
         {
