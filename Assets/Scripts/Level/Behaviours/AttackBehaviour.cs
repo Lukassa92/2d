@@ -51,6 +51,7 @@ public class AttackBehaviour : MonoBehaviour
     {
         damageSource.Target.GameEntity.Store.Dispatch(new DamagedByAction(damageSource));
         damageSource.Source.GameEntity.Store.Dispatch(new DamageDealtToAction(damageSource));
+        Debug.Log("Damage dealt: " + damageSource.Damage);
     }
 
     public void AttackEntity(MeleeAttackTargetAction action)
