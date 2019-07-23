@@ -16,9 +16,9 @@ namespace Level.Classes
 
     public class HealthChangedAction : GameAction<GameEntityActionTypes>
     {
-        public int OldHealth { get; private set; }
-        public int NewHealth { get; private set; }
-        public int MaxHealth { get; private set; }
+        public int OldHealth { get; }
+        public int NewHealth { get; }
+        public int MaxHealth { get; }
 
         public HealthChangedAction(int oldHealth, int newHealth, int maxHealth) : base(GameEntityActionTypes.HealthChanged)
         {
@@ -30,7 +30,7 @@ namespace Level.Classes
 
     public class MoveToLocationAction : GameAction<GameEntityActionTypes>
     {
-        public Vector3 TargetPosition { get; private set; }
+        public Vector3 TargetPosition { get; }
 
         public MoveToLocationAction(Vector3 targetPosition) : base(GameEntityActionTypes.MoveToDirection)
         {
@@ -47,7 +47,7 @@ namespace Level.Classes
 
     public class LookAtAction : GameAction<GameEntityActionTypes>
     {
-        public Vector3 TargetPosition { get; private set; }
+        public Vector3 TargetPosition { get; }
 
         public LookAtAction(Vector3 targetPosition) : base(GameEntityActionTypes.LookAt)
         {
@@ -57,7 +57,7 @@ namespace Level.Classes
 
     public class MeleeAttackTargetAction : GameAction<GameEntityActionTypes>
     {
-        public GameEntity AttackTarget { get; private set; }
+        public GameEntity AttackTarget { get; }
 
         public MeleeAttackTargetAction(GameEntity attackTarget) : base(GameEntityActionTypes.MeleeAttackAction)
         {
@@ -67,7 +67,7 @@ namespace Level.Classes
 
     public class DamagedByAction : GameAction<GameEntityActionTypes>
     {
-        public DamageSource DamageSource { get; private set; }
+        public DamageSource DamageSource { get; }
 
         public DamagedByAction(DamageSource damageSource) : base(GameEntityActionTypes.DamagedBy)
         {
@@ -77,7 +77,7 @@ namespace Level.Classes
 
     public class DamageDealtToAction : GameAction<GameEntityActionTypes>
     {
-        public DamageSource DamageSource { get; private set; }
+        public DamageSource DamageSource { get; }
 
         public DamageDealtToAction(DamageSource damageSource) : base(GameEntityActionTypes.DamagedDealtTo)
         {

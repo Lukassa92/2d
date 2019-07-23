@@ -11,7 +11,7 @@ public abstract class BaseAI : AIEventReceiver
 
     private BaseAIBehaviour _lastExecutedBehaviour;
     private DateTime _nextExecutionDate = DateTime.Now;
-    private IDisposable _tickIntervalTimer;
+    private IDisposable _tickIntervalTimerSubscription;
 
     protected BaseAI(GameEntity owner)
     {
@@ -19,7 +19,7 @@ public abstract class BaseAI : AIEventReceiver
         MovementBehaviour = owner.GetComponent<MovementBehaviour>();
         // ReSharper disable once VirtualMemberCallInConstructor
         Behaviours = GetBehaviours();
-        _tickIntervalTimer = Observable.Interval(TimeSpan.FromSeconds(0.1)).Subscribe(x => OnTick());
+        _tickIntervalTimerSubscription = Observable.Interval(TimeSpan.FromSeconds(0.1)).Subscribe(x => OnTick());
     }
     protected abstract List<BaseAIBehaviour> GetBehaviours();
 
@@ -102,6 +102,7 @@ public abstract class BaseAI : AIEventReceiver
     public override void OnEntityDestroyed(GameEntity entity)
     {
         Behaviours.ForEach(b => b.OnEntityDestroyed(entity));
+        _tickIntervalTimerSubscription.Dispose();
     }
 
     public override void OnTick()

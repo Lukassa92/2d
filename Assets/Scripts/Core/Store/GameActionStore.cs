@@ -6,10 +6,7 @@ namespace Core
     public class GameActionStore
     {
         private readonly Subject<GameAction> _subject;
-        public IObservable<GameAction> Observable
-        {
-            get { return _subject.AsObservable(); }
-        }
+        public IObservable<GameAction> Observable => _subject.AsObservable();
 
         public GameActionStore()
         {

@@ -5,31 +5,18 @@ public abstract partial class BaseLevelEntity : InteractableEntity
 {
     private int _health;
     private int _baseMaxHealth;
-    private bool _isAlive = true;
-    private float _baseMovementSpeed = MovementSpeed.Normal;
-    private TimeSpan _attackSpeed = TimeSpan.FromSeconds(1);
-    private int _baseDamage = 5;
-    private readonly GameEntity _gameEntity;
-
-    protected BaseLevelEntity()
-    {
-    }
 
     protected BaseLevelEntity(int baseMaxHealth, float baseMovementSpeed, TimeSpan attackSpeed, int baseDamage, GameEntity gameEntity)
     {
-        _gameEntity = gameEntity;
+        GameEntity = gameEntity;
         _baseMaxHealth = baseMaxHealth;
         _health = baseMaxHealth;
-        _baseMovementSpeed = baseMovementSpeed;
-        _attackSpeed = attackSpeed;
-        _baseDamage = baseDamage;
+        BaseMovementSpeed = baseMovementSpeed;
+        AttackSpeed = attackSpeed;
+        BaseDamage = baseDamage;
     }
 
-    public float BaseMovementSpeed
-    {
-        get { return _baseMovementSpeed; }
-        set { _baseMovementSpeed = value; }
-    }
+    public float BaseMovementSpeed { get; set; }
 
     public int BaseMaxHealth
     {
@@ -59,28 +46,8 @@ public abstract partial class BaseLevelEntity : InteractableEntity
         }
     }
 
-    public float HealthPercentage
-    {
-        get
-        {
-            if (!IsAlive || Health == 0)
-                return 0;
-
-            return Health / BaseMaxHealth;
-        }
-    }
-
-    public TimeSpan AttackSpeed
-    {
-        get { return _attackSpeed; }
-        set { _attackSpeed = value; }
-    }
-
-    public int BaseDamage
-    {
-        get { return _baseDamage; }
-        set { _baseDamage = value; }
-    }
+    public TimeSpan AttackSpeed { get; set; }
+    public int BaseDamage { get; set; }
 
     public int PhysicalResistance { get; set; }
     public int FireResistance { get; set; }
@@ -88,11 +55,7 @@ public abstract partial class BaseLevelEntity : InteractableEntity
     public int EnergyResistance { get; set; }
     public int PoisonResistance { get; set; }
 
-    public bool IsAlive
-    {
-        get { return _isAlive; }
-        private set { _isAlive = value; }
-    }
+    public bool IsAlive { get; private set; } = true;
 
     public bool CanWalk { get; set; }
     public bool IsVisible { get; set; }
@@ -108,7 +71,7 @@ public abstract partial class BaseLevelEntity : InteractableEntity
         var healthAfterDamage = Health - damageSource.Damage;
 
         var action = new HealthChangedAction(Health, healthAfterDamage, _baseMaxHealth);
-        _gameEntity.Store.Dispatch(action);
+        GameEntity.Store.Dispatch(action);
 
         if (healthAfterDamage > 0 || !Kill(damageSource))
         {
@@ -117,10 +80,7 @@ public abstract partial class BaseLevelEntity : InteractableEntity
         }
     }
 
-    public GameEntity GameEntity
-    {
-        get { return _gameEntity; }
-    }
+    public GameEntity GameEntity { get; }
 
     public virtual bool OnBeforeDamaged(DamageSource damageSource)
     {
@@ -131,15 +91,14 @@ public abstract partial class BaseLevelEntity : InteractableEntity
 
     public bool Kill(DamageSource damageSource)
     {
-        if (OnBeforeDeath(damageSource))
-        {
-            OnDeath();
-            IsAlive = false;
-            Health = 0;
-            OnAfterDeath();
-            return true;
-        }
-        return false;
+        if (!OnBeforeDeath(damageSource))
+            return false;
+
+        OnDeath();
+        IsAlive = false;
+        Health = 0;
+        OnAfterDeath();
+        return true;
     }
 
     public virtual bool OnBeforeDeath(DamageSource damageSource)
