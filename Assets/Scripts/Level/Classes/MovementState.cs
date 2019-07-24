@@ -2,8 +2,7 @@
 {
     public enum MovementState
     {
-        Run,
-        Attack,
-        Stand
+        Moving,
+        Standing
     }
 }

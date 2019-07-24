@@ -7,14 +7,14 @@ namespace Level.AI
 {
     public abstract class BaseAIBehaviour : MonoBehaviour, IAIEventReceiver
     {
-        internal readonly List<GameEntity> EntitiesInViewRange = new List<GameEntity>();
-        internal readonly GameEntity Owner;
+        internal List<GameEntity> EntitiesInViewRange { get; private set; }
+        internal GameEntity Owner { get; private set; }
 
-        protected BaseAIBehaviour(GameEntity owner)
+        private void Start()
         {
-            Owner = owner;
+            EntitiesInViewRange = new List<GameEntity>();
+            Owner = GetComponentInParent<GameEntity>();
         }
-
 
         [SerializeField]
         [Range(0, 100)]

@@ -8,7 +8,7 @@ namespace Level.AI
 {
     public class AiManagerModule : MonoBehaviour, IAIEventReceiver
     {
-        public GameEntity Owner { get; }
+        public GameEntity Owner { get; private set; }
         public List<BaseAIBehaviour> Behaviours { get; private set; }
 
         [SerializeField]
@@ -21,20 +21,15 @@ namespace Level.AI
 
         private BaseAIBehaviour _lastExecutedBehaviour;
         private DateTime _nextExecutionDate = DateTime.Now;
-        private readonly IDisposable _tickIntervalTimerSubscription;
-
-        protected AiManagerModule(GameEntity owner)
-        {
-            Owner = owner;
-            _tickIntervalTimerSubscription = Observable.Interval(TimeSpan.FromSeconds(TickTime)).Subscribe(x => OnTick());
-        }
+        private IDisposable _tickIntervalTimerSubscription;
 
         private void Start()
         {
+            Owner = GetComponentInParent<GameEntity>();
             Behaviours = new List<BaseAIBehaviour>();
             var componentsInChildren = GetComponentsInChildren<BaseAIBehaviour>();
-            Debug.Log($"Found {componentsInChildren.Length} AI Modules");
             Behaviours.AddRange(componentsInChildren);
+            _tickIntervalTimerSubscription = Observable.Interval(TimeSpan.FromSeconds(TickTime)).Subscribe(x => OnTick());
         }
 
         private BaseAIBehaviour GetBehaviourWithHighestPriority()
@@ -52,6 +47,7 @@ namespace Level.AI
 
         private void ExecuteNextBehaviour()
         {
+            Debug.Log("Executing next Behavior");
             var behaviour = GetBehaviourWithHighestPriority();
             if (behaviour != _lastExecutedBehaviour)
             {

@@ -7,7 +7,7 @@ namespace Level.AI
     {
         private GameEntity _attackTarget;
 
-        public MeeleAttackAI(GameEntity owner) : base(owner)
+        public MeeleAttackAI() : base()
         {
         }
 

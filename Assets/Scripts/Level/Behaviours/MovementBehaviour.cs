@@ -1,110 +1,104 @@
-﻿using Core;
-using JetBrains.Annotations;
+﻿using System;
+using Core;
 using Level.Classes;
-using System;
 using UniRx;
 using UnityEngine;
 
-public class MovementBehaviour : MonoBehaviour
+namespace Level.Behaviours
 {
-    private MovementState _movementState = MovementState.Stand;
-    [SerializeField]
-    private MoveDirection _moveDirection;
-    private MoveDirection _standardMoveDirection;
-    private Transform _parenTransform;
-    private Rigidbody2D _rigidbody2D;
-    [SerializeField]
-    private float _speed;
-
-    private GameEntity _gameEntity;
-    private IDisposable _subscription;
-
-    void Start()
+    public class MovementBehaviour : MonoBehaviour
     {
-        _parenTransform = GetComponentInParent<Transform>();
-        _rigidbody2D = GetComponentInParent<Rigidbody2D>();
-        _gameEntity = GetComponentInParent<GameEntity>();
-        _subscription = _gameEntity.Store.Observable.OfActionTypes(GameEntityActionTypes.MoveToDirection, GameEntityActionTypes.LookAt, GameEntityActionTypes.StopMovement).Subscribe(
-            a =>
-            {
-                switch (a.Type)
+        [SerializeField]
+        private MovementState _movementState = MovementState.Standing;
+        private Transform _parentTransform;
+
+        private Vector2? _movementTarget;
+
+        private Rigidbody2D _rigidbody2D;
+        private GameEntity _gameEntity;
+        private IDisposable _subscription;
+
+        void Start()
+        {
+            _parentTransform = GetComponentInParent<Transform>();
+            _rigidbody2D = GetComponentInParent<Rigidbody2D>();
+            _gameEntity = GetComponentInParent<GameEntity>();
+            _subscription = _gameEntity.Store.Observable.OfActionTypes(GameEntityActionTypes.MoveToDirection, GameEntityActionTypes.MoveToEntity, GameEntityActionTypes.LookAt, GameEntityActionTypes.StopMovement).Subscribe(
+                a =>
                 {
-                    case GameEntityActionTypes.MoveToDirection:
-                        MoveToLocation(a as MoveToLocationAction);
-                        break;
-                    case GameEntityActionTypes.LookAt:
-                        LookAt(((LookAtAction)a).TargetPosition);
-                        break;
-                    case GameEntityActionTypes.StopMovement:
-                        StopMovement();
-                        break;
-                }
-            });
-    }
-
-    public void StopMovement()
-    {
-        //        Debug.Log("Stop!");
-        _movementState = MovementState.Stand;
-    }
-
-    private void Update()
-    {
-        if (_movementState == MovementState.Run)
-        {
-            _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
-            //            _rigidbody2D.AddForce(new Vector2(_speed, _rigidbody2D.velocity.y),ForceMode2D.Force);
-
+                    switch (a.Type)
+                    {
+                        case GameEntityActionTypes.MoveToDirection:
+                            MoveToLocation(a as MoveToLocationAction);
+                            break;
+                        case GameEntityActionTypes.MoveToEntity:
+                            MoveToEntity(a as MoveToEntityAction);
+                            break;
+                        case GameEntityActionTypes.LookAt:
+                            LookAt(((LookAtAction)a).TargetPosition);
+                            break;
+                        case GameEntityActionTypes.StopMovement:
+                            StopMovement();
+                            break;
+                    }
+                });
         }
-        else
+
+        private void OnDestroy()
         {
-            _rigidbody2D.velocity = Vector2.zero;
+            _subscription?.Dispose();
         }
-    }
 
-    public void RunTo(Vector3 gameEntityPosition)
-    {
-        var direction = GetDirectionTo(gameEntityPosition);
-        _speed = GetSpeedForDirection(direction);
-        _movementState = MovementState.Run;
-    }
+        public void StopMovement()
+        {
+            _movementState = MovementState.Standing;
+            _movementTarget = null;
+        }
 
-    private float GetSpeedForDirection(MoveDirection direction)
-    {
-        return _gameEntity.LevelEntity.BaseMovementSpeed * (direction == MoveDirection.Left ? -1 : 1);
-    }
+        private void Update()
+        {
+            if (_movementState == MovementState.Standing || _movementTarget == null)
+                return;
 
-    private MoveDirection GetDirectionTo(Vector3 position)
-    {
-        return position.x > _parenTransform.position.x
-            ? MoveDirection.Right
-            : MoveDirection.Left;
-    }
+            var step = _gameEntity.LevelEntity.BaseMovementSpeed * Time.deltaTime;
+            var vector = Vector2.MoveTowards(_parentTransform.position, _movementTarget.Value, step);
+            _rigidbody2D.MovePosition(vector);
+        }
 
-    public void RunTo(MoveDirection direction)
-    {
-        _speed = GetSpeedForDirection(direction);
-        _movementState = MovementState.Run;
-    }
+        private MoveDirection GetDirectionTo(Vector3 position)
+        {
+            return position.x > _parentTransform.position.x
+                ? MoveDirection.Right
+                : MoveDirection.Left;
+        }
 
-    public void LookAt(Vector3 position)
-    {
-        var direction = GetDirectionTo(position);
-        _parenTransform.localScale =
-            new Vector3(_parenTransform.localScale.x * (direction == MoveDirection.Left ? 1 : -1),
-                _parenTransform.localScale.y, _parenTransform.localScale.z);
-    }
+        public void LookAt(Vector3 position)
+        {
+            var direction = GetDirectionTo(position);
+            _parentTransform.localScale =
+                new Vector3(_parentTransform.localScale.x * (direction == MoveDirection.Left ? 1 : -1),
+                    _parentTransform.localScale.y, _parentTransform.localScale.z);
+        }
 
-    public void LookAt(MoveDirection direction)
-    {
-        _parenTransform.localScale =
-            new Vector3(_parenTransform.localScale.x * (direction == MoveDirection.Left ? 1 : -1),
-                _parenTransform.localScale.y, _parenTransform.localScale.z);
-    }
+        public void LookAt(MoveDirection direction)
+        {
+            _parentTransform.localScale =
+                new Vector3(_parentTransform.localScale.x * (direction == MoveDirection.Left ? 1 : -1),
+                    _parentTransform.localScale.y, _parentTransform.localScale.z);
+        }
 
-    private void MoveToLocation(MoveToLocationAction action)
-    {
-        LookAt(action.TargetPosition);
-        RunTo(action.TargetPosition);
+        private void MoveToLocation(MoveToLocationAction action)
+        {
+            LookAt(action.TargetPosition);
+            _movementState = MovementState.Moving;
+            _movementTarget = action.TargetPosition;
+        }
+
+        private void MoveToEntity(MoveToEntityAction action)
+        {
+            LookAt(action.TargetGameObject.transform.position);
+            _movementState = MovementState.Moving;
+            _movementTarget = action.TargetGameObject.transform.position;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Level.AI;
 using Level.Classes;
 using Level.Behaviours;
+using Level.Detectors;
 using UnityEngine;
 
 public class GameEntity : MonoBehaviour
@@ -30,5 +31,6 @@ public class GameEntity : MonoBehaviour
         _gameEntityDetector.SetVisibility(_settings.ViewRange);
         _attackDetector.SetHitRange(_settings.AttackRange);
         LevelEntity = new LevelEntity(_settings, this);
+        AiManagerModule = GetComponentInChildren<AiManagerModule>();
     }
 }

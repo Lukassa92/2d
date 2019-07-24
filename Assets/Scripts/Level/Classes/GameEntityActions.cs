@@ -11,7 +11,8 @@ namespace Level.Classes
         LookAt,
         StopMovement,
         DamagedBy,
-        DamagedDealtTo
+        DamagedDealtTo,
+        MoveToEntity
     }
 
     public class HealthChangedAction : GameAction<GameEntityActionTypes>
@@ -35,6 +36,16 @@ namespace Level.Classes
         public MoveToLocationAction(Vector3 targetPosition) : base(GameEntityActionTypes.MoveToDirection)
         {
             TargetPosition = targetPosition;
+        }
+    }
+
+    public class MoveToEntityAction : GameAction<GameEntityActionTypes>
+    {
+        public GameObject TargetGameObject { get; set; }
+
+        public MoveToEntityAction(GameEntity entity) : base(GameEntityActionTypes.MoveToEntity)
+        {
+            TargetGameObject = entity.gameObject;
         }
     }
 

@@ -22,7 +22,7 @@ public class Healthbar : MonoBehaviour
 
     private void OnDestroy()
     {
-        _subscription.Dispose();
+        _subscription?.Dispose();
     }
 
     private void HealthChanged(HealthChangedAction action)

@@ -34,7 +34,7 @@ namespace Level.Behaviours
             set { _entityType = value; }
         }
 
-        [SerializeField] private float _baseMovementSpeed = MovementSpeed.Normal;
+        [SerializeField] private float _baseMovementSpeed = 150.0f;
         public float BaseMovementSpeed
         {
             get { return _baseMovementSpeed; }
@@ -55,7 +55,7 @@ namespace Level.Behaviours
             set { _baseDamage = value; }
         }
 
-        [Range(0.0f, 50.0f)]
+        [Range(0.0f, 500.0f)]
         [SerializeField]
         private float _viewRange = 0.04f;
         public float ViewRange
@@ -64,28 +64,12 @@ namespace Level.Behaviours
             set { _viewRange = value; }
         }
 
-        [Range(0.0f, 50.0f)]
+        [Range(0.0f, 500.0f)]
         [SerializeField] private float _attackRange = 0.02f;
         public float AttackRange
         {
             get { return _attackRange; }
             set { _attackRange = value; }
-        }
-
-
-
-
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }
