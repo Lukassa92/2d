@@ -27,10 +27,7 @@ public class AttackBehaviour : MonoBehaviour
 
     void OnDestroy()
     {
-        if (_subscription != null)
-        {
-            _subscription.Dispose();
-        }
+        _subscription?.Dispose();
     }
 
     public TimeSpan Attack(GameEntity target)
@@ -43,7 +40,7 @@ public class AttackBehaviour : MonoBehaviour
             return meleeAttackService.StartAttack(GetComponent<GameEntity>(), target, OnAttackDone);
         }
 
-        _gameEntity.AI.OnEntityLeftAttackRadius(target);
+        _gameEntity.AiManagerModule.OnEntityLeftAttackRadius(target);
         return TimeSpan.FromSeconds(1);
     }
 

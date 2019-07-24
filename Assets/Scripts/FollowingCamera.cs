@@ -9,9 +9,10 @@ public class FollowingCamera : MonoBehaviour
     private float _forshadowingFactor = -120.0f;
 
 	// Use this for initialization
-	void Start () {
-        _character = GameObject.Find("MeeleUnit");
-    }
+	void Start ()
+	{
+	    _character = GameObject.FindWithTag("Player");
+	}
 	
 	// Update is called once per frame
 	void Update ()

@@ -13,9 +13,9 @@ namespace Level.Services
         public TimeSpan StartAttack(GameEntity attacker, GameEntity defender, Action<DamageSource> onAttackDone)
         {
             var damageService = DamageService.GetService();
-            var damageSource = damageService.DoDamage(attacker.BaseLevelEntity, defender.BaseLevelEntity, attacker.BaseLevelEntity.BaseDamage);
+            var damageSource = damageService.DoDamage(attacker.LevelEntity, defender.LevelEntity, attacker.LevelEntity.BaseDamage);
             onAttackDone(damageSource);
-            return attacker.BaseLevelEntity.AttackSpeed;
+            return TimeSpan.FromSeconds(attacker.LevelEntity.AttackSpeed);
         }
     }
 }

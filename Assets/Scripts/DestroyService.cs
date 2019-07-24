@@ -10,7 +10,7 @@ public class DestroyService : MonoBehaviour
     void Start()
     {
         _entities = GameObject.Find("Entities");
-        InvokeRepeating("CheckDeadGuys", 1.0f, 1.0f);
+//        InvokeRepeating("CheckDeadGuys", 1.0f, 1.0f);
     }
 
     public void CheckDeadGuys()

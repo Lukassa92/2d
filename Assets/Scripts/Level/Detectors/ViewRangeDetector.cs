@@ -16,14 +16,15 @@ public class ViewRangeDetector : MonoBehaviour
     [UsedImplicitly]
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.transform.tag == "Detector")
+        if (coll.transform.CompareTag("Detector"))
         {
-            _gameEntity.AI.OnEntityEnteredViewRadius(GetTargetEntityFromCollider(coll));
+            _gameEntity.AiManagerModule.OnEntityEnteredViewRadius(GetTargetEntityFromCollider(coll));
         }
     }
-    public void SetVisibility(float Visibility)
+
+    public void SetVisibility(float visibility)
     {
-        GetComponent<CircleCollider2D>().radius = Visibility;
+        GetComponent<CircleCollider2D>().radius = visibility;
     }
     
     private GameEntity GetTargetEntityFromCollider(Collider2D coll)
@@ -36,7 +37,7 @@ public class ViewRangeDetector : MonoBehaviour
     {
         if (coll.transform.tag == "Detector")
         {
-            _gameEntity.AI.OnEntityLeftViewRadius(GetTargetEntityFromCollider(coll));
+            _gameEntity.AiManagerModule.OnEntityLeftViewRadius(GetTargetEntityFromCollider(coll));
         }
 
     }

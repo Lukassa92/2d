@@ -1,6 +1,8 @@
-﻿public class DamageSource
+﻿using Level.Classes;
+
+public class DamageSource
 {
-    public BaseLevelEntity Source { get; set; }
-    public BaseLevelEntity Target { get; set; }
+    public LevelEntity Source { get; set; }
+    public LevelEntity Target { get; set; }
     public int Damage { get; set; }
 }

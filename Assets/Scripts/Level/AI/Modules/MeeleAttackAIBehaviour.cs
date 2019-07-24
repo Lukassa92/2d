@@ -3,7 +3,7 @@ using System;
 
 namespace Level.AI
 {
-    public class MeeleAttackAI : MovementAIBehaviour
+    public class MeeleAttackAI : BaseAIBehaviour
     {
         private GameEntity _attackTarget;
 
@@ -23,24 +23,24 @@ namespace Level.AI
         {
             base.OnEntityLeftViewRadius(entity);
 
-            ResetEnemy();
+            EnemyDisappeared();
         }
 
         public override void OnEntityDied(GameEntity entity)
         {
             base.OnEntityDied(entity);
 
-            ResetEnemy();
+            EnemyDisappeared();
         }
 
         public override void OnEntityDestroyed(GameEntity entity)
         {
             base.OnEntityDestroyed(entity);
 
-            ResetEnemy();
+            EnemyDisappeared();
         }
 
-        private void ResetEnemy()
+        private void EnemyDisappeared()
         {
             ActionPriority = 0;
             _attackTarget = null;

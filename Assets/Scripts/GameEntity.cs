@@ -1,53 +1,34 @@
 ﻿using Core;
+using Level.AI;
 using Level.Classes;
-using System;
+using Level.Behaviours;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameEntity : MonoBehaviour
 {
-    public BaseAI AI;
-    public BaseLevelEntity BaseLevelEntity;
-    public string AIName = "MeleeUnitAI";
-    public string LevelEntityName = "MeleeUnitLevelEntity";
-
-    [SerializeField] public int Health;
-    [SerializeField] public bool IsAlive = true;
-    [SerializeField] public EntityType EntityType;
-
-    [SerializeField] public int MaxHealth = 100;
-    [FormerlySerializedAs("MovementSpeed")] [SerializeField] public float BaseMovementSpeed = MovementSpeed.Normal;
-    [SerializeField] public double AttackSpeed = 1.0;
-    [SerializeField] public int BaseDamage = 5;
-    [Range(0.0f, 50.0f)] public float Visibility = 0.04f;
-    [Range(0.0f, 50.0f)] public float HitRange = 0.02f;
+    public AiManagerModule AiManagerModule;
+    public LevelEntity LevelEntity { get; private set; }
 
     private ViewRangeDetector _gameEntityDetector;
     private AttackDetector _attackDetector;
-    public Vector3 Position = new Vector3(0, 0, 0);
-    private GameActionStore _store;
+    private EntitySettings _settings;
 
+    private GameActionStore _store;
     public GameActionStore Store
     {
         get { return _store = _store ?? new GameActionStore(); }
     }
 
-    void Start()
+    public bool IsAlive => LevelEntity.IsAlive;
+    public EntityType EntityType => LevelEntity.EntityType;
+
+    public void Start()
     {
-        Position = transform.position;
-        EntityType = (EntityType)Enum.Parse(typeof(EntityType), transform.tag);
         _gameEntityDetector = GetComponentInChildren<ViewRangeDetector>();
         _attackDetector = GetComponentInChildren<AttackDetector>();
-        _gameEntityDetector.SetVisibility(Visibility);
-        _attackDetector.SetHitRange(HitRange);
-        Health = MaxHealth;
-        BaseLevelEntity = LevelEntityFactory.CreateLevelEntity(LevelEntityName, new object[] { MaxHealth, BaseMovementSpeed, TimeSpan.FromSeconds(AttackSpeed), BaseDamage, this });
-        AI = AIFactory.CreateAI(AIName, this);
-    }
-
-    public void Update()
-    {
-        Health = BaseLevelEntity.Health;
-        IsAlive = BaseLevelEntity.IsAlive;
+        _settings = GetComponentInChildren<EntitySettings>();
+        _gameEntityDetector.SetVisibility(_settings.ViewRange);
+        _attackDetector.SetHitRange(_settings.AttackRange);
+        LevelEntity = new LevelEntity(_settings, this);
     }
 }

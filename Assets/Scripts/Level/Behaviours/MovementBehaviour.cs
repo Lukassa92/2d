@@ -11,8 +11,6 @@ public class MovementBehaviour : MonoBehaviour
     [SerializeField]
     private MoveDirection _moveDirection;
     private MoveDirection _standardMoveDirection;
-    [SerializeField]
-    private string _entityType;
     private Transform _parenTransform;
     private Rigidbody2D _rigidbody2D;
     [SerializeField]
@@ -73,7 +71,7 @@ public class MovementBehaviour : MonoBehaviour
 
     private float GetSpeedForDirection(MoveDirection direction)
     {
-        return _gameEntity.BaseLevelEntity.BaseMovementSpeed * (direction == MoveDirection.Left ? -1 : 1);
+        return _gameEntity.LevelEntity.BaseMovementSpeed * (direction == MoveDirection.Left ? -1 : 1);
     }
 
     private MoveDirection GetDirectionTo(Vector3 position)
