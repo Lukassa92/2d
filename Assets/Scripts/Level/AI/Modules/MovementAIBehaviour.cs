@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Level.AI
 {
@@ -16,13 +15,17 @@ namespace Level.AI
         internal override TimeSpan Execute()
         {
             var relevantTargets = GetRelevantTargets().ToList();
-            if (EntitiesInViewRange.Count > 0 && relevantTargets.Count != 0)
+            if (GetRelevantTargets().Any())
             {
-                Debug.Log("Relevant Target count: " + relevantTargets.Count);
                 var closest = GetClosestTarget(relevantTargets);
                 Owner.Store.Dispatch(new MoveToEntityAction(closest));
             }
             return TimeSpan.FromSeconds(0.09);
+        }
+
+        public override void OnTick()
+        {
+            ActionPriority = GetRelevantTargets().Any() ? 80 : 0;
         }
     }
 }

@@ -19,6 +19,7 @@ public class AttackDetector : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
+        var collidingEntity = coll.GetComponentInParent<GameEntity>();
         if (coll.transform.tag == "Enemy" || coll.transform.tag == "Player" && coll.transform.tag != _attachedTo)
         {
             _gameEntity.AiManagerModule.OnEntityEnteredAttackRadius(GetTargetEntityFromCollider(coll));

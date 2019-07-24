@@ -47,7 +47,6 @@ namespace Level.AI
 
         private void ExecuteNextBehaviour()
         {
-            Debug.Log("Executing next Behavior");
             var behaviour = GetBehaviourWithHighestPriority();
             if (behaviour != _lastExecutedBehaviour)
             {

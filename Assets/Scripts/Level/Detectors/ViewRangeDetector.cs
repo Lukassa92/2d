@@ -8,19 +8,17 @@ namespace Level.Detectors
 
         private GameEntity _gameEntity;
 
-        [UsedImplicitly]
         void Start()
         {
             _gameEntity = GetComponentInParent<GameEntity>();
-            Debug.Log($"Own gameEntity found: { _gameEntity != null }");
         }
 
-        [UsedImplicitly]
         void OnTriggerEnter2D(Collider2D coll)
         {
-            if (coll.transform.CompareTag("Detector"))
+            var entity = coll.GetComponent<GameEntity>();
+            if (coll is BoxCollider2D && entity != null)
             {
-                _gameEntity.AiManagerModule.OnEntityEnteredViewRadius(GetTargetEntityFromCollider(coll));
+                _gameEntity.AiManagerModule.OnEntityEnteredViewRadius(entity);
             }
         }
 
@@ -29,19 +27,12 @@ namespace Level.Detectors
             GetComponent<CircleCollider2D>().radius = visibility;
         }
 
-        private GameEntity GetTargetEntityFromCollider(Collider2D coll)
-        {
-            var targetEntityFromCollider = coll.GetComponentInParent<GameEntity>();
-            Debug.Log($"Colliding gameEntity found: { targetEntityFromCollider != null }");
-            return targetEntityFromCollider;
-        }
-
-        [UsedImplicitly]
         void OnTriggerExit2D(Collider2D coll)
         {
-            if (coll.transform.tag == "Detector")
+            var entity = coll.GetComponent<GameEntity>();
+            if (coll is BoxCollider2D && entity != null)
             {
-                _gameEntity.AiManagerModule.OnEntityLeftViewRadius(GetTargetEntityFromCollider(coll));
+                _gameEntity.AiManagerModule.OnEntityLeftViewRadius(entity);
             }
 
         }

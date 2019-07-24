@@ -12,7 +12,7 @@ namespace Level.Behaviours
         private MovementState _movementState = MovementState.Standing;
         private Transform _parentTransform;
 
-        private Vector2? _movementTarget;
+        private Vector3? _movementTarget;
 
         private Rigidbody2D _rigidbody2D;
         private GameEntity _gameEntity;
@@ -63,10 +63,14 @@ namespace Level.Behaviours
             var step = _gameEntity.LevelEntity.BaseMovementSpeed * Time.deltaTime;
             var vector = Vector2.MoveTowards(_parentTransform.position, _movementTarget.Value, step);
             _rigidbody2D.MovePosition(vector);
+//            _parentTransform.LookAt(_movementTarget.Value);
         }
 
         private MoveDirection GetDirectionTo(Vector3 position)
         {
+            if (position.x == _parentTransform.position.x)
+                return MoveDirection.None;
+
             return position.x > _parentTransform.position.x
                 ? MoveDirection.Right
                 : MoveDirection.Left;
@@ -75,6 +79,9 @@ namespace Level.Behaviours
         public void LookAt(Vector3 position)
         {
             var direction = GetDirectionTo(position);
+            if (direction == MoveDirection.None)
+                return;
+
             _parentTransform.localScale =
                 new Vector3(_parentTransform.localScale.x * (direction == MoveDirection.Left ? 1 : -1),
                     _parentTransform.localScale.y, _parentTransform.localScale.z);

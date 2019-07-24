@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class FollowingCamera : MonoBehaviour
 {
-    private GameObject _character;
+    private GameEntity _character;
+    private Camera _camera;
     public bool Follow = true;
     private float _forshadowingFactor = -120.0f;
 
 	// Use this for initialization
 	void Start ()
 	{
-	    _character = GameObject.FindWithTag("Player");
+	    _character = GetComponentInParent<GameEntity>();
+	    _camera = GameObject.FindObjectOfType<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -19,8 +21,8 @@ public class FollowingCamera : MonoBehaviour
 	{
 	    if (Follow)
 	    {
-	        transform.position = new Vector3(_character.transform.position.x - _forshadowingFactor, transform.position.y,
-	            transform.position.z);
+	        _camera.transform.position = new Vector3(_character.transform.position.x - _forshadowingFactor, _camera.transform.position.y,
+	            _camera.transform.position.z);
         }
 	        
 	}

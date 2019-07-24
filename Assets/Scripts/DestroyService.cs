@@ -20,7 +20,6 @@ public class DestroyService : MonoBehaviour
             if (!componentsInChild.IsAlive)
             {
                 var entityName = componentsInChild.GetComponentInParent<Transform>().name;
-                Debug.Log("Destroy: " + entityName);
                 DestroyGameObjectByName(entityName);
             }
         }

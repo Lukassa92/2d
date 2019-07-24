@@ -14,15 +14,8 @@ public class AttackBehaviour : MonoBehaviour
     void Start()
     {
         _gameEntity = GetComponent<GameEntity>();
-        try
-        {
-            _subscription =
-                _gameEntity.Store.Observable.OfActionType<MeleeAttackTargetAction>().Subscribe(AttackEntity);
-        }
-        catch (NullReferenceException ex)
-        {
-            Debug.Log(ex.Message);
-        }
+        _subscription =
+            _gameEntity?.Store?.Observable?.OfActionType<MeleeAttackTargetAction>().Subscribe(AttackEntity);
     }
 
     void OnDestroy()
@@ -36,7 +29,6 @@ public class AttackBehaviour : MonoBehaviour
         var meleeAttackService = MeleeAttackService.GetService();
         if (target != null && target.IsAlive)
         {
-            Debug.Log(transform.name + " attacks " + target.transform.name);
             return meleeAttackService.StartAttack(GetComponent<GameEntity>(), target, OnAttackDone);
         }
 
@@ -48,7 +40,6 @@ public class AttackBehaviour : MonoBehaviour
     {
         damageSource.Target.GameEntity.Store.Dispatch(new DamagedByAction(damageSource));
         damageSource.Source.GameEntity.Store.Dispatch(new DamageDealtToAction(damageSource));
-        Debug.Log("Damage dealt: " + damageSource.Damage);
     }
 
     public void AttackEntity(MeleeAttackTargetAction action)
