@@ -2111,6 +2111,11 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 646524896042062522, guid: 96e40a842f2c7074eaf118c31eba72c3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96e40a842f2c7074eaf118c31eba72c3, type: 3}
 --- !u!224 &872916172 stripped
@@ -2545,7 +2550,7 @@ PrefabInstance:
     - target: {fileID: 6168519155126829375, guid: 96e40a842f2c7074eaf118c31eba72c3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6168519155126829375, guid: 96e40a842f2c7074eaf118c31eba72c3,
         type: 3}
