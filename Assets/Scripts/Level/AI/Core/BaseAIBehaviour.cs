@@ -11,6 +11,7 @@ namespace Level.AI
         internal List<GameEntity> EntitiesInViewRange { get; private set; }
         internal List<GameEntity> EntitiesInAttackRange { get; private set; }
         internal GameEntity Owner { get; private set; }
+        public bool IsActive;
 
         private void Start()
         {
@@ -42,9 +43,14 @@ namespace Level.AI
 
         public virtual void Unselect(BaseAIBehaviour behaviour)
         {
+            IsActive = false;
         }
 
-        internal abstract TimeSpan Execute();
+        internal virtual TimeSpan Execute()
+        {
+            IsActive = true;
+            return TimeSpan.Zero;
+        }
 
         public virtual void OnEntityEnteredAttackRadius(GameEntity entity)
         {

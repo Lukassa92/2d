@@ -48,7 +48,8 @@ namespace Level.AI
         {
             if (_attackTarget == null)
             {
-                return TimeSpan.MinValue;
+                EnemyDisappeared();
+                return TimeSpan.Zero;
             }
 
             Owner.Store.Dispatch(new MeleeAttackTargetAction(_attackTarget));

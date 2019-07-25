@@ -14,6 +14,8 @@ namespace Level.AI
 
         internal override TimeSpan Execute()
         {
+            base.Execute();
+
             var relevantTargets = GetRelevantTargets().ToList();
             if (GetRelevantTargets().Any())
             {

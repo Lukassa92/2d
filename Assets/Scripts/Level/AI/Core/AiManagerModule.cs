@@ -2,6 +2,7 @@
 using MoreLinq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 
@@ -35,7 +36,14 @@ namespace Level.AI
 
         private BaseAIBehaviour GetBehaviourWithHighestPriority()
         {
-            return Behaviours.MaxBy(b => b.ActionPriority);
+            try
+            {
+                return Behaviours.Where(b => b.ActionPriority > 0).MaxBy(b => b.ActionPriority);
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
         }
 
         private void CheckNextExecution()
@@ -54,14 +62,8 @@ namespace Level.AI
                 _lastExecutedBehaviour?.Unselect(behaviour);
                 _lastExecutedBehaviour = behaviour;
             }
-            var delay = _lastExecutedBehaviour.Execute();
-            try
-            {
-                _nextExecutionDate = DateTime.Now + delay;
-            }
-            catch (Exception e)
-            {
-            }
+            var delay = _lastExecutedBehaviour?.Execute() ?? TimeSpan.Zero;
+            _nextExecutionDate = DateTime.Now + delay;
         }
 
         public void OnEntityEnteredViewRadius(GameEntity entity)
