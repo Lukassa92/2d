@@ -1,4 +1,5 @@
-﻿using MoreLinq;
+﻿using Level.Classes;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -54,7 +55,13 @@ namespace Level.AI
                 _lastExecutedBehaviour = behaviour;
             }
             var delay = _lastExecutedBehaviour.Execute();
-            _nextExecutionDate = DateTime.Now + delay;
+            try
+            {
+                _nextExecutionDate = DateTime.Now + delay;
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         public void OnEntityEnteredViewRadius(GameEntity entity)
@@ -113,8 +120,15 @@ namespace Level.AI
             _tickIntervalTimerSubscription.Dispose();
         }
 
+        public void OnOwnerDied()
+        {
+            _tickIntervalTimerSubscription.Dispose();
+        }
+
         public void OnTick()
         {
+            if (!Owner.IsAlive)
+                return;
             Behaviours.ForEach(b => b.OnTick());
             CheckNextExecution();
         }

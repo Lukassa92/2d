@@ -156,9 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7893878403a7cc4ca1e70c70d83ae4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveDirection: 0
-  _entityType: 
-  _speed: 0
+  _movementState: 1
 --- !u!114 &6168519155126829348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,12 +612,12 @@ PrefabInstance:
     - target: {fileID: 224782687828939422, guid: f90b491655d531e4f8f1cbcc9af6b122,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20.085999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224782687828939422, guid: f90b491655d531e4f8f1cbcc9af6b122,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 67.0361
+      value: -0.000030518
       objectReference: {fileID: 0}
     - target: {fileID: 224782687828939422, guid: f90b491655d531e4f8f1cbcc9af6b122,
         type: 3}
@@ -675,6 +673,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.00117
+      objectReference: {fileID: 0}
+    - target: {fileID: 58485191849623180, guid: f90b491655d531e4f8f1cbcc9af6b122,
+        type: 3}
+      propertyPath: m_Radius
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f90b491655d531e4f8f1cbcc9af6b122, type: 3}

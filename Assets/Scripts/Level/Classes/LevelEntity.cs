@@ -1,5 +1,4 @@
 ﻿using Classes;
-using Level.Behaviours;
 
 namespace Level.Classes
 {
@@ -74,17 +73,19 @@ namespace Level.Classes
         {
             if (!OnBeforeDamaged(damageSource))
             {
+                damageSource.DamageDealt = false;
                 return;
             }
             var healthAfterDamage = Health - damageSource.Damage;
-
-            var action = new HealthChangedAction(Health, healthAfterDamage, _baseMaxHealth);
-            GameEntity.Store.Dispatch(action);
-
-            if (healthAfterDamage > 0 || !Kill(damageSource))
+            if (healthAfterDamage > 0)
             {
                 Health -= damageSource.Damage;
-                OnAfterDamaged(damageSource);
+                damageSource.DamageDealt = true;
+                OnAfterDamaged(damageSource, healthAfterDamage);
+            }
+            else if (Kill(damageSource))
+            {
+                damageSource.TargetKilled = true;
             }
         }
 
@@ -94,7 +95,11 @@ namespace Level.Classes
             return true;
         }
 
-        public virtual void OnAfterDamaged(DamageSource damageSource) { }
+        public virtual void OnAfterDamaged(DamageSource damageSource, int healthAfterDamage)
+        {
+            var action = new HealthChangedAction(healthAfterDamage, _baseMaxHealth);
+            GameEntity.Store.Dispatch(action);
+        }
 
         public bool Kill(DamageSource damageSource)
         {
@@ -104,7 +109,7 @@ namespace Level.Classes
             OnDeath();
             IsAlive = false;
             Health = 0;
-            OnAfterDeath();
+            OnAfterDeath(damageSource);
             return true;
         }
 
@@ -113,6 +118,10 @@ namespace Level.Classes
             return true;
         }
         public virtual void OnDeath() { }
-        public virtual void OnAfterDeath() { }
+
+        public virtual void OnAfterDeath(DamageSource damageSource)
+        {
+            GameEntity.Store.Dispatch(new EntityDeathAction(damageSource));
+        }
     }
 }

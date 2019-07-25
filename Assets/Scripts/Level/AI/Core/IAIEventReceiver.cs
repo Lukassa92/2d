@@ -1,4 +1,6 @@
-﻿namespace Level.AI
+﻿using Level.Classes;
+
+namespace Level.AI
 {
     public interface IAIEventReceiver
     {
@@ -13,6 +15,7 @@
         void OnOwnerDamaged(DamageSource source);
         void OnOwnerHealed(HealSource source);
         void OnOwnerSpawned();
+        void OnOwnerDied();
         void OnTick();
     }
 }

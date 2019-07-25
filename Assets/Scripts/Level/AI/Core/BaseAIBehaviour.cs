@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Level.Classes;
 using MoreLinq;
 using UnityEngine;
 
@@ -8,11 +9,13 @@ namespace Level.AI
     public abstract class BaseAIBehaviour : MonoBehaviour, IAIEventReceiver
     {
         internal List<GameEntity> EntitiesInViewRange { get; private set; }
+        internal List<GameEntity> EntitiesInAttackRange { get; private set; }
         internal GameEntity Owner { get; private set; }
 
         private void Start()
         {
             EntitiesInViewRange = new List<GameEntity>();
+            EntitiesInAttackRange = new List<GameEntity>();
             Owner = GetComponentInParent<GameEntity>();
         }
 
@@ -43,10 +46,21 @@ namespace Level.AI
 
         internal abstract TimeSpan Execute();
 
-        public virtual void OnEntityEnteredAttackRadius(GameEntity entity) { }
-        public virtual void OnEntityLeftAttackRadius(GameEntity entity) { }
+        public virtual void OnEntityEnteredAttackRadius(GameEntity entity)
+        {
+            if (!EntitiesInAttackRange.Contains(entity))
+                EntitiesInAttackRange.Add(entity);
+        }
+
+        public virtual void OnEntityLeftAttackRadius(GameEntity entity)
+        {
+            if(EntitiesInAttackRange.Contains(entity))
+                EntitiesInAttackRange.Remove(entity);
+        }
+
         public virtual void OnOwnerDamaged(DamageSource source) { }
         public virtual void OnOwnerSpawned() { }
+        public virtual void OnOwnerDied() { }
         public virtual void OnOwnerHealed(HealSource source) { }
         public virtual void OnDamagedOther(DamageSource source) { }
         public virtual void OnCollisionWith(GameEntity entity) { }

@@ -12,18 +12,17 @@ namespace Level.Classes
         StopMovement,
         DamagedBy,
         DamagedDealtTo,
-        MoveToEntity
+        MoveToEntity,
+        EntityDeath
     }
 
     public class HealthChangedAction : GameAction<GameEntityActionTypes>
     {
-        public int OldHealth { get; }
         public int NewHealth { get; }
         public int MaxHealth { get; }
 
-        public HealthChangedAction(int oldHealth, int newHealth, int maxHealth) : base(GameEntityActionTypes.HealthChanged)
+        public HealthChangedAction(int newHealth, int maxHealth) : base(GameEntityActionTypes.HealthChanged)
         {
-            OldHealth = oldHealth;
             NewHealth = newHealth;
             MaxHealth = maxHealth;
         }
@@ -94,6 +93,17 @@ namespace Level.Classes
         {
             DamageSource = damageSource;
         }
+    }
+
+    public class EntityDeathAction : GameAction<GameEntityActionTypes>
+    {
+        public DamageSource DamageSource { get; }
+
+        public EntityDeathAction(DamageSource damageSource) : base(GameEntityActionTypes.EntityDeath)
+        {
+            DamageSource = damageSource;
+        }
+
     }
 
 }

@@ -1,8 +1,10 @@
-﻿using Core;
+﻿using System;
+using Core;
 using Level.AI;
 using Level.Classes;
 using Level.Behaviours;
 using Level.Detectors;
+using UniRx;
 using UnityEngine;
 
 public class GameEntity : MonoBehaviour
@@ -15,6 +17,8 @@ public class GameEntity : MonoBehaviour
     private EntitySettings _settings;
 
     private GameActionStore _store;
+    private IDisposable _subscription;
+
     public GameActionStore Store
     {
         get { return _store = _store ?? new GameActionStore(); }
@@ -32,5 +36,15 @@ public class GameEntity : MonoBehaviour
         _attackDetector.SetHitRange(_settings.AttackRange);
         LevelEntity = new LevelEntity(_settings, this);
         AiManagerModule = GetComponentInChildren<AiManagerModule>();
+
+        _subscription = Store.Observable.OfActionType<EntityDeathAction>().Subscribe(a =>
+        {
+            Destroy(gameObject);
+        });
+    }
+
+    private void OnDestroy()
+    {
+        _subscription?.Dispose();
     }
 }

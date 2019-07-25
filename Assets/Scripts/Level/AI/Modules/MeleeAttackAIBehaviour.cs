@@ -3,27 +3,16 @@ using System;
 
 namespace Level.AI
 {
-    public class MeeleAttackAI : BaseAIBehaviour
+    public class MeleeAttackAIBehaviour : BaseAIBehaviour
     {
         private GameEntity _attackTarget;
 
-        public MeeleAttackAI() : base()
-        {
-        }
-
         public override void OnEntityEnteredAttackRadius(GameEntity entity)
         {
-            base.OnEntityEnteredViewRadius(entity);
-
-            _attackTarget = entity;
-            ActionPriority = 100;
-        }
-
-        public override void OnEntityLeftAttackRadius(GameEntity entity)
-        {
-            base.OnEntityLeftViewRadius(entity);
-
-            EnemyDisappeared();
+            if ((_attackTarget == null || !_attackTarget.IsAlive) && IsValidAttackTarget(entity))
+            {
+                _attackTarget = entity;
+            }
         }
 
         public override void OnEntityDied(GameEntity entity)
@@ -46,6 +35,15 @@ namespace Level.AI
             _attackTarget = null;
         }
 
+        public override void OnTick()
+        {
+            base.OnTick();
+            if (_attackTarget != null && _attackTarget.IsAlive)
+            {
+                ActionPriority = 100;
+            }
+        }
+
         internal override TimeSpan Execute()
         {
             if (_attackTarget == null)
@@ -56,6 +54,11 @@ namespace Level.AI
             Owner.Store.Dispatch(new MeleeAttackTargetAction(_attackTarget));
 
             return TimeSpan.FromSeconds(0.5);
+        }
+
+        private bool IsValidAttackTarget(GameEntity e)
+        {
+            return e.IsAlive && e.EntityType != Owner.EntityType && e.EntityType != EntityType.Obstacle;
         }
     }
 }

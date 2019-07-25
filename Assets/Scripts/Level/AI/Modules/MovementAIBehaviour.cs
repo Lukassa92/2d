@@ -9,7 +9,7 @@ namespace Level.AI
     {
         private IEnumerable<GameEntity> GetRelevantTargets()
         {
-            return EntitiesInViewRange.Where(e => e.EntityType != Owner.EntityType && e.EntityType != EntityType.Obstacle);
+            return EntitiesInViewRange.Where(e => e.IsAlive && e.EntityType != Owner.EntityType && e.EntityType != EntityType.Obstacle);
         }
 
         internal override TimeSpan Execute()

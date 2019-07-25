@@ -5,8 +5,6 @@ using UnityEngine;
 public class AttackDetector : MonoBehaviour
 {
 
-    private string _attachedTo;
-
     private string _entityType;
     private GameEntity _gameEntity;
 
@@ -14,35 +12,28 @@ public class AttackDetector : MonoBehaviour
 	void Start ()
 	{
 	    _gameEntity = GetComponentInParent<GameEntity>();
-	    _attachedTo = _gameEntity.GetComponentInParent<Transform>().tag;
 	}
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        var collidingEntity = coll.GetComponentInParent<GameEntity>();
-        if (coll.transform.tag == "Enemy" || coll.transform.tag == "Player" && coll.transform.tag != _attachedTo)
+        var entity = coll.GetComponent<GameEntity>();
+        if (coll is BoxCollider2D && entity != null)
         {
-            _gameEntity.AiManagerModule.OnEntityEnteredAttackRadius(GetTargetEntityFromCollider(coll));
+            _gameEntity.AiManagerModule.OnEntityEnteredAttackRadius(entity);
         }
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.transform.tag == "Enemy" || coll.transform.tag == "Player" && coll.transform.tag != _attachedTo)
+        var entity = coll.GetComponent<GameEntity>();
+        if (coll is BoxCollider2D && entity != null)
         {
-            _gameEntity.AiManagerModule.OnEntityLeftAttackRadius(GetTargetEntityFromCollider(coll));
+            _gameEntity.AiManagerModule.OnEntityLeftAttackRadius(entity);
         }
     }
-    private GameEntity GetTargetEntityFromCollider(Collider2D coll)
-    {
-        return coll.GetComponentInParent<GameEntity>();
-    }
+
     public void SetHitRange(float hitRange)
     {
         GetComponent<CircleCollider2D>().radius = hitRange;
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
