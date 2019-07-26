@@ -15,7 +15,19 @@ public class AttackBehaviour : MonoBehaviour
     {
         _gameEntity = GetComponent<GameEntity>();
         _subscription =
-            _gameEntity?.Store?.Observable?.OfActionType<MeleeAttackTargetAction>().Subscribe(AttackEntity);
+            _gameEntity?.Store?.Observable?.OfActionTypes(GameEntityActionTypes.MeleeAttackAction, GameEntityActionTypes.RangedAttackAction).Subscribe(
+                a =>
+                {
+                    switch (a.Type)
+                    {
+                        case GameEntityActionTypes.MeleeAttackAction:
+                            MeleeAttackEntity(a as MeleeAttackTargetAction);
+                            break;
+                        case GameEntityActionTypes.RangedAttackAction:
+                            RangedAttackEntity(a as RangedAttackAction);
+                            break;
+                    }
+                });
     }
 
     void OnDestroy()
@@ -23,7 +35,7 @@ public class AttackBehaviour : MonoBehaviour
         _subscription?.Dispose();
     }
 
-    public TimeSpan Attack(GameEntity target)
+    public TimeSpan MeleeAttack(GameEntity target)
     {
         //Starte Animation
         var meleeAttackService = MeleeAttackService.GetService();
@@ -42,10 +54,36 @@ public class AttackBehaviour : MonoBehaviour
         damageSource.Source.GameEntity.Store.Dispatch(new DamageDealtToAction(damageSource));
     }
 
-    public void AttackEntity(MeleeAttackTargetAction action)
+    public void MeleeAttackEntity(MeleeAttackTargetAction action)
     {
         //        _gameEntity.Store.Dispatch(new StopMovementAction());
         //        _gameEntity.Store.Dispatch(new LookAtAction(action.AttackTarget.Position));
-        Attack(action.AttackTarget);
+        MeleeAttack(action.AttackTarget);
+    }
+
+    private void RangedAttackEntity(RangedAttackAction action)
+    {
+        var projectileVelocityVector = CalculateVelocity(transform.position, action.Target.transform.position, action.AirborneTime);
+        var obj = Instantiate(action.ProjectilePrefab, transform.position, Quaternion.identity);
+        obj.velocity = projectileVelocityVector;
+    }
+
+    private Vector2 CalculateVelocity(Vector2 origin, Vector2 target, float airborneTime)
+    {
+        var distance = target - origin;
+        var distanceX = distance;
+        distanceX.y = 0f;
+
+        var Sy = distance.y;
+        var Sx = distanceX.magnitude;
+
+        var velocityX = Sx / airborneTime;
+        var velocityY = Sy / airborneTime + 0.5f * Mathf.Abs(Physics.gravity.y) * airborneTime;
+
+        var result = distanceX.normalized;
+        result *= velocityX;
+        result.y = velocityY;
+
+        return result;
     }
 }

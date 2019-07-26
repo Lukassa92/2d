@@ -13,7 +13,8 @@ namespace Level.Classes
         DamagedBy,
         DamagedDealtTo,
         MoveToEntity,
-        EntityDeath
+        EntityDeath,
+        RangedAttackAction
     }
 
     public class HealthChangedAction : GameAction<GameEntityActionTypes>
@@ -106,4 +107,17 @@ namespace Level.Classes
 
     }
 
+    public class RangedAttackAction : GameAction<GameEntityActionTypes>
+    {
+        public GameEntity Target { get; }
+        public Rigidbody2D ProjectilePrefab { get; }
+        public float AirborneTime { get; }
+
+        public RangedAttackAction(GameEntity target, Rigidbody2D projectilePrefab, float airborneTime) : base(GameEntityActionTypes.RangedAttackAction)
+        {
+            Target = target;
+            ProjectilePrefab = projectilePrefab;
+            AirborneTime = airborneTime;
+        }
+    }
 }
